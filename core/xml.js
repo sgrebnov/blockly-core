@@ -232,7 +232,8 @@ Blockly.Xml.domToWorkspace = function(workspace, xml) {
  */
 Blockly.Xml.domToBlock_ = function(workspace, xmlBlock) {
   var prototypeName = xmlBlock.getAttribute('type');
-  var block = new Blockly.Block(workspace, prototypeName);
+  var id = xmlBlock.getAttribute('id');
+  var block = new Blockly.Block(workspace, prototypeName, id);
   block.initSvg();
 
   var inline = xmlBlock.getAttribute('inline');

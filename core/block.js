@@ -53,8 +53,9 @@ Blockly.uidCounter_ = 0;
  *     type-specific functions for this block.
  * @constructor
  */
-Blockly.Block = function(workspace, prototypeName) {
+Blockly.Block = function(workspace, prototypeName, htmlId) {
   this.id = ++Blockly.uidCounter_;
+  this.htmlId = htmlId;
   this.outputConnection = null;
   this.nextConnection = null;
   this.previousConnection = null;
