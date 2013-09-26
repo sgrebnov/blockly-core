@@ -7,10 +7,12 @@ This is a fork of [Blockly](https://code.google.com/p/blockly/) an open source v
 Install
 _________
 
-```git clone https://github.com/code-dot-org/blockly-core.git
+```
+git clone https://github.com/code-dot-org/blockly-core.git
 svn checkout http://closure-library.googlecode.com/svn/trunk/ closure-library-read-only
 cd blockly-core
-./build.py```
+./build.py
+```
 
 __Note__: blockly-core/ and closure-library-read-only/ should be sibling directories.
 
