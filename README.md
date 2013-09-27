@@ -21,5 +21,5 @@ Usage
 __________
 
 - Open blockly-core/apps/index.html and select an app to play around with.
-- To run in debug/dev mode, find where the app sources `blockly_compressed.js` and change it to `blockly_uncompressed.js`. If that is in a .soy file, make sure to recompile the template. Instructions for recompiling templates are usually at the top of the template.
+- To run in debug/dev mode, find where the specific app you're working on sources `blockly_compressed.js` and change it to `blockly_uncompressed.js` (eg, /maze/template.soy). If that is in a .soy file, make sure to recompile the template. Instructions for recompiling templates are usually at the top of the template.
 
