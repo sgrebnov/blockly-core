@@ -93,6 +93,13 @@ Blockly.Trashcan.prototype.MARGIN_SIDE_ = 35;
 Blockly.Trashcan.prototype.isOpen = false;
 
 /**
+ * Additional radius of the trashcan; used in determining the open/closed
+ * state of the lid
+ * @type {number}
+ */
+Blockly.Trashcan.prototype.radius = 50;
+
+/**
  * The SVG group containing the trash can.
  * @type {Element}
  * @private
@@ -233,10 +240,10 @@ Blockly.Trashcan.prototype.onMouseMove = function(e) {
   }
   var mouseXY = Blockly.mouseToSvg(e);
   var trashXY = Blockly.getSvgXY_(this.svgGroup_);
-  var over = (mouseXY.x > trashXY.x) &&
-             (mouseXY.x < trashXY.x + this.WIDTH_) &&
-             (mouseXY.y > trashXY.y) &&
-             (mouseXY.y < trashXY.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_);
+  var over = ((mouseXY.x + this.radius) > trashXY.x) &&
+             (mouseXY.x < (trashXY.x + this.WIDTH_ + this.radius)) &&
+             ((mouseXY.y + this.radius) > trashXY.y) &&
+             (mouseXY.y < (trashXY.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_ + this.radius));
   // For bonus points we might want to match the trapezoidal outline.
   if (this.isOpen != over) {
     this.setOpen_(over);
