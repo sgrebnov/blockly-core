@@ -502,7 +502,7 @@ Blockly.isTargetInput_ = function(e) {
  * Load an audio file.  Cache it, ready for instantaneous playing.
  * @param {!Array.<string>} filenames List of file types in decreasing order of
  *   preference (i.e. increasing size).  E.g. ['media/go.mp3', 'media/go.wav']
- *   Filenames include path from Blockly's root.  File extensions matter.
+ *   Filenames do NOT include path from Blockly's root.  File extensions matter.
  * @param {string} name Name of sound.
  * @private
  */
@@ -514,11 +514,11 @@ Blockly.loadAudio_ = function(filenames, name) {
   var sound;
   var audioTest = new window.Audio();
   for (var i = 0; i < filenames.length; i++) {
-    var filename = filenames[i];
+    var filename = Blockly.pathToBlockly + filenames[i];
     var ext = filename.match(/\.(\w+)$/);
     if (ext && audioTest.canPlayType('audio/' + ext[1])) {
       // Found an audio format we can play.
-      sound = new window.Audio(Blockly.pathToBlockly + filename);
+      sound = new window.Audio(filename);
       break;
     }
   }
