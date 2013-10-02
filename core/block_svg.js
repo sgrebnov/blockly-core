@@ -318,7 +318,18 @@ Blockly.BlockSvg.prototype.disposeUiEffect = function() {
   clone.setAttribute('transform',
       'translate(' + clone.translateX_ + ',' + clone.translateY_ + ')');
   Blockly.svg.appendChild(clone);
-  clone.bBox_ = clone.getBBox();
+  if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+      clone.style.display = "inline";   /* reqd for IE */
+      clone.bBox_ = {
+          x: clone.getBBox().x,
+          y: clone.getBBox().y,
+          width: clone.scrollWidth,
+          height: clone.scrollHeight
+      };
+  }
+  else {
+      clone.bBox_ = clone.getBBox();
+  }
   // Start the animation.
   clone.startDate_ = new Date();
   Blockly.BlockSvg.disposeUiStep_(clone);

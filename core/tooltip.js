@@ -273,7 +273,18 @@ Blockly.Tooltip.show_ = function() {
   Blockly.Tooltip.visible = true;
   Blockly.Tooltip.svgGroup_.style.display = 'block';
   // Resize the background and shadow to fit.
-  var bBox = Blockly.Tooltip.svgText_.getBBox();
+  if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+      Blockly.Tooltip.svgText_.style.display = "inline";   /* reqd for IE */
+      var bBox = {
+          x: Blockly.Tooltip.svgText_.getBBox().x,
+          y: Blockly.Tooltip.svgText_.getBBox().y,
+          width: Blockly.Tooltip.svgText_.scrollWidth,
+          height: Blockly.Tooltip.svgText_.scrollHeight
+      };
+  }
+  else {
+      var bBox = Blockly.Tooltip.svgText_.getBBox();
+  }
   var width = 2 * Blockly.Tooltip.MARGINS + bBox.width;
   var height = bBox.height;
   Blockly.Tooltip.svgBackground_.setAttribute('width', width);

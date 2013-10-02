@@ -165,7 +165,18 @@ Blockly.Flyout.prototype.getMetrics_ = function() {
   var viewHeight = this.height_ - 2 * this.CORNER_RADIUS;
   var viewWidth = this.width_;
   try {
-    var optionBox = this.workspace_.getCanvas().getBBox();
+      if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+          this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
+          var optionBox = {
+              x: this.workspace_.getCanvas().getBBox().x,
+              y: this.workspace_.getCanvas().getBBox().y,
+              width: this.workspace_.getCanvas().scrollWidth,
+              height: this.workspace_.getCanvas().scrollHeight
+          };
+      }
+      else {
+          var optionBox = this.workspace_.getCanvas().getBBox();
+      }
   } catch (e) {
     // Firefox has trouble with hidden elements (Bug 528969).
     var optionBox = {height: 0, y: 0};

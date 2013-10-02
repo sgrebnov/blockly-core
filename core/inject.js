@@ -331,7 +331,19 @@ Blockly.init_ = function() {
     */
     var path = Blockly.createSvgElement('path',
         {'d': 'm 0,0 c 0,-5 0,-5 0,0 H 50 V 50 z'}, Blockly.svg);
-    if (path.getBBox().height > 50) {
+    if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+        path.style.display = "inline";   /* reqd for IE */
+        path.bBox_ = {
+            x: path.getBBox().x,
+            y: path.getBBox().y,
+            width: path.scrollWidth,
+            height: path.scrollHeight
+        };
+    }
+    else {
+        path.bBox_ = path.getBBox();
+    }
+    if (path.bBox_.height > 50) {
       // Chrome (v28) and Opera (v15) report 55, Safari (v6.0.5) reports 53.75.
       Blockly.BROKEN_CONTROL_POINTS = true;
     }

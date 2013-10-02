@@ -57,7 +57,18 @@ Blockly.Bubble = function(workspace, content, shape,
 
   this.setAnchorLocation(anchorX, anchorY);
   if (!bubbleWidth || !bubbleHeight) {
-    var bBox = /** @type {SVGLocatable} */ (this.content_).getBBox();
+      if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+          (this.content_).style.display = "inline";   /* reqd for IE */
+          var bBox = {
+              x: (this.content_).getBBox().x,
+              y: (this.content_).getBBox().y,
+              width: (this.content_).scrollWidth,
+              height: (this.content_).scrollHeight
+          };
+      }
+      else {
+          var bBox = /** @type {SVGLocatable} */ (this.content_).getBBox();
+      }
     bubbleWidth = bBox.width + 2 * Blockly.Bubble.BORDER_WIDTH;
     bubbleHeight = bBox.height + 2 * Blockly.Bubble.BORDER_WIDTH;
   }
@@ -401,7 +412,18 @@ Blockly.Bubble.prototype.layoutBubble_ = function() {
     if (this.anchorY_ + relativeTop <
         Blockly.BlockSvg.SEP_SPACE_Y + metrics.viewTop) {
       // Slide the bubble below the block.
-      var bBox = /** @type {SVGLocatable} */ (this.shape_).getBBox();
+        if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+            (this.shape_).style.display = "inline";   /* reqd for IE */
+            var bBox = {
+                x: (this.shape_).getBBox().x,
+                y: (this.shape_).getBBox().y,
+                width: (this.shape_).scrollWidth,
+                height: (this.shape_).scrollHeight
+            };
+        }
+        else {
+            var bBox = /** @type {SVGLocatable} */ (this.shape_).getBBox();
+        }
       relativeTop = bBox.height;
     }
   }
