@@ -148,7 +148,7 @@ Blockly.Blocks.procedures_defnoreturn = {
     if (change) {
       this.updateParams_();
       // Update the mutator's variables if the mutator is open.
-      if (this.mutator.isVisible_()) {
+      if (this.mutator.isVisible()) {
         var blocks = this.mutator.workspace_.getAllBlocks();
         for (var x = 0, block; block = blocks[x]; x++) {
           if (block.type == 'procedures_mutatorarg' &&

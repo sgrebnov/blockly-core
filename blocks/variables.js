@@ -49,12 +49,11 @@ Blockly.Blocks.variables_get = {
       this.setTitleValue(newName, 'VAR');
     }
   },
-  contextMenuMsg_: Blockly.Msg.VARIABLES_GET_CREATE_SET,
   contextMenuType_: 'variables_set',
   customContextMenu: function(options) {
     var option = {enabled: true};
     var name = this.getTitleValue('VAR');
-    option.text = this.contextMenuMsg_.replace('%1', name);
+    option.text = Blockly.Msg.VARIABLES_GET_CREATE_SET.replace('%1', name);
     var xmlTitle = goog.dom.createDom('title', null, name);
     xmlTitle.setAttribute('name', 'VAR');
     var xmlBlock = goog.dom.createDom('block', null, xmlTitle);
