@@ -288,8 +288,8 @@ Blockly.isRightButton = function(e) {
  */
 Blockly.convertCoordinates = function(x, y, toSvg) {
   if (toSvg) {
-    x -= window.scrollX;
-    y -= window.scrollY;
+    x -= window.pageXOffset;
+    y -= window.pageYOffset;
   }
   var svgPoint = Blockly.svg.createSVGPoint();
   svgPoint.x = x;
@@ -300,8 +300,8 @@ Blockly.convertCoordinates = function(x, y, toSvg) {
   }
   var xy = svgPoint.matrixTransform(matrix);
   if (!toSvg) {
-    xy.x += window.scrollX;
-    xy.y += window.scrollY;
+    xy.x += window.pageXOffset;
+    xy.y += window.pageYOffset;
   }
   return xy;
 };
@@ -313,8 +313,8 @@ Blockly.convertCoordinates = function(x, y, toSvg) {
  * @return {!Object} Object with .x and .y properties.
  */
 Blockly.mouseToSvg = function(e) {
-  return Blockly.convertCoordinates(e.clientX + window.scrollX,
-      e.clientY + window.scrollY, true);
+  return Blockly.convertCoordinates(e.clientX + window.pageXOffset,
+      e.clientY + window.pageYOffset, true);
 };
 
 /**
