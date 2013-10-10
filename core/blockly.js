@@ -44,10 +44,9 @@ goog.require('Blockly.WidgetDiv');
 goog.require('Blockly.Workspace');
 goog.require('Blockly.inject');
 goog.require('Blockly.utils');
-
 // Closure dependencies.
-goog.require('goog.dom');
 goog.require('goog.color');
+goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('goog.string');
 goog.require('goog.ui.ColorPicker');
@@ -246,6 +245,9 @@ Blockly.svgResize = function() {
   if (Blockly.mainWorkspace.scrollbar) {
     Blockly.mainWorkspace.scrollbar.resize();
   }
+
+  var width = Blockly.mainWorkspace.flyout_.workspace_.renderHeader();
+  Blockly.mainWorkspace.renderHeader(width);
 };
 
 /**
@@ -601,8 +603,10 @@ Blockly.getMainWorkspaceMetrics_ = function() {
   var viewWidth = svgSize.width - Blockly.Scrollbar.scrollbarThickness;
   var viewHeight = svgSize.height - Blockly.Scrollbar.scrollbarThickness;
   try {
-        if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-            Blockly.mainWorkspace.getCanvas().style.display = "inline";   /* reqd for IE */
+        if (navigator.userAgent.indexOf('MSIE') >= 0 ||
+            navigator.userAgent.indexOf('Trident') >= 0) {
+            /* reqd for IE */
+            Blockly.mainWorkspace.getCanvas().style.display = 'inline';
             var blockBox = {
                 x: Blockly.mainWorkspace.getCanvas().getBBox().x,
                 y: Blockly.mainWorkspace.getCanvas().getBBox().y,

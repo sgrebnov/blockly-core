@@ -5,6 +5,8 @@
         "locale": "en",
         "messagedocumentation" : "qqq"
     },
+    "MSG_TOOLBOX_HEADER" = 'Blocks',
+    "MSG_WORKSPACE_HEADER" = 'Assemble your blocks here.',
     "MSG_DUPLICATE_BLOCK": "Duplicate",
     "MSG_REMOVE_COMMENT": "Remove Comment",
     "MSG_ADD_COMMENT": "Add Comment",
