@@ -493,16 +493,15 @@ Blockly.Xml.domToWorkspace = function $Blockly$Xml$domToWorkspace$($workspace$$,
   }
 };
 Blockly.Xml.domToBlock_ = function $Blockly$Xml$domToBlock_$($workspace$$, $xmlBlock$$) {
-  var $block$$ = $xmlBlock$$.getAttribute("type"), $block$$ = new Blockly.Block($workspace$$, $block$$);
+  var $block$$ = $xmlBlock$$.getAttribute("type"), $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("id"), $block$$ = new Blockly.Block($workspace$$, $block$$, $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
   $block$$.initSvg();
-  var $collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("inline");
-  $collapsed_deletable_disabled_editable_inline_movable_next_x$$ && $block$$.setInputsInline("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("collapsed")) && $block$$.setCollapsed("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("disabled")) && $block$$.setDisabled("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("deletable")) && $block$$.setDeletable("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("movable")) && $block$$.setMovable("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("editable")) && $block$$.setEditable("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  for(var $blockChild_bubbleW_firstRealGrandchild_visible$$ = null, $collapsed_deletable_disabled_editable_inline_movable_next_x$$ = 0, $bubbleH_input$$1_xmlChild$$;$bubbleH_input$$1_xmlChild$$ = $xmlBlock$$.childNodes[$collapsed_deletable_disabled_editable_inline_movable_next_x$$];$collapsed_deletable_disabled_editable_inline_movable_next_x$$++) {
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("inline")) && $block$$.setInputsInline("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("collapsed")) && $block$$.setCollapsed("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("disabled")) && $block$$.setDisabled("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("deletable")) && $block$$.setDeletable("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("movable")) && $block$$.setMovable("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("editable")) && $block$$.setEditable("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  for(var $blockChild_bubbleW_firstRealGrandchild_visible$$ = null, $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = 0, $bubbleH_input$$1_xmlChild$$;$bubbleH_input$$1_xmlChild$$ = $xmlBlock$$.childNodes[$collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$];$collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$++) {
     if(3 != $bubbleH_input$$1_xmlChild$$.nodeType || !$bubbleH_input$$1_xmlChild$$.data.match(/^\s*$/)) {
       for(var $blockChild_bubbleW_firstRealGrandchild_visible$$ = null, $name$$63_y$$ = 0, $grandchildNode$$;$grandchildNode$$ = $bubbleH_input$$1_xmlChild$$.childNodes[$name$$63_y$$];$name$$63_y$$++) {
         3 == $grandchildNode$$.nodeType && $grandchildNode$$.data.match(/^\s*$/) || ($blockChild_bubbleW_firstRealGrandchild_visible$$ = $grandchildNode$$)
@@ -558,7 +557,7 @@ Blockly.Xml.domToBlock_ = function $Blockly$Xml$domToBlock_$($workspace$$, $xmlB
       }
     }
   }
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $block$$.nextConnection && $block$$.nextConnection.targetBlock()) ? $collapsed_deletable_disabled_editable_inline_movable_next_x$$.render() : $block$$.render();
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $block$$.nextConnection && $block$$.nextConnection.targetBlock()) ? $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$.render() : $block$$.render();
   return $block$$
 };
 Blockly.Xml.deleteNext = function $Blockly$Xml$deleteNext$($xmlBlock$$) {
@@ -2790,6 +2789,7 @@ Blockly.Trashcan.prototype.LID_HEIGHT_ = 15;
 Blockly.Trashcan.prototype.MARGIN_BOTTOM_ = 35;
 Blockly.Trashcan.prototype.MARGIN_SIDE_ = 35;
 Blockly.Trashcan.prototype.isOpen = !1;
+Blockly.Trashcan.prototype.radius = 50;
 Blockly.Trashcan.prototype.svgGroup_ = null;
 Blockly.Trashcan.prototype.svgBody_ = null;
 Blockly.Trashcan.prototype.svgLid_ = null;
@@ -2824,7 +2824,7 @@ Blockly.Trashcan.prototype.onMouseMove = function $Blockly$Trashcan$$onMouseMove
   if(this.svgGroup_) {
     $e$$27_mouseXY$$ = Blockly.mouseToSvg($e$$27_mouseXY$$);
     var $trashXY$$ = Blockly.getSvgXY_(this.svgGroup_);
-    $e$$27_mouseXY$$ = $e$$27_mouseXY$$.x > $trashXY$$.x && $e$$27_mouseXY$$.x < $trashXY$$.x + this.WIDTH_ && $e$$27_mouseXY$$.y > $trashXY$$.y && $e$$27_mouseXY$$.y < $trashXY$$.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_;
+    $e$$27_mouseXY$$ = $e$$27_mouseXY$$.x + this.radius > $trashXY$$.x && $e$$27_mouseXY$$.x < $trashXY$$.x + this.WIDTH_ + this.radius && $e$$27_mouseXY$$.y + this.radius > $trashXY$$.y && $e$$27_mouseXY$$.y < $trashXY$$.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_ + this.radius;
     this.isOpen != $e$$27_mouseXY$$ && this.setOpen_($e$$27_mouseXY$$)
   }
 };
@@ -2854,15 +2854,26 @@ Blockly.Workspace.SCAN_ANGLE = 3;
 Blockly.Workspace.prototype.dragMode = !1;
 Blockly.Workspace.prototype.scrollX = 0;
 Blockly.Workspace.prototype.scrollY = 0;
+Blockly.Workspace.HEADER_HEIGHT = 40;
+Blockly.Workspace.HEADER_COLOR = "#7665a0";
+Blockly.Workspace.FONT_COLOR = "#FFFFFF";
 Blockly.Workspace.prototype.trashcan = null;
 Blockly.Workspace.prototype.fireChangeEventPid_ = null;
 Blockly.Workspace.prototype.scrollbar = null;
-Blockly.Workspace.prototype.createDom = function $Blockly$Workspace$$createDom$() {
+Blockly.Workspace.prototype.createDom = function $Blockly$Workspace$$createDom$($headerText$$) {
   this.svgGroup_ = Blockly.createSvgElement("g", {}, null);
+  $headerText$$ && (this.headerGroup = Blockly.Workspace.createHeaderDom($headerText$$, this.svgGroup_));
   this.svgBlockCanvas_ = Blockly.createSvgElement("g", {}, this.svgGroup_);
   this.svgBubbleCanvas_ = Blockly.createSvgElement("g", {}, this.svgGroup_);
   this.fireChangeEvent();
   return this.svgGroup_
+};
+Blockly.Workspace.createHeaderDom = function $Blockly$Workspace$createHeaderDom$($text$$, $parentElement$$) {
+  var $headerGroup$$ = Blockly.createSvgElement("g", {}, $parentElement$$), $headerBackground$$ = Blockly.createSvgElement("rect", {}, $parentElement$$), $headerText$$ = Blockly.createSvgElement("text", {y:Blockly.Workspace.HEADER_HEIGHT / 2, style:"fill: " + Blockly.Workspace.FONT_COLOR + ";dominant-baseline: central;", "text-anchor":"middle"}, $headerGroup$$), $textNode$$ = document.createTextNode($text$$);
+  $headerText$$.appendChild($textNode$$);
+  $headerGroup$$.appendChild($headerBackground$$);
+  $headerGroup$$.appendChild($headerText$$);
+  return $headerGroup$$
 };
 Blockly.Workspace.prototype.dispose = function $Blockly$Workspace$$dispose$() {
   this.svgGroup_ && (goog.dom.removeNode(this.svgGroup_), this.svgGroup_ = null);
@@ -2923,6 +2934,19 @@ Blockly.Workspace.prototype.clear = function $Blockly$Workspace$$clear$() {
     this.topBlocks_[0].dispose()
   }
 };
+Blockly.Workspace.prototype.renderHeader = function $Blockly$Workspace$$renderHeader$($left$$) {
+  void 0 === $left$$ && ($left$$ = 0);
+  var $metrics$$ = this.getMetrics(), $width$$ = 0;
+  if($metrics$$) {
+    var $width$$ = $metrics$$.viewWidth - $left$$, $metrics$$ = goog.dom.$$("text", "", this.headerGroup)[0], $rectElement$$ = goog.dom.$$("rect", "", this.headerGroup)[0];
+    this.headerGroup.setAttribute("transform", "translate(" + $left$$ + ", 0)");
+    $rectElement$$.setAttribute("width", $width$$);
+    $rectElement$$.setAttribute("height", Blockly.Workspace.HEADER_HEIGHT);
+    $rectElement$$.setAttribute("fill", Blockly.Workspace.HEADER_COLOR);
+    $metrics$$.setAttribute("transform", "translate(" + $width$$ / 2 + ", 0)")
+  }
+  return $width$$
+};
 Blockly.Workspace.prototype.render = function $Blockly$Workspace$$render$() {
   for(var $renderList$$ = this.getAllBlocks(), $x$$ = 0, $block$$;$block$$ = $renderList$$[$x$$];$x$$++) {
     $block$$.getChildren().length || $block$$.render()
@@ -2982,7 +3006,9 @@ Blockly.Workspace.prototype.remainingCapacity = function $Blockly$Workspace$$rem
 };
 Blockly.BlockSvg = function $Blockly$BlockSvg$($block$$) {
   this.block_ = $block$$;
-  this.svgGroup_ = Blockly.createSvgElement("g", {}, null);
+  var $options$$ = {};
+  $block$$.htmlId && ($options$$.id = $block$$.htmlId);
+  this.svgGroup_ = Blockly.createSvgElement("g", $options$$, null);
   this.svgPathDark_ = Blockly.createSvgElement("path", {"class":"blocklyPathDark", transform:"translate(1, 1)"}, this.svgGroup_);
   this.svgPath_ = Blockly.createSvgElement("path", {"class":"blocklyPath"}, this.svgGroup_);
   this.svgPathLight_ = Blockly.createSvgElement("path", {"class":"blocklyPathLight"}, this.svgGroup_);
@@ -3044,7 +3070,7 @@ Blockly.BlockSvg.prototype.disposeUiEffect = function $Blockly$BlockSvg$$dispose
   $clone$$.translateY_ = $xy$$.y;
   $clone$$.setAttribute("transform", "translate(" + $clone$$.translateX_ + "," + $clone$$.translateY_ + ")");
   Blockly.svg.appendChild($clone$$);
-  $clone$$.bBox_ = $clone$$.getBBox();
+  0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? ($clone$$.style.display = "inline", $clone$$.bBox_ = {x:$clone$$.getBBox().x, y:$clone$$.getBBox().y, width:$clone$$.scrollWidth, height:$clone$$.scrollHeight}) : $clone$$.bBox_ = $clone$$.getBBox();
   $clone$$.startDate_ = new Date;
   Blockly.BlockSvg.disposeUiStep_($clone$$)
 };
@@ -3299,8 +3325,9 @@ Blockly.Field.prototype.getSize = function $Blockly$Field$$getSize$() {
 Blockly.Field.prototype.getText = function $Blockly$Field$$getText$() {
   return this.text_
 };
-Blockly.Field.prototype.setText = function $Blockly$Field$$setText$($text$$) {
-  null !== $text$$ && $text$$ !== this.text_ && (this.text_ = $text$$, goog.dom.removeChildren(this.textElement_), $text$$ = $text$$.replace(/\s/g, Blockly.Field.NBSP), $text$$ || ($text$$ = Blockly.Field.NBSP), $text$$ = document.createTextNode($text$$), this.textElement_.appendChild($text$$), this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
+Blockly.Field.prototype.setText = function $Blockly$Field$$setText$($text$$11_textNode$$) {
+  null !== $text$$11_textNode$$ && $text$$11_textNode$$ !== this.text_ && (this.text_ = $text$$11_textNode$$, goog.dom.removeChildren(this.textElement_), $text$$11_textNode$$ = $text$$11_textNode$$.replace(/\s/g, Blockly.Field.NBSP), $text$$11_textNode$$ || ($text$$11_textNode$$ = Blockly.Field.NBSP), $text$$11_textNode$$ = document.createTextNode($text$$11_textNode$$), this.textElement_.appendChild($text$$11_textNode$$), this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), 
+  this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
 };
 Blockly.Field.prototype.getValue = function $Blockly$Field$$getValue$() {
   return this.getText()
@@ -3354,11 +3381,11 @@ Blockly.FieldDropdown.prototype.showEditor_ = function $Blockly$FieldDropdown$$s
   goog.dom.removeChildren($svgOptions$$);
   Blockly.removeClass_($svgGroup$$, "blocklyHidden");
   Blockly.FieldDropdown.openDropdown_ = this;
-  for(var $maxWidth$$ = 0, $resizeList$$ = [], $checkElement$$ = null, $height$$11_options$$ = this.getOptions_(), $width$$15_x$$ = 0;$width$$15_x$$ < $height$$11_options$$.length;$width$$15_x$$++) {
-    var $value$$0$$ = $height$$11_options$$[$width$$15_x$$][1], $gElement$$ = Blockly.ContextMenu.optionToDom($height$$11_options$$[$width$$15_x$$][0]), $rectElement$$ = $gElement$$.firstChild, $textElement$$ = $gElement$$.lastChild;
+  for(var $maxWidth$$ = 0, $resizeList$$ = [], $checkElement$$ = null, $height$$11_options$$ = this.getOptions_(), $width$$16_x$$ = 0;$width$$16_x$$ < $height$$11_options$$.length;$width$$16_x$$++) {
+    var $value$$0$$ = $height$$11_options$$[$width$$16_x$$][1], $gElement$$ = Blockly.ContextMenu.optionToDom($height$$11_options$$[$width$$16_x$$][0]), $rectElement$$ = $gElement$$.firstChild, $textElement$$ = $gElement$$.lastChild;
     $svgOptions$$.appendChild($gElement$$);
     $checkElement$$ || $value$$0$$ != this.value_ || ($checkElement$$ = Blockly.createSvgElement("text", {"class":"blocklyMenuText", y:15}, null), $gElement$$.insertBefore($checkElement$$, $textElement$$), $checkElement$$.appendChild(document.createTextNode("\u2713")));
-    $gElement$$.setAttribute("transform", "translate(0, " + $width$$15_x$$ * Blockly.ContextMenu.Y_HEIGHT + ")");
+    $gElement$$.setAttribute("transform", "translate(0, " + $width$$16_x$$ * Blockly.ContextMenu.Y_HEIGHT + ")");
     $resizeList$$.push($rectElement$$);
     Blockly.bindEvent_($gElement$$, "mousedown", null, Blockly.noEvent);
     Blockly.bindEvent_($gElement$$, "mouseup", this, $callbackFactory$$($value$$0$$));
@@ -3366,27 +3393,27 @@ Blockly.FieldDropdown.prototype.showEditor_ = function $Blockly$FieldDropdown$$s
     $maxWidth$$ = Math.max($maxWidth$$, $textElement$$.getComputedTextLength())
   }
   $maxWidth$$ += 2 * Blockly.ContextMenu.X_PADDING;
-  for($width$$15_x$$ = 0;$width$$15_x$$ < $resizeList$$.length;$width$$15_x$$++) {
-    $resizeList$$[$width$$15_x$$].setAttribute("width", $maxWidth$$)
+  for($width$$16_x$$ = 0;$width$$16_x$$ < $resizeList$$.length;$width$$16_x$$++) {
+    $resizeList$$[$width$$16_x$$].setAttribute("width", $maxWidth$$)
   }
   if(Blockly.RTL) {
-    for($width$$15_x$$ = 0;$gElement$$ = $svgOptions$$.childNodes[$width$$15_x$$];$width$$15_x$$++) {
+    for($width$$16_x$$ = 0;$gElement$$ = $svgOptions$$.childNodes[$width$$16_x$$];$width$$16_x$$++) {
       $textElement$$ = $gElement$$.lastChild, $textElement$$.setAttribute("text-anchor", "end"), $textElement$$.setAttribute("x", $maxWidth$$ - Blockly.ContextMenu.X_PADDING)
     }
   }
   $checkElement$$ && (Blockly.RTL ? ($checkElement$$.setAttribute("text-anchor", "end"), $checkElement$$.setAttribute("x", $maxWidth$$ - 5)) : $checkElement$$.setAttribute("x", 5));
-  $width$$15_x$$ = $maxWidth$$ + 2 * Blockly.FieldDropdown.CORNER_RADIUS;
+  $width$$16_x$$ = $maxWidth$$ + 2 * Blockly.FieldDropdown.CORNER_RADIUS;
   $height$$11_options$$ = $height$$11_options$$.length * Blockly.ContextMenu.Y_HEIGHT + Blockly.FieldDropdown.CORNER_RADIUS + 1;
-  $borderBBox_hexColour$$.setAttribute("width", $width$$15_x$$);
+  $borderBBox_hexColour$$.setAttribute("width", $width$$16_x$$);
   $borderBBox_hexColour$$.setAttribute("height", $height$$11_options$$);
-  $svgBackground_xy$$.setAttribute("width", $width$$15_x$$);
+  $svgBackground_xy$$.setAttribute("width", $width$$16_x$$);
   $svgBackground_xy$$.setAttribute("height", $height$$11_options$$);
   $borderBBox_hexColour$$ = Blockly.makeColour(this.sourceBlock_.getColour());
   $svgBackground_xy$$.setAttribute("fill", $borderBBox_hexColour$$);
   $svgBackground_xy$$ = Blockly.getSvgXY_(this.borderRect_);
-  $borderBBox_hexColour$$ = this.borderRect_.getBBox();
-  $width$$15_x$$ = Blockly.RTL ? $svgBackground_xy$$.x - $maxWidth$$ + Blockly.ContextMenu.X_PADDING + $borderBBox_hexColour$$.width - Blockly.BlockSvg.SEP_SPACE_X / 2 : $svgBackground_xy$$.x - Blockly.ContextMenu.X_PADDING + Blockly.BlockSvg.SEP_SPACE_X / 2;
-  $svgGroup$$.setAttribute("transform", "translate(" + $width$$15_x$$ + ", " + ($svgBackground_xy$$.y + $borderBBox_hexColour$$.height) + ")")
+  0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (this.borderRect_.style.display = "inline", $borderBBox_hexColour$$ = {x:this.borderRect_.getBBox().x, y:this.borderRect_.getBBox().y, width:this.borderRect_.scrollWidth, height:this.borderRect_.scrollHeight}) : $borderBBox_hexColour$$ = this.borderRect_.getBBox();
+  $width$$16_x$$ = Blockly.RTL ? $svgBackground_xy$$.x - $maxWidth$$ + Blockly.ContextMenu.X_PADDING + $borderBBox_hexColour$$.width - Blockly.BlockSvg.SEP_SPACE_X / 2 : $svgBackground_xy$$.x - Blockly.ContextMenu.X_PADDING + Blockly.BlockSvg.SEP_SPACE_X / 2;
+  $svgGroup$$.setAttribute("transform", "translate(" + $width$$16_x$$ + ", " + ($svgBackground_xy$$.y + $borderBBox_hexColour$$.height) + ")")
 };
 Blockly.FieldDropdown.prototype.trimOptions_ = function $Blockly$FieldDropdown$$trimOptions_$() {
   this.suffixTitle = this.prefixTitle = null;
@@ -3423,9 +3450,9 @@ Blockly.FieldDropdown.prototype.setValue = function $Blockly$FieldDropdown$$setV
   }
   this.setText($newValue$$)
 };
-Blockly.FieldDropdown.prototype.setText = function $Blockly$FieldDropdown$$setText$($text$$14_textNode$$) {
+Blockly.FieldDropdown.prototype.setText = function $Blockly$FieldDropdown$$setText$($text$$15_textNode$$) {
   this.sourceBlock_ && (this.arrow_.style.fill = Blockly.makeColour(this.sourceBlock_.getColour()));
-  null !== $text$$14_textNode$$ && (this.text_ = $text$$14_textNode$$, goog.dom.removeChildren(this.textElement_), $text$$14_textNode$$ = $text$$14_textNode$$.replace(/\s/g, Blockly.Field.NBSP), $text$$14_textNode$$ || ($text$$14_textNode$$ = Blockly.Field.NBSP), $text$$14_textNode$$ = document.createTextNode($text$$14_textNode$$), this.textElement_.appendChild($text$$14_textNode$$), Blockly.RTL ? this.textElement_.insertBefore(this.arrow_, this.textElement_.firstChild) : this.textElement_.appendChild(this.arrow_), 
+  null !== $text$$15_textNode$$ && (this.text_ = $text$$15_textNode$$, goog.dom.removeChildren(this.textElement_), $text$$15_textNode$$ = $text$$15_textNode$$.replace(/\s/g, Blockly.Field.NBSP), $text$$15_textNode$$ || ($text$$15_textNode$$ = Blockly.Field.NBSP), $text$$15_textNode$$ = document.createTextNode($text$$15_textNode$$), this.textElement_.appendChild($text$$15_textNode$$), Blockly.RTL ? this.textElement_.insertBefore(this.arrow_, this.textElement_.firstChild) : this.textElement_.appendChild(this.arrow_), 
   this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
 };
 Blockly.FieldDropdown.hide = function $Blockly$FieldDropdown$hide$() {
@@ -5141,21 +5168,21 @@ goog.style.getLengthUnits = function $goog$style$getLengthUnits$($units$$1_value
 };
 goog.style.ABSOLUTE_CSS_LENGTH_UNITS_ = {cm:1, "in":1, mm:1, pc:1, pt:1};
 goog.style.CONVERTIBLE_RELATIVE_CSS_UNITS_ = {em:1, ex:1};
-goog.style.getFontSize = function $goog$style$getFontSize$($el$$) {
-  var $fontSize$$ = goog.style.getStyle_($el$$, "fontSize"), $parentSize_sizeElement_sizeUnits$$ = goog.style.getLengthUnits($fontSize$$);
+goog.style.getFontSize = function $goog$style$getFontSize$($el$$26_parentElement$$) {
+  var $fontSize$$ = goog.style.getStyle_($el$$26_parentElement$$, "fontSize"), $parentSize_sizeElement_sizeUnits$$ = goog.style.getLengthUnits($fontSize$$);
   if($fontSize$$ && "px" == $parentSize_sizeElement_sizeUnits$$) {
     return parseInt($fontSize$$, 10)
   }
   if(goog.userAgent.IE) {
     if($parentSize_sizeElement_sizeUnits$$ in goog.style.ABSOLUTE_CSS_LENGTH_UNITS_) {
-      return goog.style.getIePixelValue_($el$$, $fontSize$$, "left", "pixelLeft")
+      return goog.style.getIePixelValue_($el$$26_parentElement$$, $fontSize$$, "left", "pixelLeft")
     }
-    if($el$$.parentNode && $el$$.parentNode.nodeType == goog.dom.NodeType.ELEMENT && $parentSize_sizeElement_sizeUnits$$ in goog.style.CONVERTIBLE_RELATIVE_CSS_UNITS_) {
-      return $el$$ = $el$$.parentNode, $parentSize_sizeElement_sizeUnits$$ = goog.style.getStyle_($el$$, "fontSize"), goog.style.getIePixelValue_($el$$, $fontSize$$ == $parentSize_sizeElement_sizeUnits$$ ? "1em" : $fontSize$$, "left", "pixelLeft")
+    if($el$$26_parentElement$$.parentNode && $el$$26_parentElement$$.parentNode.nodeType == goog.dom.NodeType.ELEMENT && $parentSize_sizeElement_sizeUnits$$ in goog.style.CONVERTIBLE_RELATIVE_CSS_UNITS_) {
+      return $el$$26_parentElement$$ = $el$$26_parentElement$$.parentNode, $parentSize_sizeElement_sizeUnits$$ = goog.style.getStyle_($el$$26_parentElement$$, "fontSize"), goog.style.getIePixelValue_($el$$26_parentElement$$, $fontSize$$ == $parentSize_sizeElement_sizeUnits$$ ? "1em" : $fontSize$$, "left", "pixelLeft")
     }
   }
   $parentSize_sizeElement_sizeUnits$$ = goog.dom.createDom("span", {style:"visibility:hidden;position:absolute;line-height:0;padding:0;margin:0;border:0;height:1em;"});
-  goog.dom.appendChild($el$$, $parentSize_sizeElement_sizeUnits$$);
+  goog.dom.appendChild($el$$26_parentElement$$, $parentSize_sizeElement_sizeUnits$$);
   $fontSize$$ = $parentSize_sizeElement_sizeUnits$$.offsetHeight;
   goog.dom.removeNode($parentSize_sizeElement_sizeUnits$$);
   return $fontSize$$
@@ -6298,7 +6325,7 @@ Blockly.ContextMenu.show = function $Blockly$ContextMenu$show$($xy$$, $options$$
     Blockly.ContextMenu.svgShadow.setAttribute("height", $options$$.length * Blockly.ContextMenu.Y_HEIGHT + 10);
     $anchorX_maxWidth$$ = $xy$$.x;
     $anchorY_resizeList$$ = $xy$$.y;
-    $bBox$$1_x$$ = Blockly.ContextMenu.svgGroup.getBBox();
+    0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (Blockly.ContextMenu.svgGroup.style.display = "inline", $bBox$$1_x$$ = {x:Blockly.ContextMenu.svgGroup.getBBox().x, y:Blockly.ContextMenu.svgGroup.getBBox().y, width:Blockly.ContextMenu.svgGroup.scrollWidth, height:Blockly.ContextMenu.svgGroup.scrollHeight}) : $bBox$$1_x$$ = Blockly.ContextMenu.svgGroup.getBBox();
     $option_svgSize$$ = Blockly.svgSize();
     $anchorY_resizeList$$ + $bBox$$1_x$$.height > $option_svgSize$$.height && ($anchorY_resizeList$$ -= $bBox$$1_x$$.height - 10);
     Blockly.RTL ? 0 >= $anchorX_maxWidth$$ - $bBox$$1_x$$.width ? $anchorX_maxWidth$$++ : $anchorX_maxWidth$$ -= $bBox$$1_x$$.width : $anchorX_maxWidth$$ + $bBox$$1_x$$.width > $option_svgSize$$.width ? $anchorX_maxWidth$$ -= $bBox$$1_x$$.width : $anchorX_maxWidth$$++;
@@ -6308,12 +6335,12 @@ Blockly.ContextMenu.show = function $Blockly$ContextMenu$show$($xy$$, $options$$
     Blockly.ContextMenu.hide()
   }
 };
-Blockly.ContextMenu.optionToDom = function $Blockly$ContextMenu$optionToDom$($text$$17_textNode$$) {
+Blockly.ContextMenu.optionToDom = function $Blockly$ContextMenu$optionToDom$($text$$18_textNode$$) {
   var $gElement$$ = Blockly.createSvgElement("g", {"class":"blocklyMenuDiv"}, null);
   Blockly.createSvgElement("rect", {height:Blockly.ContextMenu.Y_HEIGHT}, $gElement$$);
   var $textElement$$ = Blockly.createSvgElement("text", {"class":"blocklyMenuText", x:Blockly.ContextMenu.X_PADDING, y:15}, $gElement$$);
-  $text$$17_textNode$$ = document.createTextNode($text$$17_textNode$$);
-  $textElement$$.appendChild($text$$17_textNode$$);
+  $text$$18_textNode$$ = document.createTextNode($text$$18_textNode$$);
+  $textElement$$.appendChild($text$$18_textNode$$);
   return $gElement$$
 };
 Blockly.ContextMenu.hide = function $Blockly$ContextMenu$hide$() {
@@ -6337,7 +6364,8 @@ Blockly.Bubble = function $Blockly$Bubble$($bBox$$2_workspace$$, $content$$, $sh
   this.shape_ = $shape$$;
   $bBox$$2_workspace$$.getBubbleCanvas().appendChild(this.createDom_($content$$, !(!$bubbleWidth$$ || !$bubbleHeight$$)));
   this.setAnchorLocation($anchorX$$, $anchorY$$);
-  $bubbleWidth$$ && $bubbleHeight$$ || ($bBox$$2_workspace$$ = this.content_.getBBox(), $bubbleWidth$$ = $bBox$$2_workspace$$.width + 2 * Blockly.Bubble.BORDER_WIDTH, $bubbleHeight$$ = $bBox$$2_workspace$$.height + 2 * Blockly.Bubble.BORDER_WIDTH);
+  $bubbleWidth$$ && $bubbleHeight$$ || (0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (this.content_.style.display = "inline", $bBox$$2_workspace$$ = {x:this.content_.getBBox().x, y:this.content_.getBBox().y, width:this.content_.scrollWidth, height:this.content_.scrollHeight}) : $bBox$$2_workspace$$ = this.content_.getBBox(), $bubbleWidth$$ = $bBox$$2_workspace$$.width + 2 * Blockly.Bubble.BORDER_WIDTH, $bubbleHeight$$ = $bBox$$2_workspace$$.height + 2 * 
+  Blockly.Bubble.BORDER_WIDTH);
   this.setBubbleSize($bubbleWidth$$, $bubbleHeight$$);
   this.positionBubble_();
   this.renderArrow_();
@@ -6408,14 +6436,14 @@ Blockly.Bubble.prototype.setAnchorLocation = function $Blockly$Bubble$$setAnchor
   this.rendered_ && this.positionBubble_()
 };
 Blockly.Bubble.prototype.layoutBubble_ = function $Blockly$Bubble$$layoutBubble_$() {
-  var $relativeLeft$$ = -this.width_ / 4, $relativeTop$$ = -this.height_ - Blockly.BlockSvg.MIN_BLOCK_Y;
+  var $relativeLeft$$ = -this.width_ / 4, $bBox$$ = -this.height_ - Blockly.BlockSvg.MIN_BLOCK_Y;
   if(this.workspace_.scrollbar) {
     var $metrics$$ = this.workspace_.getMetrics();
     this.anchorX_ + $relativeLeft$$ < Blockly.BlockSvg.SEP_SPACE_X + $metrics$$.viewLeft ? $relativeLeft$$ = Blockly.BlockSvg.SEP_SPACE_X + $metrics$$.viewLeft - this.anchorX_ : $metrics$$.viewLeft + $metrics$$.viewWidth < this.anchorX_ + $relativeLeft$$ + this.width_ + Blockly.BlockSvg.SEP_SPACE_X + Blockly.Scrollbar.scrollbarThickness && ($relativeLeft$$ = $metrics$$.viewLeft + $metrics$$.viewWidth - this.anchorX_ - this.width_ - Blockly.BlockSvg.SEP_SPACE_X - Blockly.Scrollbar.scrollbarThickness);
-    this.anchorY_ + $relativeTop$$ < Blockly.BlockSvg.SEP_SPACE_Y + $metrics$$.viewTop && ($relativeTop$$ = this.shape_.getBBox().height)
+    this.anchorY_ + $bBox$$ < Blockly.BlockSvg.SEP_SPACE_Y + $metrics$$.viewTop && (0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (this.shape_.style.display = "inline", $bBox$$ = {x:this.shape_.getBBox().x, y:this.shape_.getBBox().y, width:this.shape_.scrollWidth, height:this.shape_.scrollHeight}) : $bBox$$ = this.shape_.getBBox(), $bBox$$ = $bBox$$.height)
   }
   this.relativeLeft_ = $relativeLeft$$;
-  this.relativeTop_ = $relativeTop$$
+  this.relativeTop_ = $bBox$$
 };
 Blockly.Bubble.prototype.positionBubble_ = function $Blockly$Bubble$$positionBubble_$() {
   this.bubbleGroup_.setAttribute("transform", "translate(" + (Blockly.RTL ? this.anchorX_ - this.relativeLeft_ - this.width_ : this.anchorX_ + this.relativeLeft_) + ", " + (this.relativeTop_ + this.anchorY_) + ")")
@@ -6558,7 +6586,14 @@ Blockly.Mutator.prototype.createEditor_ = function $Blockly$Mutator$$createEdito
   return this.svgDialog_
 };
 Blockly.Mutator.prototype.resizeBubble_ = function $Blockly$Mutator$$resizeBubble_$() {
-  var $doubleBorderWidth$$ = 2 * Blockly.Bubble.BORDER_WIDTH, $height$$ = this.workspace_.getCanvas().getBBox(), $flyoutMetrics$$ = this.flyout_.getMetrics_(), $width$$;
+  var $doubleBorderWidth$$ = 2 * Blockly.Bubble.BORDER_WIDTH;
+  if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+    this.workspace_.getCanvas().style.display = "inline";
+    var $height$$ = {x:this.workspace_.getCanvas().getBBox().x, y:this.workspace_.getCanvas().getBBox().y, width:this.workspace_.getCanvas().scrollWidth, height:this.workspace_.getCanvas().scrollHeight}
+  }else {
+    $height$$ = this.workspace_.getCanvas().getBBox()
+  }
+  var $flyoutMetrics$$ = this.flyout_.getMetrics_(), $width$$;
   $width$$ = Blockly.RTL ? -$height$$.x : $height$$.width + $height$$.x;
   $height$$ = Math.max($height$$.height + 3 * $doubleBorderWidth$$, $flyoutMetrics$$.contentHeight + 20);
   $width$$ += 3 * $doubleBorderWidth$$;
@@ -7076,12 +7111,12 @@ Blockly.Tooltip.show_ = function $Blockly$Tooltip$show_$() {
     var $bBox$$4_lines$$ = Blockly.Tooltip.element_.tooltip;
     goog.isFunction($bBox$$4_lines$$) && ($bBox$$4_lines$$ = $bBox$$4_lines$$());
     for(var $bBox$$4_lines$$ = $bBox$$4_lines$$.split("\n"), $anchorY$$2_i$$88_width$$ = 0;$anchorY$$2_i$$88_width$$ < $bBox$$4_lines$$.length;$anchorY$$2_i$$88_width$$++) {
-      var $anchorX$$2_height$$20_maxWidth$$ = Blockly.createSvgElement("tspan", {dy:"1em", x:Blockly.Tooltip.MARGINS}, Blockly.Tooltip.svgText_), $svgSize$$1_textNode$$4_x$$ = document.createTextNode($bBox$$4_lines$$[$anchorY$$2_i$$88_width$$]);
-      $anchorX$$2_height$$20_maxWidth$$.appendChild($svgSize$$1_textNode$$4_x$$)
+      var $anchorX$$2_height$$20_maxWidth$$ = Blockly.createSvgElement("tspan", {dy:"1em", x:Blockly.Tooltip.MARGINS}, Blockly.Tooltip.svgText_), $svgSize$$1_textNode$$5_x$$ = document.createTextNode($bBox$$4_lines$$[$anchorY$$2_i$$88_width$$]);
+      $anchorX$$2_height$$20_maxWidth$$.appendChild($svgSize$$1_textNode$$5_x$$)
     }
     Blockly.Tooltip.visible = !0;
     Blockly.Tooltip.svgGroup_.style.display = "block";
-    $bBox$$4_lines$$ = Blockly.Tooltip.svgText_.getBBox();
+    0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (Blockly.Tooltip.svgText_.style.display = "inline", $bBox$$4_lines$$ = {x:Blockly.Tooltip.svgText_.getBBox().x, y:Blockly.Tooltip.svgText_.getBBox().y, width:Blockly.Tooltip.svgText_.scrollWidth, height:Blockly.Tooltip.svgText_.scrollHeight}) : $bBox$$4_lines$$ = Blockly.Tooltip.svgText_.getBBox();
     $anchorY$$2_i$$88_width$$ = 2 * Blockly.Tooltip.MARGINS + $bBox$$4_lines$$.width;
     $anchorX$$2_height$$20_maxWidth$$ = $bBox$$4_lines$$.height;
     Blockly.Tooltip.svgBackground_.setAttribute("width", $anchorY$$2_i$$88_width$$);
@@ -7089,16 +7124,16 @@ Blockly.Tooltip.show_ = function $Blockly$Tooltip$show_$() {
     Blockly.Tooltip.svgShadow_.setAttribute("width", $anchorY$$2_i$$88_width$$);
     Blockly.Tooltip.svgShadow_.setAttribute("height", $anchorX$$2_height$$20_maxWidth$$);
     if(Blockly.RTL) {
-      for(var $anchorX$$2_height$$20_maxWidth$$ = $bBox$$4_lines$$.width, $svgSize$$1_textNode$$4_x$$ = 0, $textElement$$;$textElement$$ = Blockly.Tooltip.svgText_.childNodes[$svgSize$$1_textNode$$4_x$$];$svgSize$$1_textNode$$4_x$$++) {
+      for(var $anchorX$$2_height$$20_maxWidth$$ = $bBox$$4_lines$$.width, $svgSize$$1_textNode$$5_x$$ = 0, $textElement$$;$textElement$$ = Blockly.Tooltip.svgText_.childNodes[$svgSize$$1_textNode$$5_x$$];$svgSize$$1_textNode$$5_x$$++) {
         $textElement$$.setAttribute("text-anchor", "end"), $textElement$$.setAttribute("x", $anchorX$$2_height$$20_maxWidth$$ + Blockly.Tooltip.MARGINS)
       }
     }
     $anchorX$$2_height$$20_maxWidth$$ = Blockly.Tooltip.lastXY_.x;
     $anchorX$$2_height$$20_maxWidth$$ = Blockly.RTL ? $anchorX$$2_height$$20_maxWidth$$ - (Blockly.Tooltip.OFFSET_X + $anchorY$$2_i$$88_width$$) : $anchorX$$2_height$$20_maxWidth$$ + Blockly.Tooltip.OFFSET_X;
     $anchorY$$2_i$$88_width$$ = Blockly.Tooltip.lastXY_.y + Blockly.Tooltip.OFFSET_Y;
-    $svgSize$$1_textNode$$4_x$$ = Blockly.svgSize();
-    $anchorY$$2_i$$88_width$$ + $bBox$$4_lines$$.height > $svgSize$$1_textNode$$4_x$$.height && ($anchorY$$2_i$$88_width$$ -= $bBox$$4_lines$$.height + 2 * Blockly.Tooltip.OFFSET_Y);
-    Blockly.RTL ? $anchorX$$2_height$$20_maxWidth$$ = Math.max(Blockly.Tooltip.MARGINS, $anchorX$$2_height$$20_maxWidth$$) : $anchorX$$2_height$$20_maxWidth$$ + $bBox$$4_lines$$.width > $svgSize$$1_textNode$$4_x$$.width - 2 * Blockly.Tooltip.MARGINS && ($anchorX$$2_height$$20_maxWidth$$ = $svgSize$$1_textNode$$4_x$$.width - $bBox$$4_lines$$.width - 2 * Blockly.Tooltip.MARGINS);
+    $svgSize$$1_textNode$$5_x$$ = Blockly.svgSize();
+    $anchorY$$2_i$$88_width$$ + $bBox$$4_lines$$.height > $svgSize$$1_textNode$$5_x$$.height && ($anchorY$$2_i$$88_width$$ -= $bBox$$4_lines$$.height + 2 * Blockly.Tooltip.OFFSET_Y);
+    Blockly.RTL ? $anchorX$$2_height$$20_maxWidth$$ = Math.max(Blockly.Tooltip.MARGINS, $anchorX$$2_height$$20_maxWidth$$) : $anchorX$$2_height$$20_maxWidth$$ + $bBox$$4_lines$$.width > $svgSize$$1_textNode$$5_x$$.width - 2 * Blockly.Tooltip.MARGINS && ($anchorX$$2_height$$20_maxWidth$$ = $svgSize$$1_textNode$$5_x$$.width - $bBox$$4_lines$$.width - 2 * Blockly.Tooltip.MARGINS);
     Blockly.Tooltip.svgGroup_.setAttribute("transform", "translate(" + $anchorX$$2_height$$20_maxWidth$$ + "," + $anchorY$$2_i$$88_width$$ + ")")
   }
 };
@@ -7216,7 +7251,13 @@ Blockly.Warning.prototype.setVisible = function $Blockly$Warning$$setVisible$($p
       $paragraph$$1_size$$17_visible$$ = this.textToDom_(this.text_);
       this.bubble_ = new Blockly.Bubble(this.block_.workspace, $paragraph$$1_size$$17_visible$$, this.block_.svg_.svgGroup_, this.iconX_, this.iconY_, null, null);
       if(Blockly.RTL) {
-        for(var $maxWidth$$ = $paragraph$$1_size$$17_visible$$.getBBox().width, $x$$ = 0, $textElement$$;$textElement$$ = $paragraph$$1_size$$17_visible$$.childNodes[$x$$];$x$$++) {
+        if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+          $paragraph$$1_size$$17_visible$$.style.display = "inline";
+          var $maxWidth$$ = {x:$paragraph$$1_size$$17_visible$$.getBBox().x, y:$paragraph$$1_size$$17_visible$$.getBBox().y, width:$paragraph$$1_size$$17_visible$$.scrollWidth, height:$paragraph$$1_size$$17_visible$$.scrollHeight}.width
+        }else {
+          $maxWidth$$ = $paragraph$$1_size$$17_visible$$.getBBox().width
+        }
+        for(var $x$$ = 0, $textElement$$;$textElement$$ = $paragraph$$1_size$$17_visible$$.childNodes[$x$$];$x$$++) {
           $textElement$$.setAttribute("text-anchor", "end"), $textElement$$.setAttribute("x", $maxWidth$$ + Blockly.Bubble.BORDER_WIDTH)
         }
       }
@@ -7240,8 +7281,9 @@ Blockly.Warning.prototype.dispose = function $Blockly$Warning$$dispose$() {
   Blockly.Icon.prototype.dispose.call(this)
 };
 Blockly.uidCounter_ = 0;
-Blockly.Block = function $Blockly$Block$($workspace$$, $prototypeName$$) {
+Blockly.Block = function $Blockly$Block$($workspace$$, $prototypeName$$, $htmlId_prototype$$) {
   this.id = ++Blockly.uidCounter_;
+  this.htmlId = $htmlId_prototype$$;
   this.previousConnection = this.nextConnection = this.outputConnection = null;
   this.inputList = [];
   this.disabled = this.rendered = this.inputsInline = !1;
@@ -7256,11 +7298,11 @@ Blockly.Block = function $Blockly$Block$($workspace$$, $prototypeName$$) {
   $workspace$$.addTopBlock(this);
   if($prototypeName$$) {
     this.type = $prototypeName$$;
-    var $prototype$$ = Blockly.Blocks[$prototypeName$$];
-    if(!$prototype$$) {
+    $htmlId_prototype$$ = Blockly.Blocks[$prototypeName$$];
+    if(!$htmlId_prototype$$) {
       throw'Error: "' + $prototypeName$$ + '" is an unknown language block.';
     }
-    goog.mixin(this, $prototype$$)
+    goog.mixin(this, $htmlId_prototype$$)
   }
   goog.isFunction(this.init) && this.init();
   goog.isFunction(this.onchange) && Blockly.bindEvent_($workspace$$.getCanvas(), "blocklyWorkspaceChange", this, this.onchange)
@@ -7378,7 +7420,12 @@ Blockly.Block.prototype.moveBy = function $Blockly$Block$$moveBy$($dx$$, $dy$$) 
 };
 Blockly.Block.prototype.getHeightWidth = function $Blockly$Block$$getHeightWidth$() {
   try {
-    var $bBox$$ = this.getSvgRoot().getBBox()
+    if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+      this.getSvgRoot().style.display = "inline";
+      var $bBox$$ = {x:this.getSvgRoot().getBBox().x, y:this.getSvgRoot().getBBox().y, width:this.getSvgRoot().scrollWidth, height:this.getSvgRoot().scrollHeight}
+    }else {
+      $bBox$$ = this.getSvgRoot().getBBox()
+    }
   }catch($e$$) {
     return{height:0, width:0}
   }
@@ -7760,22 +7807,22 @@ Blockly.Block.prototype.isCollapsed = function $Blockly$Block$$isCollapsed$() {
 Blockly.Block.prototype.setCollapsed = function $Blockly$Block$$setCollapsed$($block$$28_collapsed$$1_icons$$) {
   if(this.collapsed_ != $block$$28_collapsed$$1_icons$$) {
     this.collapsed_ = $block$$28_collapsed$$1_icons$$;
-    for(var $renderList$$ = [], $text$$23_x$$ = 0, $input$$;$input$$ = this.inputList[$text$$23_x$$];$text$$23_x$$++) {
+    for(var $renderList$$ = [], $text$$24_x$$ = 0, $input$$;$input$$ = this.inputList[$text$$24_x$$];$text$$24_x$$++) {
       $renderList$$ = $renderList$$.concat($input$$.setVisible(!$block$$28_collapsed$$1_icons$$))
     }
     if($block$$28_collapsed$$1_icons$$) {
       $block$$28_collapsed$$1_icons$$ = this.getIcons();
-      for($text$$23_x$$ = 0;$text$$23_x$$ < $block$$28_collapsed$$1_icons$$.length;$text$$23_x$$++) {
-        $block$$28_collapsed$$1_icons$$[$text$$23_x$$].setVisible(!1)
+      for($text$$24_x$$ = 0;$text$$24_x$$ < $block$$28_collapsed$$1_icons$$.length;$text$$24_x$$++) {
+        $block$$28_collapsed$$1_icons$$[$text$$24_x$$].setVisible(!1)
       }
-      $text$$23_x$$ = this.toString(Blockly.COLLAPSE_CHARS);
-      this.appendDummyInput("_TEMP_COLLAPSED_INPUT").appendTitle($text$$23_x$$)
+      $text$$24_x$$ = this.toString(Blockly.COLLAPSE_CHARS);
+      this.appendDummyInput("_TEMP_COLLAPSED_INPUT").appendTitle($text$$24_x$$)
     }else {
       this.removeInput("_TEMP_COLLAPSED_INPUT")
     }
     $renderList$$.length || ($renderList$$[0] = this);
     if(this.rendered) {
-      for($text$$23_x$$ = 0;$block$$28_collapsed$$1_icons$$ = $renderList$$[$text$$23_x$$];$text$$23_x$$++) {
+      for($text$$24_x$$ = 0;$block$$28_collapsed$$1_icons$$ = $renderList$$[$text$$24_x$$];$text$$24_x$$++) {
         $block$$28_collapsed$$1_icons$$.render()
       }
       this.bumpNeighbours_()
@@ -7910,7 +7957,7 @@ Blockly.Flyout.prototype.onResizeWrapper_ = null;
 Blockly.Flyout.prototype.createDom = function $Blockly$Flyout$$createDom$() {
   this.svgGroup_ = Blockly.createSvgElement("g", {}, null);
   this.svgBackground_ = Blockly.createSvgElement("path", {"class":"blocklyFlyoutBackground"}, this.svgGroup_);
-  this.svgGroup_.appendChild(this.workspace_.createDom());
+  this.svgGroup_.appendChild(this.workspace_.createDom(Blockly.Msg.TOOLBOX_HEADER));
   return this.svgGroup_
 };
 Blockly.Flyout.prototype.dispose = function $Blockly$Flyout$$dispose$() {
@@ -7928,7 +7975,12 @@ Blockly.Flyout.prototype.getMetrics_ = function $Blockly$Flyout$$getMetrics_$() 
   }
   var $viewHeight$$ = this.height_ - 2 * this.CORNER_RADIUS, $viewWidth$$ = this.width_;
   try {
-    var $optionBox$$ = this.workspace_.getCanvas().getBBox()
+    if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+      this.workspace_.getCanvas().style.display = "inline";
+      var $optionBox$$ = {x:this.workspace_.getCanvas().getBBox().x, y:this.workspace_.getCanvas().getBBox().y, width:this.workspace_.getCanvas().scrollWidth, height:this.workspace_.getCanvas().scrollHeight}
+    }else {
+      $optionBox$$ = this.workspace_.getCanvas().getBBox()
+    }
   }catch($e$$) {
     $optionBox$$ = {height:0, y:0}
   }
@@ -7937,7 +7989,7 @@ Blockly.Flyout.prototype.getMetrics_ = function $Blockly$Flyout$$getMetrics_$() 
 Blockly.Flyout.prototype.setMetrics_ = function $Blockly$Flyout$$setMetrics_$($y$$) {
   var $metrics$$ = this.getMetrics_();
   goog.isNumber($y$$.y) && (this.workspace_.scrollY = -$metrics$$.contentHeight * $y$$.y - $metrics$$.contentTop);
-  $y$$ = this.workspace_.scrollY + $metrics$$.absoluteTop;
+  $y$$ = this.workspace_.scrollY + $metrics$$.absoluteTop + Blockly.Workspace.HEADER_HEIGHT;
   this.workspace_.getCanvas().setAttribute("transform", "translate(0," + $y$$ + ")")
 };
 Blockly.Flyout.prototype.init = function $Blockly$Flyout$$init$($workspace$$, $withScrollbar$$) {
@@ -11364,18 +11416,18 @@ Blockly.isRightButton = function $Blockly$isRightButton$($e$$) {
   return 2 == $e$$.button || $e$$.ctrlKey
 };
 Blockly.convertCoordinates = function $Blockly$convertCoordinates$($matrix_x$$, $y$$, $toSvg$$) {
-  $toSvg$$ && ($matrix_x$$ -= window.scrollX, $y$$ -= window.scrollY);
+  $toSvg$$ && ($matrix_x$$ -= window.pageXOffset, $y$$ -= window.pageYOffset);
   var $svgPoint_xy$$ = Blockly.svg.createSVGPoint();
   $svgPoint_xy$$.x = $matrix_x$$;
   $svgPoint_xy$$.y = $y$$;
   $matrix_x$$ = Blockly.svg.getScreenCTM();
   $toSvg$$ && ($matrix_x$$ = $matrix_x$$.inverse());
   $svgPoint_xy$$ = $svgPoint_xy$$.matrixTransform($matrix_x$$);
-  $toSvg$$ || ($svgPoint_xy$$.x += window.scrollX, $svgPoint_xy$$.y += window.scrollY);
+  $toSvg$$ || ($svgPoint_xy$$.x += window.pageXOffset, $svgPoint_xy$$.y += window.pageYOffset);
   return $svgPoint_xy$$
 };
 Blockly.mouseToSvg = function $Blockly$mouseToSvg$($e$$) {
-  return Blockly.convertCoordinates($e$$.clientX + window.scrollX, $e$$.clientY + window.scrollY, !0)
+  return Blockly.convertCoordinates($e$$.clientX + window.pageXOffset, $e$$.clientY + window.pageYOffset, !0)
 };
 Blockly.shortestStringLength = function $Blockly$shortestStringLength$($array$$) {
   if(!$array$$.length) {
@@ -11462,7 +11514,13 @@ Blockly.FieldColour.prototype.showEditor_ = function $Blockly$FieldColour$$showE
   $picker$$.setColors(Blockly.FieldColour.COLOURS);
   $picker$$.render($div$$);
   $picker$$.setSelectedColor(this.getValue());
-  var $xy$$ = Blockly.getAbsoluteXY_(this.borderRect_), $borderBBox$$ = this.borderRect_.getBBox();
+  var $xy$$ = Blockly.getAbsoluteXY_(this.borderRect_);
+  if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+    this.borderRect_.style.display = "inline";
+    var $borderBBox$$ = {x:this.borderRect_.getBBox().x, y:this.borderRect_.getBBox().y, width:this.borderRect_.scrollWidth, height:this.borderRect_.scrollHeight}
+  }else {
+    $borderBBox$$ = this.borderRect_.getBBox()
+  }
   Blockly.RTL && ($xy$$.x += $borderBBox$$.width);
   $xy$$.y += $borderBBox$$.height - 1;
   Blockly.RTL && ($xy$$.x -= $div$$.offsetWidth);
@@ -11526,18 +11584,29 @@ Blockly.FieldTextInput.prototype.validate_ = function $Blockly$FieldTextInput$$v
   null === $valid$$ ? Blockly.addClass_($htmlInput$$, "blocklyInvalidInput") : Blockly.removeClass_($htmlInput$$, "blocklyInvalidInput")
 };
 Blockly.FieldTextInput.prototype.resizeEditor_ = function $Blockly$FieldTextInput$$resizeEditor_$() {
-  var $div$$ = Blockly.WidgetDiv.DIV, $bBox$$6_xy$$ = this.fieldGroup_.getBBox();
-  $div$$.style.width = $bBox$$6_xy$$.width + "px";
-  $bBox$$6_xy$$ = Blockly.getAbsoluteXY_(this.borderRect_);
-  if(Blockly.RTL) {
-    var $borderBBox$$ = this.borderRect_.getBBox();
-    $bBox$$6_xy$$.x += $borderBBox$$.width;
-    $bBox$$6_xy$$.x -= $div$$.offsetWidth
+  var $div$$ = Blockly.WidgetDiv.DIV;
+  if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+    this.fieldGroup_.style.display = "inline";
+    var $bBox$$7_xy$$ = {x:this.fieldGroup_.getBBox().x, y:this.fieldGroup_.getBBox().y, width:this.fieldGroup_.scrollWidth, height:this.fieldGroup_.scrollHeight}
+  }else {
+    $bBox$$7_xy$$ = this.fieldGroup_.getBBox()
   }
-  $bBox$$6_xy$$.y += 1;
-  goog.userAgent.WEBKIT && ($bBox$$6_xy$$.y -= 3);
-  $div$$.style.left = $bBox$$6_xy$$.x + "px";
-  $div$$.style.top = $bBox$$6_xy$$.y + "px"
+  $div$$.style.width = $bBox$$7_xy$$.width + "px";
+  $bBox$$7_xy$$ = Blockly.getAbsoluteXY_(this.borderRect_);
+  if(Blockly.RTL) {
+    if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+      this.borderRect_.style.display = "inline";
+      var $borderBBox$$ = {x:this.borderRect_.getBBox().x, y:this.borderRect_.getBBox().y, width:this.borderRect_.scrollWidth, height:this.borderRect_.scrollHeight}
+    }else {
+      $borderBBox$$ = this.borderRect_.getBBox()
+    }
+    $bBox$$7_xy$$.x += $borderBBox$$.width;
+    $bBox$$7_xy$$.x -= $div$$.offsetWidth
+  }
+  $bBox$$7_xy$$.y += 1;
+  goog.userAgent.WEBKIT && ($bBox$$7_xy$$.y -= 3);
+  $div$$.style.left = $bBox$$7_xy$$.x + "px";
+  $div$$.style.top = $bBox$$7_xy$$.y + "px"
 };
 Blockly.FieldTextInput.prototype.dispose_ = function $Blockly$FieldTextInput$$dispose_$() {
   var $thisField$$ = this;
@@ -11779,20 +11848,20 @@ Blockly.Css.inject = function $Blockly$Css$inject$() {
 };
 Blockly.Css.CONTENT = [".blocklySvg {", "  background-color: #fff;", "  border: 1px solid #ddd;", "}", ".blocklyWidgetDiv {", "  position: absolute;", "  display: none;", "  z-index: 999;", "}", ".blocklyDraggable {", "  /* Hotspot coordinates are baked into the CUR file, but they are still", "     required in the CSS due to a Chrome bug.", "     http://code.google.com/p/chromium/issues/detail?id=1446 */", "  cursor: url(<<<PATH>>>/media/handopen.cur) 8 5, auto;", "}", ".blocklyResizeSE {", "  fill: #aaa;", 
 "  cursor: se-resize;", "}", ".blocklyResizeSW {", "  fill: #aaa;", "  cursor: sw-resize;", "}", ".blocklyResizeLine {", "  stroke-width: 1;", "  stroke: #888;", "}", ".blocklyHighlightedConnectionPath {", "  stroke-width: 4px;", "  stroke: #fc3;", "  fill: none;", "}", ".blocklyPathLight {", "  fill: none;", "  stroke-width: 2;", "  stroke-linecap: round;", "}", ".blocklySelected>.blocklyPath {", "  stroke-width: 3px;", "  stroke: #fc3;", "}", ".blocklySelected>.blocklyPathLight {", "  display: none;", 
-"}", ".blocklyDragging>.blocklyPath,", ".blocklyDragging>.blocklyPathLight {", "  fill-opacity: 0.8;", "  stroke-opacity: 0.8;", "}", ".blocklyDragging>.blocklyPathDark {", "  display: none;", "}", ".blocklyDisabled>.blocklyPath {", "  fill-opacity: 0.50;", "  stroke-opacity: 0.50;", "}", ".blocklyDisabled>.blocklyPathLight,", ".blocklyDisabled>.blocklyPathDark {", "  display: none;", "}", ".blocklyText {", "  cursor: default;", "  font-family: sans-serif;", "  font-size: 11pt;", "  fill: #fff;", 
-"}", ".blocklyNonEditableText>text {", "  pointer-events: none;", "}", ".blocklyNonEditableText>rect,", ".blocklyEditableText>rect {", "  fill: #fff;", "  fill-opacity: 0.6;", "}", ".blocklyNonEditableText>text,", ".blocklyEditableText>text {", "  fill: #000;", "}", ".blocklyEditableText:hover>rect {", "  stroke-width: 2;", "  stroke: #fff;", "}", "/*", " * Don't allow users to select text.  It gets annoying when trying to", " * drag a block and selected text moves instead.", " */", ".blocklySvg text {", 
-"  -moz-user-select: none;", "  -webkit-user-select: none;", "  user-select: none;", "  cursor: inherit;", "}", "", ".blocklyHidden {", "  display: none;", "}", ".blocklyFieldDropdown:not(.blocklyHidden) {", "  display: block;", "}", ".blocklyTooltipBackground {", "  fill: #ffffc7;", "  stroke-width: 1px;", "  stroke: #d8d8d8;", "}", ".blocklyTooltipShadow,", ".blocklyContextMenuShadow,", ".blocklyDropdownMenuShadow {", "  fill: #bbb;", "  filter: url(#blocklyShadowFilter);", "}", ".blocklyTooltipText {", 
-"  font-family: sans-serif;", "  font-size: 9pt;", "  fill: #000;", "}", "", ".blocklyIconShield {", "  cursor: default;", "  fill: #00c;", "  stroke-width: 1px;", "  stroke: #ccc;", "}", ".blocklyIconGroup:hover>.blocklyIconShield {", "  fill: #00f;", "  stroke: #fff;", "}", ".blocklyIconGroup:hover>.blocklyIconMark {", "  fill: #fff;", "}", ".blocklyIconMark {", "  cursor: default !important;", "  font-family: sans-serif;", "  font-size: 9pt;", "  font-weight: bold;", "  fill: #ccc;", "  text-anchor: middle;", 
-"}", ".blocklyWarningBody {", "}", ".blocklyMinimalBody {", "  margin: 0;", "  padding: 0;", "}", ".blocklyCommentTextarea {", "  margin: 0;", "  padding: 2px;", "  border: 0;", "  resize: none;", "  background-color: #ffc;", "}", ".blocklyHtmlInput {", "  font-family: sans-serif;", "  font-size: 11pt;", "  border: none;", "  outline: none;", "  width: 100%", "}", ".blocklyContextMenuBackground,", ".blocklyMutatorBackground {", "  fill: #fff;", "  stroke-width: 1;", "  stroke: #ddd;", "}", ".blocklyContextMenuOptions>.blocklyMenuDiv,", 
-".blocklyContextMenuOptions>.blocklyMenuDivDisabled,", ".blocklyDropdownMenuOptions>.blocklyMenuDiv {", "  fill: #fff;", "}", ".blocklyContextMenuOptions>.blocklyMenuDiv:hover>rect,", ".blocklyDropdownMenuOptions>.blocklyMenuDiv:hover>rect {", "  fill: #57e;", "}", ".blocklyMenuSelected>rect {", "  fill: #57e;", "}", ".blocklyMenuText {", "  cursor: default !important;", "  font-family: sans-serif;", "  font-size: 15px; /* All context menu sizes are based on pixels. */", "  fill: #000;", "}", ".blocklyContextMenuOptions>.blocklyMenuDiv:hover>.blocklyMenuText,", 
-".blocklyDropdownMenuOptions>.blocklyMenuDiv:hover>.blocklyMenuText {", "  fill: #fff;", "}", ".blocklyMenuSelected>.blocklyMenuText {", "  fill: #fff;", "}", ".blocklyMenuDivDisabled>.blocklyMenuText {", "  fill: #ccc;", "}", ".blocklyFlyoutBackground {", "  fill: #ddd;", "  fill-opacity: 0.8;", "}", ".blocklyColourBackground {", "  fill: #666;", "}", ".blocklyScrollbarBackground {", "  fill: #fff;", "  stroke-width: 1;", "  stroke: #e4e4e4;", "}", ".blocklyScrollbarKnob {", "  fill: #ccc;", "}", 
-".blocklyScrollbarBackground:hover+.blocklyScrollbarKnob,", ".blocklyScrollbarKnob:hover {", "  fill: #bbb;", "}", ".blocklyInvalidInput {", "  background: #faa;", "}", ".blocklyAngleCircle {", "  stroke: #444;", "  stroke-width: 1;", "  fill: #ddd;", "  fill-opacity: 0.8;", "}", ".blocklyAngleMarks {", "  stroke: #444;", "  stroke-width: 1;", "}", ".blocklyAngleGuage {", "  fill: #d00;", "  fill-opacity: 0.8;  ", "}", "", "/* Category tree in Toolbox. */", ".blocklyToolboxDiv {", "  background-color: #ddd;", 
-"  display: none;", "  overflow-x: visible;", "  overflow-y: auto;", "  position: absolute;", "}", ".blocklyTreeRoot {", "  padding: 4px 0;", "}", ".blocklyTreeRoot:focus {", "  outline: none;", "}", ".blocklyTreeRow {", "  line-height: 22px;", "  height: 22px;", "  padding-right: 1em;", "  white-space: nowrap;", "}", '.blocklyToolboxDiv[dir="RTL"] .blocklyTreeRow {', "  padding-right: 0;", "  padding-left: 1em !important;", "}", ".blocklyTreeRow:hover {", "  background-color: #e4e4e4;", "}", ".blocklyTreeIcon {", 
-"  height: 16px;", "  width: 16px;", "  vertical-align: middle;", "  background-image: url(<<<PATH>>>/media/tree.png);", "}", ".blocklyTreeIconClosedLtr {", "  background-position: -32px -1px;", "}", ".blocklyTreeIconClosedRtl {", "  background-position: 0px -1px;", "}", ".blocklyTreeIconOpen {", "  background-position: -16px -1px;", "}", ".blocklyTreeIconNone {", "  background-position: -48px -1px;", "}", ".blocklyTreeSelected>.blocklyTreeIconClosedLtr {", "  background-position: -32px -17px;", 
-"}", ".blocklyTreeSelected>.blocklyTreeIconClosedRtl {", "  background-position: 0px -17px;", "}", ".blocklyTreeSelected>.blocklyTreeIconOpen {", "  background-position: -16px -17px;", "}", ".blocklyTreeSelected>.blocklyTreeIconNone {", "  background-position: -48px -17px;", "}", ".blocklyTreeLabel {", "  cursor: default;", "  font-family: sans-serif;", "  font-size: 16px;", "  padding: 0 3px;", "  vertical-align: middle;", "}", ".blocklyTreeSelected  {", "  background-color: #57e !important;", "}", 
-".blocklyTreeSelected .blocklyTreeLabel {", "  color: #fff;", "}", "", "/*", " * Copyright 2007 The Closure Library Authors. All Rights Reserved.", " *", " * Use of this source code is governed by the Apache License, Version 2.0.", " * See the COPYING file for details.", " */", "", "/* Author: pupius@google.com (Daniel Pupius) */", "", "/*", " Styles to make the colorpicker look like the old gmail color picker", " NOTE: without CSS scoping this will override styles defined in palette.css", "*/", 
-".goog-palette {", "  outline: none;", "  cursor: default;", "}", "", ".goog-palette-table {", "  border: 1px solid #666;", "  border-collapse: collapse;", "}", "", ".goog-palette-cell {", "  height: 13px;", "  width: 15px;", "  margin: 0;", "  border: 0;", "  text-align: center;", "  vertical-align: middle;", "  border-right: 1px solid #666;", "  font-size: 1px;", "}", "", ".goog-palette-colorswatch {", "  position: relative;", "  height: 13px;", "  width: 15px;", "  border: 1px solid #666;", "}", 
-"", ".goog-palette-cell-hover .goog-palette-colorswatch {", "  border: 1px solid #FFF;", "}", "", ".goog-palette-cell-selected .goog-palette-colorswatch {", "  border: 1px solid #000;", "  color: #fff;", "}", ""];
+"}", ".blocklyDragging>.blocklyPath,", ".blocklyDragging>.blocklyPathLight {", "  fill-opacity: 0.8;", "  stroke-opacity: 0.8;", "}", ".blocklyDragging>.blocklyPathDark {", "  display: none;", "}", ".blocklyDisabled>.blocklyPath {", "  fill-opacity: 0.50;", "  stroke-opacity: 0.50;", "}", ".blocklyDisabled>.blocklyPathLight,", ".blocklyDisabled>.blocklyPathDark {", "  display: none;", "}", ".blocklyText {", "  cursor: default;", '  font-family: "Gotham A", "Gotham B", sans-serif;', "  font-size: 11pt;", 
+"  fill: #fff;", "}", ".blocklyNonEditableText>text {", "  pointer-events: none;", "}", ".blocklyNonEditableText>rect,", ".blocklyEditableText>rect {", "  fill: #fff;", "  fill-opacity: 0.6;", "}", ".blocklyNonEditableText>text,", ".blocklyEditableText>text {", "  fill: #000;", "}", ".blocklyEditableText:hover>rect {", "  stroke-width: 2;", "  stroke: #fff;", "}", "/*", " * Don't allow users to select text.  It gets annoying when trying to", " * drag a block and selected text moves instead.", " */", 
+".blocklySvg text {", "  -moz-user-select: none;", "  -webkit-user-select: none;", "  user-select: none;", "  cursor: inherit;", "}", "", ".blocklyHidden {", "  display: none;", "}", ".blocklyFieldDropdown:not(.blocklyHidden) {", "  display: block;", "}", ".blocklyTooltipBackground {", "  fill: #ffffc7;", "  stroke-width: 1px;", "  stroke: #d8d8d8;", "}", ".blocklyTooltipShadow,", ".blocklyContextMenuShadow,", ".blocklyDropdownMenuShadow {", "  fill: #bbb;", "  filter: url(#blocklyShadowFilter);", 
+"}", ".blocklyTooltipText {", "  font-family: sans-serif;", "  font-size: 9pt;", "  fill: #000;", "}", "", ".blocklyIconShield {", "  cursor: default;", "  fill: #00c;", "  stroke-width: 1px;", "  stroke: #ccc;", "}", ".blocklyIconGroup:hover>.blocklyIconShield {", "  fill: #00f;", "  stroke: #fff;", "}", ".blocklyIconGroup:hover>.blocklyIconMark {", "  fill: #fff;", "}", ".blocklyIconMark {", "  cursor: default !important;", "  font-family: sans-serif;", "  font-size: 9pt;", "  font-weight: bold;", 
+"  fill: #ccc;", "  text-anchor: middle;", "}", ".blocklyWarningBody {", "}", ".blocklyMinimalBody {", "  margin: 0;", "  padding: 0;", "}", ".blocklyCommentTextarea {", "  margin: 0;", "  padding: 2px;", "  border: 0;", "  resize: none;", "  background-color: #ffc;", "}", ".blocklyHtmlInput {", "  font-family: sans-serif;", "  font-size: 11pt;", "  border: none;", "  outline: none;", "  width: 100%", "}", ".blocklyContextMenuBackground,", ".blocklyMutatorBackground {", "  fill: #fff;", "  stroke-width: 1;", 
+"  stroke: #ddd;", "}", ".blocklyContextMenuOptions>.blocklyMenuDiv,", ".blocklyContextMenuOptions>.blocklyMenuDivDisabled,", ".blocklyDropdownMenuOptions>.blocklyMenuDiv {", "  fill: #fff;", "}", ".blocklyContextMenuOptions>.blocklyMenuDiv:hover>rect,", ".blocklyDropdownMenuOptions>.blocklyMenuDiv:hover>rect {", "  fill: #57e;", "}", ".blocklyMenuSelected>rect {", "  fill: #57e;", "}", ".blocklyMenuText {", "  cursor: default !important;", "  font-family: sans-serif;", "  font-size: 15px; /* All context menu sizes are based on pixels. */", 
+"  fill: #000;", "}", ".blocklyContextMenuOptions>.blocklyMenuDiv:hover>.blocklyMenuText,", ".blocklyDropdownMenuOptions>.blocklyMenuDiv:hover>.blocklyMenuText {", "  fill: #fff;", "}", ".blocklyMenuSelected>.blocklyMenuText {", "  fill: #fff;", "}", ".blocklyMenuDivDisabled>.blocklyMenuText {", "  fill: #ccc;", "}", ".blocklyFlyoutBackground {", "  fill: #ddd;", "  fill-opacity: 0.8;", "}", ".blocklyColourBackground {", "  fill: #666;", "}", ".blocklyScrollbarBackground {", "  fill: #fff;", "  stroke-width: 1;", 
+"  stroke: #e4e4e4;", "}", ".blocklyScrollbarKnob {", "  fill: #ccc;", "}", ".blocklyScrollbarBackground:hover+.blocklyScrollbarKnob,", ".blocklyScrollbarKnob:hover {", "  fill: #bbb;", "}", ".blocklyInvalidInput {", "  background: #faa;", "}", ".blocklyAngleCircle {", "  stroke: #444;", "  stroke-width: 1;", "  fill: #ddd;", "  fill-opacity: 0.8;", "}", ".blocklyAngleMarks {", "  stroke: #444;", "  stroke-width: 1;", "}", ".blocklyAngleGuage {", "  fill: #d00;", "  fill-opacity: 0.8;  ", "}", "", 
+"/* Category tree in Toolbox. */", ".blocklyToolboxDiv {", "  background-color: #ddd;", "  display: none;", "  overflow-x: visible;", "  overflow-y: auto;", "  position: absolute;", "}", ".blocklyTreeRoot {", "  padding: 4px 0;", "}", ".blocklyTreeRoot:focus {", "  outline: none;", "}", ".blocklyTreeRow {", "  line-height: 22px;", "  height: 22px;", "  padding-right: 1em;", "  white-space: nowrap;", "}", '.blocklyToolboxDiv[dir="RTL"] .blocklyTreeRow {', "  padding-right: 0;", "  padding-left: 1em !important;", 
+"}", ".blocklyTreeRow:hover {", "  background-color: #e4e4e4;", "}", ".blocklyTreeIcon {", "  height: 16px;", "  width: 16px;", "  vertical-align: middle;", "  background-image: url(<<<PATH>>>/media/tree.png);", "}", ".blocklyTreeIconClosedLtr {", "  background-position: -32px -1px;", "}", ".blocklyTreeIconClosedRtl {", "  background-position: 0px -1px;", "}", ".blocklyTreeIconOpen {", "  background-position: -16px -1px;", "}", ".blocklyTreeIconNone {", "  background-position: -48px -1px;", "}", 
+".blocklyTreeSelected>.blocklyTreeIconClosedLtr {", "  background-position: -32px -17px;", "}", ".blocklyTreeSelected>.blocklyTreeIconClosedRtl {", "  background-position: 0px -17px;", "}", ".blocklyTreeSelected>.blocklyTreeIconOpen {", "  background-position: -16px -17px;", "}", ".blocklyTreeSelected>.blocklyTreeIconNone {", "  background-position: -48px -17px;", "}", ".blocklyTreeLabel {", "  cursor: default;", "  font-family: sans-serif;", "  font-size: 16px;", "  padding: 0 3px;", "  vertical-align: middle;", 
+"}", ".blocklyTreeSelected  {", "  background-color: #57e !important;", "}", ".blocklyTreeSelected .blocklyTreeLabel {", "  color: #fff;", "}", "", "/*", " * Copyright 2007 The Closure Library Authors. All Rights Reserved.", " *", " * Use of this source code is governed by the Apache License, Version 2.0.", " * See the COPYING file for details.", " */", "", "/* Author: pupius@google.com (Daniel Pupius) */", "", "/*", " Styles to make the colorpicker look like the old gmail color picker", " NOTE: without CSS scoping this will override styles defined in palette.css", 
+"*/", ".goog-palette {", "  outline: none;", "  cursor: default;", "}", "", ".goog-palette-table {", "  border: 1px solid #666;", "  border-collapse: collapse;", "}", "", ".goog-palette-cell {", "  height: 13px;", "  width: 15px;", "  margin: 0;", "  border: 0;", "  text-align: center;", "  vertical-align: middle;", "  border-right: 1px solid #666;", "  font-size: 1px;", "}", "", ".goog-palette-colorswatch {", "  position: relative;", "  height: 13px;", "  width: 15px;", "  border: 1px solid #666;", 
+"}", "", ".goog-palette-cell-hover .goog-palette-colorswatch {", "  border: 1px solid #FFF;", "}", "", ".goog-palette-cell-selected .goog-palette-colorswatch {", "  border: 1px solid #000;", "  color: #fff;", "}", ""];
 Blockly.inject = function $Blockly$inject$($container$$, $opt_options$$) {
   if(!goog.dom.contains(document, $container$$)) {
     throw"Error: container is not in current document.";
@@ -11839,7 +11908,7 @@ Blockly.createDom_ = function $Blockly$createDom_$($container$$) {
   Blockly.createSvgElement("rect", {width:10, height:10, fill:"#aaa"}, $defs_flyout$$4_pattern$$);
   Blockly.createSvgElement("path", {d:"M 0 0 L 10 10 M 10 0 L 0 10", stroke:"#cc0"}, $defs_flyout$$4_pattern$$);
   Blockly.mainWorkspace = new Blockly.Workspace(Blockly.getMainWorkspaceMetrics_, Blockly.setMainWorkspaceMetrics_);
-  $svg$$.appendChild(Blockly.mainWorkspace.createDom());
+  $svg$$.appendChild(Blockly.mainWorkspace.createDom(Blockly.Msg.WORKSPACE_HEADER));
   Blockly.mainWorkspace.maxBlocks = Blockly.maxBlocks;
   Blockly.readOnly || (Blockly.hasCategories ? Blockly.Toolbox.createDom($svg$$, $container$$) : (Blockly.mainWorkspace.flyout_ = new Blockly.Flyout, $defs_flyout$$4_pattern$$ = Blockly.mainWorkspace.flyout_, $feMerge_filter_flyoutSvg$$ = $defs_flyout$$4_pattern$$.createDom(), $defs_flyout$$4_pattern$$.init(Blockly.mainWorkspace, !0), $defs_flyout$$4_pattern$$.autoClose = !1, goog.dom.insertSiblingBefore($feMerge_filter_flyoutSvg$$, Blockly.mainWorkspace.svgGroup_), Blockly.addChangeListener(function() {
     if(0 == Blockly.Block.dragMode_) {
@@ -11871,7 +11940,8 @@ Blockly.createDom_ = function $Blockly$createDom_$($container$$) {
 Blockly.init_ = function $Blockly$init_$() {
   if(goog.userAgent.WEBKIT) {
     var $path$$8_translation$$ = Blockly.createSvgElement("path", {d:"m 0,0 c 0,-5 0,-5 0,0 H 50 V 50 z"}, Blockly.svg);
-    50 < $path$$8_translation$$.getBBox().height && (Blockly.BROKEN_CONTROL_POINTS = !0);
+    0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? ($path$$8_translation$$.style.display = "inline", $path$$8_translation$$.bBox_ = {x:$path$$8_translation$$.getBBox().x, y:$path$$8_translation$$.getBBox().y, width:$path$$8_translation$$.scrollWidth, height:$path$$8_translation$$.scrollHeight}) : $path$$8_translation$$.bBox_ = $path$$8_translation$$.getBBox();
+    50 < $path$$8_translation$$.bBox_.height && (Blockly.BROKEN_CONTROL_POINTS = !0);
     Blockly.svg.removeChild($path$$8_translation$$)
   }
   Blockly.bindEvent_(Blockly.svg, "mousedown", null, Blockly.onMouseDown_);
@@ -12077,7 +12147,9 @@ Blockly.svgResize = function $Blockly$svgResize$() {
   var $svg$$ = Blockly.svg, $div$$6_height$$ = $svg$$.parentNode, $width$$ = $div$$6_height$$.offsetWidth, $div$$6_height$$ = $div$$6_height$$.offsetHeight;
   $svg$$.cachedWidth_ != $width$$ && ($svg$$.setAttribute("width", $width$$ + "px"), $svg$$.cachedWidth_ = $width$$);
   $svg$$.cachedHeight_ != $div$$6_height$$ && ($svg$$.setAttribute("height", $div$$6_height$$ + "px"), $svg$$.cachedHeight_ = $div$$6_height$$);
-  Blockly.mainWorkspace.scrollbar && Blockly.mainWorkspace.scrollbar.resize()
+  Blockly.mainWorkspace.scrollbar && Blockly.mainWorkspace.scrollbar.resize();
+  $width$$ = Blockly.mainWorkspace.flyout_.workspace_.renderHeader();
+  Blockly.mainWorkspace.renderHeader($width$$)
 };
 Blockly.onMouseDown_ = function $Blockly$onMouseDown_$($e$$) {
   Blockly.terminateDrag_();
@@ -12190,9 +12262,9 @@ Blockly.isTargetInput_ = function $Blockly$isTargetInput_$($e$$) {
 Blockly.loadAudio_ = function $Blockly$loadAudio_$($filenames$$, $name$$) {
   if(window.Audio && $filenames$$.length) {
     for(var $sound$$, $audioTest$$ = new window.Audio, $i$$ = 0;$i$$ < $filenames$$.length;$i$$++) {
-      var $filename$$ = $filenames$$[$i$$], $ext$$ = $filename$$.match(/\.(\w+)$/);
+      var $filename$$ = Blockly.pathToBlockly + $filenames$$[$i$$], $ext$$ = $filename$$.match(/\.(\w+)$/);
       if($ext$$ && $audioTest$$.canPlayType("audio/" + $ext$$[1])) {
-        $sound$$ = new window.Audio(Blockly.pathToBlockly + $filename$$);
+        $sound$$ = new window.Audio($filename$$);
         break
       }
     }
@@ -12216,7 +12288,12 @@ Blockly.getMainWorkspaceMetrics_ = function $Blockly$getMainWorkspaceMetrics_$()
   $svgSize$$.width -= Blockly.Toolbox.width;
   var $rightEdge$$1_viewWidth$$ = $svgSize$$.width - Blockly.Scrollbar.scrollbarThickness, $bottomEdge_viewHeight$$ = $svgSize$$.height - Blockly.Scrollbar.scrollbarThickness;
   try {
-    var $blockBox$$ = Blockly.mainWorkspace.getCanvas().getBBox()
+    if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+      Blockly.mainWorkspace.getCanvas().style.display = "inline";
+      var $blockBox$$ = {x:Blockly.mainWorkspace.getCanvas().getBBox().x, y:Blockly.mainWorkspace.getCanvas().getBBox().y, width:Blockly.mainWorkspace.getCanvas().scrollWidth, height:Blockly.mainWorkspace.getCanvas().scrollHeight}
+    }else {
+      $blockBox$$ = Blockly.mainWorkspace.getCanvas().getBBox()
+    }
   }catch($e$$) {
     return null
   }
