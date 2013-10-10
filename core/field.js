@@ -150,7 +150,13 @@ Blockly.Field.prototype.getRootElement = function() {
  * @private
  */
 Blockly.Field.prototype.render_ = function() {
-  var width = this.textElement_.getComputedTextLength();
+  var width;
+  if (this.textElement_.getComputedTextLength) {
+    width = this.textElement_.getComputedTextLength();
+  } else {
+    // Running headless.
+    width = 1;
+  }
   if (this.borderRect_) {
     this.borderRect_.setAttribute('width',
         width + Blockly.BlockSvg.SEP_SPACE_X);
