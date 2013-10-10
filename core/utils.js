@@ -411,3 +411,11 @@ Blockly.commonWordSuffix = function(array, opt_shortest) {
 Blockly.isNumber = function(str) {
   return !!str.match(/^\s*-?\d+(\.\d+)?\s*$/);
 };
+
+Blockly.isMsie = function() {
+  return navigator.userAgent.indexOf("MSIE") >= 0;
+}
+
+Blockly.isTrident = function() {
+  return navigator.userAgent.indexOf("Trident") >= 0;
+}

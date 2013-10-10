@@ -621,7 +621,7 @@ Blockly.getMainWorkspaceMetrics_ = function() {
   var viewWidth = svgSize.width - Blockly.Scrollbar.scrollbarThickness;
   var viewHeight = svgSize.height - Blockly.Scrollbar.scrollbarThickness;
   try {
-        if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+        if (Blockly.isMsie() || Blockly.isTrident()) {
             Blockly.mainWorkspace.getCanvas().style.display = "inline";   /* reqd for IE */
             var blockBox = {
                 x: Blockly.mainWorkspace.getCanvas().getBBox().x,

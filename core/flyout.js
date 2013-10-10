@@ -165,7 +165,7 @@ Blockly.Flyout.prototype.getMetrics_ = function() {
   var viewHeight = this.height_ - 2 * this.CORNER_RADIUS;
   var viewWidth = this.width_;
   try {
-      if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+      if (Blockly.isMsie() || Blockly.isTrident()) {
           this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
           var optionBox = {
               x: this.workspace_.getCanvas().getBBox().x,
