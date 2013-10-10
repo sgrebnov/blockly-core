@@ -33,10 +33,6 @@ goog.require('Blockly.Msg');
  * to message files.
  */
 
-// Headers.
-Blockly.Msg.TOOLBOX_HEADER = 'Blocks';
-Blockly.Msg.WORKSPACE_HEADER = 'Assemble your blocks here.';
-
 // Context menus.
 /// context menu - Remove the descriptive comment from the selected block.
 Blockly.Msg.DUPLICATE_BLOCK = 'Duplicate';

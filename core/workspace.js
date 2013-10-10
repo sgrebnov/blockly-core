@@ -31,6 +31,7 @@ goog.require('Blockly.ScrollbarPair');
 goog.require('Blockly.Trashcan');
 goog.require('Blockly.Xml');
 
+
 /**
  * Class for a workspace.
  * @param {Function} getMetrics A function that returns size/scrolling metrics.
@@ -82,24 +83,6 @@ Blockly.Workspace.prototype.scrollX = 0;
 Blockly.Workspace.prototype.scrollY = 0;
 
 /**
- * Height in svg units of the header.
- * @type {number}
- */
-Blockly.Workspace.HEADER_HEIGHT = 40;
-
-/**
- * Color of header background, hex string.
- * @type {string}
- */
-Blockly.Workspace.HEADER_COLOR = '#7665a0';
-
-/**
- * Color of header text, hex string.
- * @type {string}
- */
-Blockly.Workspace.FONT_COLOR = '#FFFFFF';
-
-/**
  * The workspace's trashcan (if any).
  * @type {Blockly.Trashcan}
  */
@@ -121,11 +104,9 @@ Blockly.Workspace.prototype.scrollbar = null;
 
 /**
  * Create the trash can elements.
- * @param {string=} headerText Text to display in header, if falsy will not
- *   render a header.
  * @return {!Element} The workspace's SVG group.
  */
-Blockly.Workspace.prototype.createDom = function(headerText) {
+Blockly.Workspace.prototype.createDom = function() {
   /*
   <g>
     [Trashcan may go here]
@@ -134,40 +115,10 @@ Blockly.Workspace.prototype.createDom = function(headerText) {
   </g>
   */
   this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
-  if (headerText) {
-    this.headerGroup = Blockly.Workspace.createHeaderDom(headerText,
-                                                         this.svgGroup_);
-  }
   this.svgBlockCanvas_ = Blockly.createSvgElement('g', {}, this.svgGroup_);
   this.svgBubbleCanvas_ = Blockly.createSvgElement('g', {}, this.svgGroup_);
   this.fireChangeEvent();
   return this.svgGroup_;
-};
-
-/**
- * Create dom for header.
- * @param {string} text The text to display in the header.
- * @param {!Element} parentElement The element to embed the header.
- * @return {!Element} The header dom element.
- */
-Blockly.Workspace.createHeaderDom = function(text, parentElement) {
-  var headerGroup = Blockly.createSvgElement('g', {}, parentElement);
-  var headerBackground = Blockly.createSvgElement('rect', {}, parentElement);
-  var headerTextAttributes = {
-    'y': Blockly.Workspace.HEADER_HEIGHT / 2,
-    'style': 'fill: ' + Blockly.Workspace.FONT_COLOR + ';' +
-             'dominant-baseline: central;',
-    'text-anchor': 'middle'
-  };
-  var headerText = Blockly.createSvgElement('text',
-      headerTextAttributes,
-      headerGroup);
-  var textNode = document.createTextNode(text);
-  headerText.appendChild(textNode);
-  headerGroup.appendChild(headerBackground);
-  headerGroup.appendChild(headerText);
-
-  return headerGroup;
 };
 
 /**
@@ -286,36 +237,6 @@ Blockly.Workspace.prototype.clear = function() {
   while (this.topBlocks_.length) {
     this.topBlocks_[0].dispose();
   }
-};
-
-/**
- * Renders the headers.
- * @param {number=} left The ammount from the left to ofset the header,
- *   defaults to 0.
- * @return {number} The width of the rendered header.
- */
-Blockly.Workspace.prototype.renderHeader = function(left) {
-  if (!this.headerGroup) {
-    return;
-  }
-  if (left === undefined) {
-    var left = 0;
-  }
-  var metrics = this.getMetrics();
-  var width = 0;
-  if (metrics) {
-    width = metrics.viewWidth - left;
-    var textElement = goog.dom.$$('text', '', this.headerGroup)[0];
-    var rectElement = goog.dom.$$('rect', '', this.headerGroup)[0];
-    this.headerGroup.setAttribute('transform', 'translate(' + left + ', 0)');
-    rectElement.setAttribute('width', width);
-    rectElement.setAttribute('height', Blockly.Workspace.HEADER_HEIGHT);
-    rectElement.setAttribute('fill', Blockly.Workspace.HEADER_COLOR);
-    var textTranslateX = width / 2;
-    textElement.setAttribute('transform',
-                             'translate(' + textTranslateX + ', 0)');
-  }
-  return width;
 };
 
 /**

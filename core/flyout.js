@@ -27,7 +27,6 @@ goog.provide('Blockly.Flyout');
 
 goog.require('Blockly.Block');
 goog.require('Blockly.Comment');
-goog.require('Blockly.Msg');
 
 
 /**
@@ -114,8 +113,7 @@ Blockly.Flyout.prototype.createDom = function() {
   this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
   this.svgBackground_ = Blockly.createSvgElement('path',
       {'class': 'blocklyFlyoutBackground'}, this.svgGroup_);
-  var headerText = Blockly.Msg.TOOLBOX_HEADER;
-  this.svgGroup_.appendChild(this.workspace_.createDom(headerText));
+  this.svgGroup_.appendChild(this.workspace_.createDom());
   return this.svgGroup_;
 };
 
@@ -167,10 +165,8 @@ Blockly.Flyout.prototype.getMetrics_ = function() {
   var viewHeight = this.height_ - 2 * this.CORNER_RADIUS;
   var viewWidth = this.width_;
   try {
-      if (navigator.userAgent.indexOf('MSIE') >= 0 ||
-          navigator.userAgent.indexOf('Trident') >= 0) {
-          /* reqd for IE */
-          this.workspace_.getCanvas().style.display = 'inline';
+      if (Blockly.isMsie() || Blockly.isTrident()) {
+          this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
           var optionBox = {
               x: this.workspace_.getCanvas().getBBox().x,
               y: this.workspace_.getCanvas().getBBox().y,
@@ -208,10 +204,7 @@ Blockly.Flyout.prototype.setMetrics_ = function(yRatio) {
     this.workspace_.scrollY =
         -metrics.contentHeight * yRatio.y - metrics.contentTop;
   }
-  var y = this.workspace_.scrollY +
-          metrics.absoluteTop +
-          Blockly.Workspace.HEADER_HEIGHT;
-
+  var y = this.workspace_.scrollY + metrics.absoluteTop;
   this.workspace_.getCanvas().setAttribute('transform',
                                            'translate(0,' + y + ')');
 };
