@@ -173,7 +173,12 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
     Blockly.bindEvent_(gElement, 'mouseup', null,
                        Blockly.FieldDropdown.hide);
     // Compute the length of the longest text length.
-    maxWidth = Math.max(maxWidth, textElement.getComputedTextLength());
+    if (textElement.getComputedTextLength) {
+      maxWidth = Math.max(maxWidth, textElement.getComputedTextLength());
+    } else {
+      // Running headless.
+      maxWidth = 1;
+    }
   }
   // Run a second pass to resize all options to the required width.
   maxWidth += Blockly.ContextMenu.X_PADDING * 2;
