@@ -295,9 +295,6 @@ Blockly.Workspace.prototype.clear = function() {
  * @return {number} The width of the rendered header.
  */
 Blockly.Workspace.prototype.renderHeader = function(left) {
-  if (!this.headerGroup) {
-    return;
-  }
   if (left === undefined) {
     var left = 0;
   }
