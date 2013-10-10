@@ -246,7 +246,8 @@ Blockly.svgResize = function() {
     Blockly.mainWorkspace.scrollbar.resize();
   }
 
-  var width = Blockly.mainWorkspace.flyout_.workspace_.renderHeader();
+  var flyout = Blockly.mainWorkspace.flyout_ || Blockly.Toolbox.flyout_;
+  var width = flyout.workspace_.renderHeader();
   Blockly.mainWorkspace.renderHeader(width);
 };
 
