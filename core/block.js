@@ -76,6 +76,9 @@ Blockly.Block = function(workspace, prototypeName, htmlId) {
   this.workspace = workspace;
   this.isInFlyout = workspace.isFlyout;
 
+  this.colourSaturation_ = 0.45;
+  this.colourValue_ = 0.65;
+
   workspace.addTopBlock(this);
 
   // Copy the type-specific functions and data from the prototype.
@@ -1084,11 +1087,56 @@ Blockly.Block.prototype.getColour = function() {
 };
 
 /**
+ * Get the saturation of a block.
+ * @return {number} HSV saturation.
+ */
+Blockly.Block.prototype.getSaturation = function() {
+  return this.colourSaturation_;
+};
+
+/**
+ * Get the value of a block.
+ * @return {number} HSV value.
+ */
+Blockly.Block.prototype.getValue = function() {
+  return this.colourValue_;
+};
+
+/**
  * Change the colour of a block.
  * @param {number} colourHue HSV hue value.
  */
 Blockly.Block.prototype.setColour = function(colourHue) {
   this.colourHue_ = colourHue;
+  if (this.svg_) {
+    this.svg_.updateColour();
+  }
+  var icons = this.getIcons();
+  for (var x = 0; x < icons.length; x++) {
+    icons[x].updateColour();
+  }
+  if (this.rendered) {
+    // Bump every dropdown to change its colour.
+    for (var x = 0, input; input = this.inputList[x]; x++) {
+      for (var y = 0, title; title = input.titleRow[y]; y++) {
+        title.setText(null);
+      }
+    }
+    this.render();
+  }
+};
+
+/**
+ * Change the HSV of a block.
+ * @param {number} colourHue HSV hue value.
+ * @param {number} colourSaturation HSV saturation value.
+ * @param {number} colourValue HSV value.
+ */
+Blockly.Block.prototype.setHSV = function(
+  colourHue, colourSaturation, colourValue) {
+  this.colourHue_ = colourHue;
+  this.colourSaturation_ = colourSaturation;
+  this.colourValue_ = colourValue;
   if (this.svg_) {
     this.svg_.updateColour();
   }
