@@ -263,7 +263,7 @@ Blockly.getWorkspaceWidth = function() {
  */
 Blockly.getToolboxWidth = function() {
   var flyout = Blockly.mainWorkspace.flyout_ || Blockly.Toolbox.flyout_;
-  var metrics = flyout.getMetrics();
+  var metrics = flyout.workspace_.getMetrics();
   var width = metrics ? metrics.viewWidth : 0;
   return width;
 };
