@@ -44,9 +44,10 @@ goog.require('Blockly.WidgetDiv');
 goog.require('Blockly.Workspace');
 goog.require('Blockly.inject');
 goog.require('Blockly.utils');
+
 // Closure dependencies.
-goog.require('goog.color');
 goog.require('goog.dom');
+goog.require('goog.color');
 goog.require('goog.events');
 goog.require('goog.string');
 goog.require('goog.ui.ColorPicker');
@@ -246,10 +247,26 @@ Blockly.svgResize = function() {
   if (Blockly.mainWorkspace.scrollbar) {
     Blockly.mainWorkspace.scrollbar.resize();
   }
+};
 
+/**
+ * @return {number} Return the width, in pixels, of the workspace.
+ */
+Blockly.getWorkspaceWidth = function() {
+  var metrics = Blockly.mainWorkspace.getMetrics();
+  var width = metrics ? metrics.viewWidth : 0;
+  return width;
+};
+
+/**
+ * @return {number} Return the width, in pixels, of the toolbox. Note, this
+ * only includes the 'flyout' part, not the categories tree.
+ */
+Blockly.getToolboxWidth = function() {
   var flyout = Blockly.mainWorkspace.flyout_ || Blockly.Toolbox.flyout_;
-  var width = flyout.workspace_.renderHeader();
-  Blockly.mainWorkspace.renderHeader(width);
+  var metrics = flyout.getMetrics();
+  var width = metrics ? metrics.viewWidth : 0;
+  return width;
 };
 
 /**
@@ -605,10 +622,8 @@ Blockly.getMainWorkspaceMetrics_ = function() {
   var viewWidth = svgSize.width - Blockly.Scrollbar.scrollbarThickness;
   var viewHeight = svgSize.height - Blockly.Scrollbar.scrollbarThickness;
   try {
-        if (navigator.userAgent.indexOf('MSIE') >= 0 ||
-            navigator.userAgent.indexOf('Trident') >= 0) {
-            /* reqd for IE */
-            Blockly.mainWorkspace.getCanvas().style.display = 'inline';
+        if (Blockly.isMsie() || Blockly.isTrident()) {
+            Blockly.mainWorkspace.getCanvas().style.display = "inline";   /* reqd for IE */
             var blockBox = {
                 x: Blockly.mainWorkspace.getCanvas().getBBox().x,
                 y: Blockly.mainWorkspace.getCanvas().getBBox().y,

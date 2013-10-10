@@ -26,7 +26,6 @@
 goog.provide('Blockly.inject');
 
 goog.require('Blockly.Css');
-goog.require('Blockly.Msg');
 goog.require('goog.dom');
 
 
@@ -224,8 +223,7 @@ Blockly.createDom_ = function(container) {
   Blockly.mainWorkspace = new Blockly.Workspace(
       Blockly.getMainWorkspaceMetrics_,
       Blockly.setMainWorkspaceMetrics_);
-  var headerText = Blockly.Msg.WORKSPACE_HEADER;
-  svg.appendChild(Blockly.mainWorkspace.createDom(headerText));
+  svg.appendChild(Blockly.mainWorkspace.createDom());
   Blockly.mainWorkspace.maxBlocks = Blockly.maxBlocks;
 
   if (!Blockly.readOnly) {
@@ -333,16 +331,14 @@ Blockly.init_ = function() {
     */
     var path = Blockly.createSvgElement('path',
         {'d': 'm 0,0 c 0,-5 0,-5 0,0 H 50 V 50 z'}, Blockly.svg);
-    if (navigator.userAgent.indexOf('MSIE') >= 0 ||
-        navigator.userAgent.indexOf('Trident') >= 0) {
-        /* reqd for IE */
-        path.style.display = 'inline';
-        path.bBox_ = {
-            x: path.getBBox().x,
-            y: path.getBBox().y,
-            width: path.scrollWidth,
-            height: path.scrollHeight
-        };
+    if (Blockly.isMsie() || Blockly.isTrident()) {
+      path.style.display = "inline";   /* reqd for IE */
+      path.bBox_ = {
+          x: path.getBBox().x,
+          y: path.getBBox().y,
+          width: path.scrollWidth,
+          height: path.scrollHeight
+      };
     }
     else {
         path.bBox_ = path.getBBox();
