@@ -249,6 +249,26 @@ Blockly.svgResize = function() {
 };
 
 /**
+ * @return {number} Return the width, in pixels, of the workspace.
+ */
+Blockly.getWorkspaceWidth = function() {
+  var metrics = Blockly.mainWorkspace.getMetrics();
+  var width = metrics ? metrics.viewWidth : 0;
+  return width;
+};
+
+/**
+ * @return {number} Return the width, in pixels, of the toolbox. Note, this
+ * only includes the 'flyout' part, not the categories tree.
+ */
+Blockly.getToolboxWidth = function() {
+  var flyout = Blockly.mainWorkspace.flyout_ || Blockly.Toolbox.flyout_;
+  var metrics = flyout.getMetrics();
+  var width = metrics ? metrics.viewWidth : 0;
+  return width;
+};
+
+/**
  * Handle a mouse-down on SVG drawing surface.
  * @param {!Event} e Mouse down event.
  * @private
