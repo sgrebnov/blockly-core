@@ -85,6 +85,7 @@ Blockly.Toolbox.createDom = function(svg, container) {
   // Clicking on toolbar closes popups.
   Blockly.bindEvent_(Blockly.Toolbox.HtmlDiv, 'mousedown', null,
       function(e) {
+        Blockly.fireUiEvent(window, 'resize');
         if (Blockly.isRightButton(e) || e.target == Blockly.Toolbox.HtmlDiv) {
           // Close flyout.
           Blockly.hideChaff(false);
