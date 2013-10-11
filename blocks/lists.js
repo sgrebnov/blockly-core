@@ -32,7 +32,7 @@ Blockly.Blocks.lists_create_empty = {
   // Create an empty list.
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_CREATE_EMPTY_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.setOutput(true, 'Array');
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.LISTS_CREATE_EMPTY_TITLE);
@@ -43,7 +43,7 @@ Blockly.Blocks.lists_create_empty = {
 Blockly.Blocks.lists_create_with = {
   // Create a list with any number of elements of any type.
   init: function() {
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendValueInput('ADD0')
         .appendTitle(Blockly.Msg.LISTS_CREATE_WITH_INPUT_WITH);
     this.appendValueInput('ADD1');
@@ -134,7 +134,7 @@ Blockly.Blocks.lists_create_with = {
 Blockly.Blocks.lists_create_with_container = {
   // Container.
   init: function() {
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.LISTS_CREATE_WITH_CONTAINER_TITLE_ADD);
     this.appendStatementInput('STACK');
@@ -146,7 +146,7 @@ Blockly.Blocks.lists_create_with_container = {
 Blockly.Blocks.lists_create_with_item = {
   // Add items.
   init: function() {
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.LISTS_CREATE_WITH_ITEM_TITLE);
     this.setPreviousStatement(true);
@@ -160,7 +160,7 @@ Blockly.Blocks.lists_repeat = {
   // Create a list with one element repeated.
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_REPEAT_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.setOutput(true, 'Array');
     this.appendValueInput('ITEM')
         .appendTitle(Blockly.Msg.LISTS_REPEAT_INPUT_WITH);
@@ -178,7 +178,7 @@ Blockly.Blocks.lists_length = {
   // List length.
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_LENGTH_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendValueInput('VALUE')
         .setCheck(['Array', 'String'])
         .appendTitle(Blockly.Msg.LISTS_LENGTH_INPUT_LENGTH);
@@ -191,7 +191,7 @@ Blockly.Blocks.lists_isEmpty = {
   // Is the list empty?
   init: function() {
     this.setHelpUrl(Blockly.Msg.LISTS_IS_EMPTY_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendValueInput('VALUE')
         .setCheck(['Array', 'String']);
     this.appendDummyInput()
@@ -209,7 +209,7 @@ Blockly.Blocks.lists_indexOf = {
         [[Blockly.Msg.LISTS_INDEX_OF_FIRST, 'FIRST'],
          [Blockly.Msg.LISTS_INDEX_OF_LAST, 'LAST']];
     this.setHelpUrl(Blockly.Msg.LISTS_INDEX_OF_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.setOutput(true, 'Number');
     this.appendValueInput('VALUE')
         .setCheck('Array')
@@ -235,7 +235,7 @@ Blockly.Blocks.lists_getIndex = {
          [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
          [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
     this.setHelpUrl(Blockly.Msg.LISTS_GET_INDEX_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     var modeMenu = new Blockly.FieldDropdown(MODE, function(value) {
       var isStatement = (value == 'REMOVE');
       this.sourceBlock_.updateStatement(isStatement);
@@ -332,7 +332,7 @@ Blockly.Blocks.lists_setIndex = {
          [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
          [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
     this.setHelpUrl(Blockly.Msg.LISTS_SET_INDEX_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendValueInput('LIST')
         .setCheck('Array')
         .appendTitle(Blockly.Msg.LISTS_SET_INDEX_INPUT_IN_LIST);
@@ -408,7 +408,7 @@ Blockly.Blocks.lists_getSublist = {
          [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
          [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST']];
     this.setHelpUrl(Blockly.Msg.LISTS_GET_SUBLIST_HELPURL);
-    this.setColour(260);
+    this.setHSV(40, 1.0, 0.99);
     this.appendValueInput('LIST')
         .setCheck('Array')
         .appendTitle(Blockly.Msg.LISTS_GET_SUBLIST_INPUT_IN_LIST);

@@ -32,7 +32,7 @@ Blockly.Blocks.colour_picker = {
   // Colour picker.
   init: function() {
     this.setHelpUrl(Blockly.Msg.COLOUR_PICKER_HELPURL);
-    this.setColour(20);
+    this.setHSV(42, 0.89, 0.99);
     this.appendDummyInput()
         .appendTitle(new Blockly.FieldColour('#ff0000'), 'COLOUR');
     this.setOutput(true, 'Colour');
@@ -44,7 +44,7 @@ Blockly.Blocks.colour_random = {
   // Random colour.
   init: function() {
     this.setHelpUrl(Blockly.Msg.COLOUR_RANDOM_HELPURL);
-    this.setColour(20);
+    this.setHSV(42, 0.89, 0.99);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.COLOUR_RANDOM_TITLE);
     this.setOutput(true, 'Colour');
@@ -56,7 +56,7 @@ Blockly.Blocks.colour_rgb = {
   // Compose a colour from RGB components.
   init: function() {
     this.setHelpUrl(Blockly.Msg.COLOUR_RGB_HELPURL);
-    this.setColour(20);
+    this.setHSV(42, 0.89, 0.99);
     this.appendValueInput('RED')
         .setCheck('Number')
         .setAlign(Blockly.ALIGN_RIGHT)
@@ -79,7 +79,7 @@ Blockly.Blocks.colour_blend = {
   // Blend two colours together.
   init: function() {
     this.setHelpUrl(Blockly.Msg.COLOUR_BLEND_HELPURL);
-    this.setColour(20);
+    this.setHSV(42, 0.89, 0.99);
     this.appendValueInput('COLOUR1')
         .setCheck('Colour')
         .setAlign(Blockly.ALIGN_RIGHT)

@@ -32,7 +32,7 @@ Blockly.Blocks.variables_get = {
   // Variable getter.
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
-    this.setColour(330);
+    this.setHSV(312, 0.32, 0.62);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.VARIABLES_GET_TITLE)
         .appendTitle(new Blockly.FieldVariable(
@@ -67,7 +67,7 @@ Blockly.Blocks.variables_set = {
   // Variable setter.
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
+    this.setHSV(312, 0.32, 0.62);
     this.appendValueInput('VALUE')
         .appendTitle(Blockly.Msg.VARIABLES_SET_TITLE)
         .appendTitle(new Blockly.FieldVariable(

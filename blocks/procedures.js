@@ -32,7 +32,7 @@ Blockly.Blocks.procedures_defnoreturn = {
   // Define a procedure with no return value.
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     var name = Blockly.Procedures.findLegalName(
         Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
     this.appendDummyInput()
@@ -197,7 +197,7 @@ Blockly.Blocks.procedures_defreturn = {
   // Define a procedure with a return value.
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     var name = Blockly.Procedures.findLegalName(
         Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
     this.appendDummyInput()
@@ -235,7 +235,7 @@ Blockly.Blocks.procedures_defreturn = {
 Blockly.Blocks.procedures_mutatorcontainer = {
   // Procedure container (for mutator dialog).
   init: function() {
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
     this.appendStatementInput('STACK');
@@ -247,7 +247,7 @@ Blockly.Blocks.procedures_mutatorcontainer = {
 Blockly.Blocks.procedures_mutatorarg = {
   // Procedure argument (for mutator dialog).
   init: function() {
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
         .appendTitle(new Blockly.FieldTextInput('x', this.validator), 'NAME');
@@ -269,7 +269,7 @@ Blockly.Blocks.procedures_callnoreturn = {
   // Call a procedure with no return value.
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
         .appendTitle('', 'NAME');
@@ -428,7 +428,7 @@ Blockly.Blocks.procedures_callreturn = {
   // Call a procedure with a return value.
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
         .appendTitle('', 'NAME');
@@ -452,7 +452,7 @@ Blockly.Blocks.procedures_ifreturn = {
   // Conditionally return value from a procedure.
   init: function() {
     this.setHelpUrl('http://c2.com/cgi/wiki?GuardClause');
-    this.setColour(290);
+    this.setHSV(94, 0.84, 0.60);
     this.appendValueInput('CONDITION')
         .setCheck('Boolean')
         .appendTitle(Blockly.Msg.CONTROLS_IF_MSG_IF);

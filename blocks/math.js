@@ -32,7 +32,7 @@ Blockly.Blocks.math_number = {
   // Numeric value.
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.appendDummyInput()
         .appendTitle(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), 'NUM');
@@ -51,7 +51,7 @@ Blockly.Blocks.math_arithmetic = {
          ['\u00F7', 'DIVIDE'],
          ['^', 'POWER']];
     this.setHelpUrl(Blockly.Msg.MATH_ARITHMETIC_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
         .setCheck('Number');
@@ -87,7 +87,7 @@ Blockly.Blocks.math_single = {
          ['e^', 'EXP'],
          ['10^', 'POW10']];
     this.setHelpUrl(Blockly.Msg.MATH_SINGLE_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('NUM')
         .setCheck('Number')
@@ -121,7 +121,7 @@ Blockly.Blocks.math_trig = {
          ['acos', 'ACOS'],
          ['atan', 'ATAN']];
     this.setHelpUrl(Blockly.Msg.MATH_TRIG_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('NUM')
         .setCheck('Number')
@@ -154,7 +154,7 @@ Blockly.Blocks.math_constant = {
          ['sqrt(\u00bd)', 'SQRT1_2'],
          ['\u221e', 'INFINITY']];
     this.setHelpUrl(Blockly.Msg.MATH_CONSTANT_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendDummyInput()
         .appendTitle(new Blockly.FieldDropdown(CONSTANTS), 'CONSTANT');
@@ -174,7 +174,7 @@ Blockly.Blocks.math_number_property = {
          [Blockly.Msg.MATH_IS_POSITIVE, 'POSITIVE'],
          [Blockly.Msg.MATH_IS_NEGATIVE, 'NEGATIVE'],
          [Blockly.Msg.MATH_IS_DIVISIBLE_BY, 'DIVISIBLE_BY']];
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.appendValueInput('NUMBER_TO_CHECK')
         .setCheck('Number');
     var dropdown = new Blockly.FieldDropdown(PROPERTIES, function(option) {
@@ -217,7 +217,7 @@ Blockly.Blocks.math_change = {
   // Add to a variable in place.
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_CHANGE_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.appendValueInput('DELTA')
         .setCheck('Number')
         .appendTitle(Blockly.Msg.MATH_CHANGE_TITLE_CHANGE)
@@ -251,7 +251,7 @@ Blockly.Blocks.math_round = {
          [Blockly.Msg.MATH_ROUND_OPERATOR_ROUNDUP, 'ROUNDUP'],
          [Blockly.Msg.MATH_ROUND_OPERATOR_ROUNDDOWN, 'ROUNDDOWN']];
     this.setHelpUrl(Blockly.Msg.MATH_ROUND_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('NUM')
         .setCheck('Number')
@@ -276,7 +276,7 @@ Blockly.Blocks.math_on_list = {
     // Assign 'this' to a variable for use in the closure below.
     var thisBlock = this;
     this.setHelpUrl(Blockly.Msg.MATH_ONLIST_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     var dropdown = new Blockly.FieldDropdown(OPERATORS, function(newOp) {
       if (newOp == 'MODE') {
@@ -309,7 +309,7 @@ Blockly.Blocks.math_modulo = {
   // Remainder of a division.
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_MODULO_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('DIVIDEND')
         .setCheck('Number')
@@ -327,7 +327,7 @@ Blockly.Blocks.math_constrain = {
   // Constrain a number between two limits.
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_CONSTRAIN_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('VALUE')
         .setCheck('Number')
@@ -347,7 +347,7 @@ Blockly.Blocks.math_random_int = {
   // Random integer between [X] and [Y].
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_RANDOM_INT_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendValueInput('FROM')
         .setCheck('Number')
@@ -365,7 +365,7 @@ Blockly.Blocks.math_random_float = {
   // Random fraction between 0 and 1.
   init: function() {
     this.setHelpUrl(Blockly.Msg.MATH_RANDOM_FLOAT_HELPURL);
-    this.setColour(230);
+    this.setHSV(258, 0.35, 0.62);
     this.setOutput(true, 'Number');
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.MATH_RANDOM_FLOAT_TITLE_RANDOM);
