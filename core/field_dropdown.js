@@ -211,7 +211,9 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   svgShadow.setAttribute('height', height);
   svgBackground.setAttribute('width', width);
   svgBackground.setAttribute('height', height);
-  var hexColour = Blockly.makeColour(this.sourceBlock_.getColour());
+  var hexColour = Blockly.makeColour(this.sourceBlock_.getColour(),
+                                     this.sourceBlock_.getSaturation(),
+                                     this.sourceBlock_.getValue());
   svgBackground.setAttribute('fill', hexColour);
   // Position the dropdown to line up with the field.
   var xy = Blockly.getSvgXY_(/** @type {!Element} */ (this.borderRect_));
@@ -326,7 +328,10 @@ Blockly.FieldDropdown.prototype.setValue = function(newValue) {
 Blockly.FieldDropdown.prototype.setText = function(text) {
   if (this.sourceBlock_) {
     // Update arrow's colour.
-    this.arrow_.style.fill = Blockly.makeColour(this.sourceBlock_.getColour());
+    this.arrow_.style.fill = Blockly.makeColour(
+        this.sourceBlock_.getColour(),
+        this.sourceBlock_.getSaturation(),
+        this.sourceBlock_.getValue());
   }
   if (text === null) {
     // No change if null.

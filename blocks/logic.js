@@ -183,7 +183,7 @@ Blockly.Blocks.controls_if = {
 Blockly.Blocks.controls_if_if = {
   // If condition.
   init: function() {
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.appendStatementInput('STACK');
@@ -195,7 +195,7 @@ Blockly.Blocks.controls_if_if = {
 Blockly.Blocks.controls_if_elseif = {
   // Else-If condition.
   init: function() {
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
     this.setPreviousStatement(true);
@@ -208,7 +208,7 @@ Blockly.Blocks.controls_if_elseif = {
 Blockly.Blocks.controls_if_else = {
   // Else condition.
   init: function() {
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
     this.setPreviousStatement(true);
@@ -240,7 +240,7 @@ Blockly.Blocks.logic_compare = {
       ];
     }
     this.setHelpUrl(Blockly.Msg.LOGIC_COMPARE_HELPURL);
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
     this.appendValueInput('B')
@@ -270,7 +270,7 @@ Blockly.Blocks.logic_operation = {
         [[Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
          [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']];
     this.setHelpUrl(Blockly.Msg.LOGIC_OPERATION_HELPURL);
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A')
         .setCheck('Boolean');
@@ -296,7 +296,7 @@ Blockly.Blocks.logic_negate = {
   // Negation.
   init: function() {
     this.setHelpUrl(Blockly.Msg.LOGIC_NEGATE_HELPURL);
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('BOOL')
         .setCheck('Boolean')
@@ -312,7 +312,7 @@ Blockly.Blocks.logic_boolean = {
         [[Blockly.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
          [Blockly.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']];
     this.setHelpUrl(Blockly.Msg.LOGIC_BOOLEAN_HELPURL);
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.setOutput(true, 'Boolean');
     this.appendDummyInput()
         .appendTitle(new Blockly.FieldDropdown(BOOLEANS), 'BOOL');
@@ -324,7 +324,7 @@ Blockly.Blocks.logic_null = {
   // Null data type.
   init: function() {
     this.setHelpUrl(Blockly.Msg.LOGIC_NULL_HELPURL);
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.setOutput(true);
     this.appendDummyInput()
         .appendTitle(Blockly.Msg.LOGIC_NULL);
@@ -336,7 +336,7 @@ Blockly.Blocks.logic_ternary = {
   // Ternary operator.
   init: function() {
     this.setHelpUrl(Blockly.Msg.LOGIC_TERNARY_HELPURL);
-    this.setColour(210);
+    this.setHSV(196, 1.0, 0.79);
     this.appendValueInput('IF')
         .setCheck('Boolean')
         .appendTitle(Blockly.Msg.LOGIC_TERNARY_CONDITION);
