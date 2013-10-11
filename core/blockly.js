@@ -232,8 +232,14 @@ Blockly.svgSize = function() {
  */
 Blockly.svgResize = function() {
   var svg = Blockly.svg;
+  var style = getComputedStyle(svg);
+  var borderWidth = 0;
+  if (style) {
+    borderWidth = parseInt(style.borderLeftWidth, 10) +
+                  parseInt(style.borderRightWidth, 10);
+  }
   var div = svg.parentNode;
-  var width = div.offsetWidth;
+  var width = div.offsetWidth - borderWidth;
   var height = div.offsetHeight;
   if (svg.cachedWidth_ != width) {
     svg.setAttribute('width', width + 'px');
