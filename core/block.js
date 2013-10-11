@@ -1133,7 +1133,7 @@ Blockly.Block.prototype.setColour = function(colourHue) {
  * @param {number} colourValue HSV value.
  */
 Blockly.Block.prototype.setHSV = function(
-  colourHue, colourSaturation, colourValue) {
+    colourHue, colourSaturation, colourValue) {
   this.colourHue_ = colourHue;
   this.colourSaturation_ = colourSaturation;
   this.colourValue_ = colourValue;
