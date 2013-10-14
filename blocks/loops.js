@@ -50,7 +50,7 @@ Blockly.Blocks.controls_repeat_ext = {
   // Repeat n times (external number).
   init: function() {
     this.setHelpUrl(Blockly.Msg.CONTROLS_REPEAT_HELPURL);
-    this.setHSV(62, 0.89, 0.75);
+    this.setHSV(322, 0.90, 0.95);
     this.appendValueInput('TIMES')
         .setCheck('Number')
         .appendTitle(Blockly.Msg.CONTROLS_REPEAT_TITLE_REPEAT)
@@ -74,7 +74,7 @@ Blockly.Blocks.controls_whileUntil = {
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
-    this.setHSV(62, 0.89, 0.75);
+    this.setHSV(322, 0.90, 0.95);
     this.appendValueInput('BOOL')
         .setCheck('Boolean')
         .appendTitle(new Blockly.FieldDropdown(OPERATORS), 'MODE');
