@@ -34,7 +34,7 @@ goog.require('goog.dom');
  * @param {!Element} container Containing element.
  * @param {Object} opt_options Optional dictionary of options.
  */
-Blockly.inject = function(container, opt_options) {
+Blockly.inject = function(container, opt_options, callback) {
   // Verify that the container is in document.
   if (!goog.dom.contains(document, container)) {
     throw 'Error: container is not in current document.';
@@ -43,8 +43,33 @@ Blockly.inject = function(container, opt_options) {
     // TODO(scr): don't mix this in to global variables.
     goog.mixin(Blockly, Blockly.parseOptions_(opt_options));
   }
-  Blockly.createDom_(container);
-  Blockly.init_();
+  
+  if (window.svgweb) {
+	// xmlns parameters are invalid here
+	var svg = Blockly.createSvgElement('svg', {
+	    'xmlns': 'http://www.w3.org/2000/svg',
+	    'xmlns:html': 'http://www.w3.org/1999/xhtml',
+	    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+	    'version': '1.1',
+	    'class': 'blocklySvg'
+	}, null);
+	
+	// in case of flash fallback we should wait for svg to be fully loaded
+	svg.addEventListener('SVGLoad', function() {
+	  // 'this' refers to your SVG root
+	  Blockly.createDom_(container, this);
+	  Blockly.init_();
+	  callback();
+	}, false);
+	
+	svgweb.appendChild(svg, container);    	  
+  }
+  else {
+    Blockly.createDom_(container);
+	Blockly.init_();
+    callback();
+  }
+  
 };
 
 /**
@@ -116,7 +141,7 @@ Blockly.parseOptions_ = function(options) {
  * @param {!Element} container Containing element.
  * @private
  */
-Blockly.createDom_ = function(container) {
+Blockly.createDom_ = function(container, svgInstance) {
   // Sadly browsers (Chrome vs Firefox) are currently inconsistent in laying
   // out content in RTL mode.  Therefore Blockly forces the use of LTR,
   // then manually positions content in RTL as needed.
@@ -138,13 +163,18 @@ Blockly.createDom_ = function(container) {
     ...
   </svg>
   */
-  var svg = Blockly.createSvgElement('svg', {
-    'xmlns': 'http://www.w3.org/2000/svg',
-    'xmlns:html': 'http://www.w3.org/1999/xhtml',
-    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-    'version': '1.1',
-    'class': 'blocklySvg'
-  }, null);
+  var svg;
+  if (svgInstance != null) {
+    svg  = svgInstance;    
+  } else {  
+	 svg = Blockly.createSvgElement('svg', {
+	    'xmlns': 'http://www.w3.org/2000/svg',
+	    'xmlns:html': 'http://www.w3.org/1999/xhtml',
+	    'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+	    'version': '1.1',
+	    'class': 'blocklySvg'
+	 }, null);
+  }
   /*
   <defs>
     ... filters go here ...
@@ -152,62 +182,64 @@ Blockly.createDom_ = function(container) {
   */
   var defs = Blockly.createSvgElement('defs', {}, svg);
   var filter, feSpecularLighting, feMerge, pattern;
-  /*
-    <filter id="blocklyEmboss">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
-      <feSpecularLighting in="blur" surfaceScale="1" specularConstant="0.5"
-                          specularExponent="10" lighting-color="white"
-                          result="specOut">
-        <fePointLight x="-5000" y="-10000" z="20000"/>
-      </feSpecularLighting>
-      <feComposite in="specOut" in2="SourceAlpha" operator="in"
-                   result="specOut"/>
-      <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic"
-                   k1="0" k2="1" k3="1" k4="0"/>
-    </filter>
-  */
-  filter = Blockly.createSvgElement('filter', {'id': 'blocklyEmboss'}, defs);
-  Blockly.createSvgElement('feGaussianBlur',
-      {'in': 'SourceAlpha', 'stdDeviation': 1, 'result': 'blur'}, filter);
-  feSpecularLighting = Blockly.createSvgElement('feSpecularLighting',
-      {'in': 'blur', 'surfaceScale': 1, 'specularConstant': 0.5,
-      'specularExponent': 10, 'lighting-color': 'white', 'result': 'specOut'},
-      filter);
-  Blockly.createSvgElement('fePointLight',
-      {'x': -5000, 'y': -10000, 'z': 20000}, feSpecularLighting);
-  Blockly.createSvgElement('feComposite',
-      {'in': 'specOut', 'in2': 'SourceAlpha', 'operator': 'in',
-      'result': 'specOut'}, filter);
-  Blockly.createSvgElement('feComposite',
-      {'in': 'SourceGraphic', 'in2': 'specOut', 'operator': 'arithmetic',
-      'k1': 0, 'k2': 1, 'k3': 1, 'k4': 0}, filter);
-  /*
-    <filter id="blocklyTrashcanShadowFilter">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
-      <feOffset in="blur" dx="1" dy="1" result="offsetBlur"/>
-      <feMerge>
-        <feMergeNode in="offsetBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-  */
-  filter = Blockly.createSvgElement('filter',
-      {'id': 'blocklyTrashcanShadowFilter'}, defs);
-  Blockly.createSvgElement('feGaussianBlur',
-      {'in': 'SourceAlpha', 'stdDeviation': 2, 'result': 'blur'}, filter);
-  Blockly.createSvgElement('feOffset',
-      {'in': 'blur', 'dx': 1, 'dy': 1, 'result': 'offsetBlur'}, filter);
-  feMerge = Blockly.createSvgElement('feMerge', {}, filter);
-  Blockly.createSvgElement('feMergeNode', {'in': 'offsetBlur'}, feMerge);
-  Blockly.createSvgElement('feMergeNode', {'in': 'SourceGraphic'}, feMerge);
-  /*
-    <filter id="blocklyShadowFilter">
-      <feGaussianBlur stdDeviation="2"/>
-    </filter>
-  */
-  filter = Blockly.createSvgElement('filter',
-      {'id': 'blocklyShadowFilter'}, defs);
-  Blockly.createSvgElement('feGaussianBlur', {'stdDeviation': 2}, filter);
+  if (!window.svgweb) {
+	  /*
+	    <filter id="blocklyEmboss">
+	      <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+	      <feSpecularLighting in="blur" surfaceScale="1" specularConstant="0.5"
+	                          specularExponent="10" lighting-color="white"
+	                          result="specOut">
+	        <fePointLight x="-5000" y="-10000" z="20000"/>
+	      </feSpecularLighting>
+	      <feComposite in="specOut" in2="SourceAlpha" operator="in"
+	                   result="specOut"/>
+	      <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic"
+	                   k1="0" k2="1" k3="1" k4="0"/>
+	    </filter>
+	  */
+	  filter = Blockly.createSvgElement('filter', {'id': 'blocklyEmboss'}, defs);
+	  Blockly.createSvgElement('feGaussianBlur',
+	      {'in': 'SourceAlpha', 'stdDeviation': 1, 'result': 'blur'}, filter);
+	  feSpecularLighting = Blockly.createSvgElement('feSpecularLighting',
+	      {'in': 'blur', 'surfaceScale': 1, 'specularConstant': 0.5,
+	      'specularExponent': 10, 'lighting-color': 'white', 'result': 'specOut'},
+	      filter);
+	  Blockly.createSvgElement('fePointLight',
+	      {'x': -5000, 'y': -10000, 'z': 20000}, feSpecularLighting);
+	  Blockly.createSvgElement('feComposite',
+	      {'in': 'specOut', 'in2': 'SourceAlpha', 'operator': 'in',
+	      'result': 'specOut'}, filter);
+	  Blockly.createSvgElement('feComposite',
+	      {'in': 'SourceGraphic', 'in2': 'specOut', 'operator': 'arithmetic',
+	      'k1': 0, 'k2': 1, 'k3': 1, 'k4': 0}, filter);
+	  /*
+	    <filter id="blocklyTrashcanShadowFilter">
+	      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+	      <feOffset in="blur" dx="1" dy="1" result="offsetBlur"/>
+	      <feMerge>
+	        <feMergeNode in="offsetBlur"/>
+	        <feMergeNode in="SourceGraphic"/>
+	      </feMerge>
+	    </filter>
+	  */
+	  filter = Blockly.createSvgElement('filter',
+	      {'id': 'blocklyTrashcanShadowFilter'}, defs);
+	  Blockly.createSvgElement('feGaussianBlur',
+	      {'in': 'SourceAlpha', 'stdDeviation': 2, 'result': 'blur'}, filter);
+	  Blockly.createSvgElement('feOffset',
+	      {'in': 'blur', 'dx': 1, 'dy': 1, 'result': 'offsetBlur'}, filter);
+	  feMerge = Blockly.createSvgElement('feMerge', {}, filter);
+	  Blockly.createSvgElement('feMergeNode', {'in': 'offsetBlur'}, feMerge);
+	  Blockly.createSvgElement('feMergeNode', {'in': 'SourceGraphic'}, feMerge);
+	  /*
+	    <filter id="blocklyShadowFilter">
+	      <feGaussianBlur stdDeviation="2"/>
+	    </filter>
+	  */
+	  filter = Blockly.createSvgElement('filter',
+	      {'id': 'blocklyShadowFilter'}, defs);
+	  Blockly.createSvgElement('feGaussianBlur', {'stdDeviation': 2}, filter);
+  }
   /*
     <pattern id="blocklyDisabledPattern" patternUnits="userSpaceOnUse"
              width="10" height="10">
@@ -308,7 +340,10 @@ Blockly.createDom_ = function(container) {
   }
 
   // The SVG is now fully assembled.  Add it to the container.
-  container.appendChild(svg);
+  if (!window.svgweb) {
+	  container.appendChild(svg);
+  }
+  
   Blockly.svg = svg;
   Blockly.svgResize();
 

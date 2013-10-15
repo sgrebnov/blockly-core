@@ -48,8 +48,9 @@ Blockly.FieldDropdown = function(menuGenerator, opt_changeHandler) {
 
   // Add dropdown arrow: "option ▾" (LTR) or "▾ אופציה" (RTL)
   this.arrow_ = Blockly.createSvgElement('tspan', {}, null);
-  this.arrow_.appendChild(document.createTextNode(
-      Blockly.RTL ? '\u25BE ' : ' \u25BE'));
+  this.arrow_.appendChild((window.svgweb) ? 
+	document.createTextNode(Blockly.RTL ? '\u25BE ' : ' \u25BE', true) :  
+	document.createTextNode(Blockly.RTL ? '\u25BE ' : ' \u25BE'));
 
   // Call parent's constructor.
   Blockly.FieldDropdown.superClass_.constructor.call(this, firstTuple[0]);
@@ -162,7 +163,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
       // Insert the checkmark between the rect and text, thus preserving the
       // ability to reference them as firstChild and lastChild respectively.
       gElement.insertBefore(checkElement, textElement);
-      checkElement.appendChild(document.createTextNode('\u2713'));
+      checkElement.appendChild((window.svgweb) ? document.createTextNode('\u2713', true) : document.createTextNode('\u2713'));
     }
 
     gElement.setAttribute('transform',
@@ -346,7 +347,7 @@ Blockly.FieldDropdown.prototype.setText = function(text) {
     // Prevent the field from disappearing if empty.
     text = Blockly.Field.NBSP;
   }
-  var textNode = document.createTextNode(text);
+  var textNode = (window.svgweb) ? document.createTextNode(text, true) :  document.createTextNode(text);
   this.textElement_.appendChild(textNode);
 
   // Insert dropdown arrow.

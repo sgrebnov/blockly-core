@@ -201,7 +201,7 @@ Blockly.Field.prototype.setText = function(text) {
     // Prevent the field from disappearing if empty.
     text = Blockly.Field.NBSP;
   }
-  var textNode = document.createTextNode(text);
+  var textNode = (window.svgweb) ? document.createTextNode(text, true) : document.createTextNode(text);
   this.textElement_.appendChild(textNode);
 
   // Cached width is obsolete.  Clear it.

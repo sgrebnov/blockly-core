@@ -329,7 +329,7 @@ Blockly.Flyout.prototype.hide = function() {
  */
 Blockly.Flyout.prototype.show = function(xmlList) {
   this.hide();
-  var margin = this.CORNER_RADIUS;
+  var margin = 20;//@TODO change when fix getBBox this.CORNER_RADIUS;
   this.svgGroup_.style.display = 'block';
 
   // Create the blocks to be shown in this flyout.
@@ -390,10 +390,13 @@ Blockly.Flyout.prototype.show = function(xmlList) {
       this.listeners_.push(Blockly.bindEvent_(root, 'mousedown', null,
           this.blockMouseDown_(block)));
     }
-    this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
-        block.svg_.addSelectNoMove));
-    this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
-        block.svg_.removeSelect));
+    if (!window.svgweb) {
+    	//@TODO Prevent blinking on svgweb
+	    this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
+	        block.svg_.addSelectNoMove));
+	    this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
+	        block.svg_.removeSelect));
+    }
     this.listeners_.push(Blockly.bindEvent_(rect, 'mousedown', null,
         this.createBlockFunc_(block)));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mouseover', block.svg_,
