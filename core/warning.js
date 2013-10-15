@@ -66,7 +66,7 @@ Blockly.Warning.prototype.createIcon_ = function() {
       {'class': 'blocklyIconMark',
        'x': Blockly.Icon.RADIUS,
        'y': 2 * Blockly.Icon.RADIUS - 3}, this.iconGroup_);
-  this.iconMark_.appendChild(document.createTextNode('!'));
+  this.iconMark_.appendChild((window.svgweb) ? document.createTextNode('!', true) : document.createTextNode('!'));
 };
 
 /**
@@ -84,7 +84,7 @@ Blockly.Warning.prototype.textToDom_ = function(text) {
   for (var i = 0; i < lines.length; i++) {
     var tspanElement = Blockly.createSvgElement('tspan',
         {'dy': '1em', 'x': Blockly.Bubble.BORDER_WIDTH}, paragraph);
-    var textNode = document.createTextNode(lines[i]);
+    var textNode = (window.svgweb) ? document.createTextNode(lines[i], true) : document.createTextNode(lines[i]);
     tspanElement.appendChild(textNode);
   }
   return paragraph;

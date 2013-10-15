@@ -41,6 +41,11 @@ Blockly.Css.inject = function() {
   var path = Blockly.pathToBlockly.replace(/[\\\/]$/, '');
   text = text.replace(/<<<PATH>>>/g, path);
   goog.cssom.addCssText(text);
+  
+  if (window.svgweb) {
+	  window.svgweb.updateCssStyleSheets();	  
+  }
+  
 };
 
 /**
@@ -60,7 +65,7 @@ Blockly.Css.CONTENT = [
   '  /* Hotspot coordinates are baked into the CUR file, but they are still',
   '     required in the CSS due to a Chrome bug.',
   '     http://code.google.com/p/chromium/issues/detail?id=1446 */',
-  '  cursor: url(<<<PATH>>>/media/handopen.cur) 8 5, auto;',
+  (window.svgweb) ? '  cursor: move;' : '  cursor: url(<<<PATH>>>/media/handopen.cur) 8 5, auto;',
   '}',
   '.blocklyResizeSE {',
   '  fill: #aaa;',
@@ -109,8 +114,8 @@ Blockly.Css.CONTENT = [
   '}',
   '.blocklyText {',
   '  cursor: default;',
-  '  font-family: sans-serif;',
-  '  font-size: 11pt;',
+  (window.svgweb) ? '  font-family: arial;' : '  font-family: sans-serif;',
+  (window.svgweb) ? '  font-size: 14pt;' : '  font-size: 11pt;',
   '  fill: #fff;',
   '}',
   '.blocklyNonEditableText>text {',
@@ -155,7 +160,7 @@ Blockly.Css.CONTENT = [
   '.blocklyContextMenuShadow,',
   '.blocklyDropdownMenuShadow {',
   '  fill: #bbb;',
-  '  filter: url(#blocklyShadowFilter);',
+  (window.svgweb) ? '' : '  filter: url(#blocklyShadowFilter);', 
   '}',
   '.blocklyTooltipText {',
   '  font-family: sans-serif;',

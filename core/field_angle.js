@@ -56,7 +56,7 @@ Blockly.FieldAngle = function(text, opt_changeHandler) {
 
   // Add degree symbol: "360°" (LTR) or "°360" (RTL)
   this.symbol_ = Blockly.createSvgElement('tspan', {}, null);
-  this.symbol_.appendChild(document.createTextNode('\u00B0'));
+  this.symbol_.appendChild((window.svgweb) ? document.createTextNode('\u00B0', true) : document.createTextNode('\u00B0'));
 
   Blockly.FieldAngle.superClass_.constructor.call(this,
       text, changeHandler);

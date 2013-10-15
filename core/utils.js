@@ -260,7 +260,13 @@ Blockly.createSvgElement = function(name, attrs, opt_parent) {
   // elements created with createElementNS. However, Closure checks for IE
   // and assumes the presence of the attribute and crashes.
   if (document.body.runtimeStyle) {  // Indicates presence of IE-only attr.
-    e.runtimeStyle = e.currentStyle = e.style;
+    if (window.svgweb) {
+	  e.setAttribute("runtimeStyle", e.style);
+	  e.setAttribute("currentStyle", e.style);
+    }
+	else {
+	  e.runtimeStyle = e.currentStyle = e.style;
+	}
   }
   if (opt_parent) {
     opt_parent.appendChild(e);
