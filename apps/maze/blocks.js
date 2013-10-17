@@ -53,8 +53,8 @@ Blockly.Blocks.maze_turn = {
          [BlocklyApps.getMsg('Maze_turnRight'), 'turnRight']];
     if (Maze.addArrows) {
       // Append arrows to direction messages.
-      DIRECTIONS[0][0] += ' \u27F2';
-      DIRECTIONS[1][0] += ' \u27F3';
+      DIRECTIONS[0][0] += ' \u21BA';
+      DIRECTIONS[1][0] += ' \u21BB';
     }
     this.setHelpUrl('http://code.google.com/p/blockly/wiki/Turn');
     this.setColour(290);
@@ -81,8 +81,8 @@ Blockly.Blocks.maze_if = {
          [BlocklyApps.getMsg('Maze_pathRight'), 'isPathRight']];
     if (Maze.addArrows) {
       // Append arrows to direction messages.
-      DIRECTIONS[1][0] += ' \u27F2';
-      DIRECTIONS[2][0] += ' \u27F3';
+      DIRECTIONS[1][0] += ' \u21BA';
+      DIRECTIONS[2][0] += ' \u21BB';
     }
     this.setColour(210);
     this.appendDummyInput()
