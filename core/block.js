@@ -212,9 +212,10 @@ Blockly.Block.terminateDrag_ = function() {
       selected.moveConnections_(dx, dy);
       delete selected.draggedBubbles_;
       selected.setDragging_(false);
-      selected.render();
       goog.Timer.callOnce(
           selected.bumpNeighbours_, Blockly.BUMP_DELAY, selected);
+      goog.Timer.callOnce(
+          selected.render, Blockly.BUMP_DELAY, selected);
       // Fire an event to allow scrollbars to resize.
       Blockly.fireUiEvent(window, 'resize');
     }
@@ -394,14 +395,18 @@ Blockly.Block.prototype.moveBy = function(dx, dy) {
  */
 Blockly.Block.prototype.getHeightWidth = function() {
   try {
-      if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+      if ( (navigator.userAgent.indexOf("MSIE") >= 0) || navigator.userAgent.indexOf("Trident") >= 0) {
           this.getSvgRoot().style.display = "inline";   /* reqd for IE */
-          var bBox = {
-              x: this.getSvgRoot().getBBox().x,
-              y: this.getSvgRoot().getBBox().y,
-              width: this.getSvgRoot().scrollWidth,
-              height: this.getSvgRoot().scrollHeight
-          };
+          if (!window.svgweb) {
+              var bBox = {
+                  x: this.getSvgRoot().getBBox().x,
+                  y: this.getSvgRoot().getBBox().y,
+                  width: this.getSvgRoot().scrollWidth,
+                  height: this.getSvgRoot().scrollHeight
+              };
+          } else {
+              var bBox = this.getSvgRoot().getBBox();
+          }
       }
       else{
       var bBox = this.getSvgRoot().getBBox();

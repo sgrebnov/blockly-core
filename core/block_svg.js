@@ -318,8 +318,7 @@ Blockly.BlockSvg.prototype.disposeUiEffect = function() {
   clone.setAttribute('transform',
       'translate(' + clone.translateX_ + ',' + clone.translateY_ + ')');
   Blockly.svg.appendChild(clone);
-  if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-      clone.style.display = "inline";   /* reqd for IE */
+  if ( (navigator.userAgent.indexOf("MSIE") >= 0 && !window.svgweb) || navigator.userAgent.indexOf("Trident") >= 0) {
       clone.bBox_ = {
           x: clone.getBBox().x,
           y: clone.getBBox().y,

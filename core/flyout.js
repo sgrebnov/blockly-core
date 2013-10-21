@@ -329,7 +329,7 @@ Blockly.Flyout.prototype.hide = function() {
  */
 Blockly.Flyout.prototype.show = function(xmlList) {
   this.hide();
-  var margin = 20;//@TODO change when fix getBBox this.CORNER_RADIUS;
+  var margin = this.CORNER_RADIUS;//@TODO change when fix getBBox this.CORNER_RADIUS;
   this.svgGroup_.style.display = 'block';
 
   // Create the blocks to be shown in this flyout.
