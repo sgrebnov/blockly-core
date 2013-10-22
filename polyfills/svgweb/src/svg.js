@@ -3314,6 +3314,7 @@ extend(FlashHandler, {
     // which is what flash provides as node.transform.concatenatedMatrix.
     var self = this;
     var parentElement = this.flash.parentNode;
+
     var evt = { target: target._getProxyNode(),
                 currentTarget: currentTarget._getProxyNode(),
                 type: msg.eventType,
@@ -3331,7 +3332,7 @@ extend(FlashHandler, {
                   self.blockedEventId = this.id;
                 }
               };
-              
+
     var handlers = currentTarget._listeners[msg.eventType];
     if (handlers) {
         for (var i = 0; i < handlers.length; i++) {
@@ -5124,10 +5125,17 @@ extend(_Node, {
 
   getScreenCTM: function() {
     if (this._handler) {
+      var parentElement = this._handler.flash.parentNode;
+      var dx = ((parentElement) ? parentElement.offsetLeft : 0);
+      var dy = ((parentElement) ? parentElement.offsetTop : 0);
+
       var msg = this._handler.sendToFlash('jsGetScreenCTM', [ this._guid ]); 
       msg = this._handler._stringToMsg(msg);
+
       return new _SVGMatrix(new Number(msg.a), new Number(msg.b), new Number(msg.c),
-                            new Number(msg.d), new Number(msg.e), new Number(msg.f),
+                            new Number(msg.d),
+                            new Number(msg.e) + dx,
+                            new Number(msg.f) + dy,
                             this._handler);
     } else {
       return new _SVGMatrix(1,0,0,1,0,0);
