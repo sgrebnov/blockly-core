@@ -549,10 +549,7 @@ Blockly.loadAudio_ = function(filenames, name) {
       break;
     }
   }
-  // To force the browser to load the sound, play it, but at nearly zero volume.
   if (sound && sound.play) {
-    sound.play();
-    sound.volume = 0.01;
     Blockly.SOUNDS_[name] = sound;
   }
 };
