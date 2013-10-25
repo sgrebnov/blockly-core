@@ -3336,7 +3336,6 @@ extend(FlashHandler, {
     var handlers = currentTarget._listeners[msg.eventType];
     if (handlers) {
         for (var i = 0; i < handlers.length; i++) {
-          if (this.isPropagationStoppedForEvent(evt)) break;
           var handler = handlers[i];
           var listener = handler.listener;
           // TODO: See Issue 208
@@ -5874,7 +5873,7 @@ extend(_Node, {
     		var children = this._getChildNodes();
     		if (children.length > 0) {
         		var textChild = children[0];
-        		return textChild._getTextContent().length * 10;
+        		return textChild._getTextContent().length * 8;
     		}
     	}
     };

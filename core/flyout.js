@@ -170,8 +170,8 @@ Blockly.Flyout.prototype.getMetrics_ = function() {
           var optionBox = {
               x: this.workspace_.getCanvas().getBBox().x,
               y: this.workspace_.getCanvas().getBBox().y,
-              width: this.workspace_.getCanvas().scrollWidth,
-              height: this.workspace_.getCanvas().scrollHeight
+              width: (window.svgweb) ? this.workspace_.getCanvas().getBBox().width : this.workspace_.getCanvas().scrollWidth,
+              height: (window.svgweb) ? this.workspace_.getCanvas().getBBox().height : this.workspace_.getCanvas().scrollHeight
           };
       }
       else {
@@ -329,7 +329,7 @@ Blockly.Flyout.prototype.hide = function() {
  */
 Blockly.Flyout.prototype.show = function(xmlList) {
   this.hide();
-  var margin = this.CORNER_RADIUS;//@TODO change when fix getBBox this.CORNER_RADIUS;
+  var margin = this.CORNER_RADIUS;
   this.svgGroup_.style.display = 'block';
 
   // Create the blocks to be shown in this flyout.
