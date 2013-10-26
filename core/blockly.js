@@ -549,7 +549,11 @@ Blockly.loadAudio_ = function(filenames, name) {
       break;
     }
   }
+
+  // Force to load the audio by playing it and pause immediately.
   if (sound && sound.play) {
+    sound.play();
+    sound.pause();
     Blockly.SOUNDS_[name] = sound;
   }
 };
