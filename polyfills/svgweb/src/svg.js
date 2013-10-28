@@ -5258,6 +5258,34 @@ extend(_Node, {
     }
   },
   
+  getComputedTextLength: function () {
+  	//@TODO uncomment when fix getBBox()
+  	//return this.getBBox().width;
+  	
+  	if (this.nodeName == "text") {
+  		var children = this._childNodes;
+  		if (children.length > 0) {
+      		var textChild = children[0];
+      		return textChild.textContent.length * 8;
+  		}
+  	}
+  },
+  
+  dispatchEvent: function (evt) {
+      var handlers = this._listeners[evt.type];
+      if (handlers) {
+			for (var i = 0; i < handlers.length; i++) {
+			  var handler = handlers[i];
+			  var listener = handler.listener;
+			  if (typeof listener == 'object') {
+			    listener.handleEvent.call(listener, evt);
+			  } else {
+			    listener.call(this, evt);
+			  }
+			}
+      }
+  },
+  
   /** Adds an event cross platform. 
   
       @param obj Obj to add event to.
@@ -5633,6 +5661,8 @@ extend(_Node, {
       this._htcNode.create = function (e,a,n,f,o) { return this._fakeNode.create(e,a,n,f,o); }
       this._htcNode.createChild = function (e,a,i,n,f) { return this._fakeNode.createChild(e,a,i,n,f); }
       this._htcNode.addChild = function (c,i) { return this._fakeNode.addChild(c,i); }
+      this._htcNode.getComputedTextLength = function () { return this._fakeNode.getComputedTextLength(); }
+      this._htcNode.dispatchEvent = function (evt) { return this._fakeNode.dispatchEvent(evt); }
   
       this._htcNode._getNodeName = function () { return this._fakeNode.nodeName; }
       this._htcNode._getNodeType = function () { return this._fakeNode.nodeType; }
@@ -5864,19 +5894,6 @@ extend(_Node, {
       this._htcNode._handler = this._handler;
       this._htcContainer.appendChild(this._htcNode);
     }
-    
-    this._htcNode.getComputedTextLength = function () {
-    	//@TODO uncomment when fix getBBox()
-    	//return this.getBBox().width;
-    	
-    	if (this._getNodeName() == "text") {
-    		var children = this._getChildNodes();
-    		if (children.length > 0) {
-        		var textChild = children[0];
-        		return textChild._getTextContent().length * 8;
-    		}
-    	}
-    };
     
   },
     
