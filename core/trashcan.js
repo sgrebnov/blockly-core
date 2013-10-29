@@ -54,28 +54,28 @@ Blockly.Trashcan.prototype.OPEN_URL_ = 'media/canopen.png';
  * @type {number}
  * @private
  */
-Blockly.Trashcan.prototype.WIDTH_ = 100;
+Blockly.Trashcan.prototype.WIDTH_ = 70;
 
 /**
  * Height of the trashcan image.
  * @type {number}
  * @private
  */
-Blockly.Trashcan.prototype.HEIGHT_ = 100;
+Blockly.Trashcan.prototype.HEIGHT_ = 70;
 
 /**
  * Distance between trashcan and top edge of workspace.
  * @type {number}
  * @private
  */
-Blockly.Trashcan.prototype.MARGIN_TOP_ = 0;
+Blockly.Trashcan.prototype.MARGIN_TOP_ = 15;
 
 /**
  * Distance between trashcan and right edge of workspace.
  * @type {number}
  * @private
  */
-Blockly.Trashcan.prototype.MARGIN_SIDE_ = 0;
+Blockly.Trashcan.prototype.MARGIN_SIDE_ = 22;
 
 /**
  * Current open/close state of the lid.
