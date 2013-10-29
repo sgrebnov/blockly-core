@@ -40,9 +40,6 @@ Blockly.Xml.workspaceToDom = function(workspace) {
   var blocks = workspace.getTopBlocks(true);
   for (var i = 0, block; block = blocks[i]; i++) {
     var element = Blockly.Xml.blockToDom_(block);
-    var xy = block.getRelativeToSurfaceXY();
-    element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
-    element.setAttribute('y', xy.y);
     xml.appendChild(element);
   }
   return xml;
