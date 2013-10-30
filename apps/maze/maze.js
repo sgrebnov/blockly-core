@@ -1167,7 +1167,7 @@ Maze.scheduleFail = function(forward) {
   Maze.displayPegman(Maze.pegmanX + deltaX,
                      Maze.pegmanY + deltaY,
                      direction16);
-  Blockly.playAudio('whack', .5);
+  Blockly.playAudio('whack', {volume : 0.5});
   Maze.pidList.push(window.setTimeout(function() {
     Maze.displayPegman(Maze.pegmanX,
                        Maze.pegmanY,
@@ -1177,7 +1177,7 @@ Maze.scheduleFail = function(forward) {
     Maze.displayPegman(Maze.pegmanX + deltaX,
                        Maze.pegmanY + deltaY,
                        direction16);
-    Blockly.playAudio('whack', .5);
+    Blockly.playAudio('whack', {volume : 0.5});
   }, Maze.stepSpeed * 2));
   Maze.pidList.push(window.setTimeout(function() {
       Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, direction16);
@@ -1192,7 +1192,7 @@ Maze.scheduleFinish = function(sound) {
   var direction16 = Maze.constrainDirection16(Maze.pegmanD * 4);
   Maze.displayPegman(Maze.pegmanX, Maze.pegmanY, 16);
   if (sound) {
-    Blockly.playAudio('win', .5);
+    Blockly.playAudio('win', {volume : 0.5});
   }
   Maze.stepSpeed = 150;  // Slow down victory animation a bit.
   Maze.pidList.push(window.setTimeout(function() {

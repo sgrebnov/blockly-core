@@ -562,35 +562,9 @@ Blockly.loadAudio_ = function(filenames, name) {
  * Play an audio file at specified value.  If volume is not specified,
  * use full volume (1).
  * @param {string} name Name of sound.
- * @param {?number} opt_volume Volume of sound (0-1).
+ * @param options A table of audio options.
  */
-Blockly.playAudio = function(name, opt_volume) {
-  var sound = Blockly.SOUNDS_[name];
-  if (sound) {
-    var mySound;
-    var ie9 = goog.userAgent.DOCUMENT_MODE &&
-              goog.userAgent.DOCUMENT_MODE === 9;
-    if (ie9 || goog.userAgent.IPAD || goog.userAgent.ANDROID) {
-      // Creating a new audio node causes lag in IE9, Android and iPad. Android
-      // and IE9 refetch the file from the server, iPad uses a singleton audio
-      // node which must be deleted and recreated for each new audio tag.
-      mySound = sound;
-    } else {
-      mySound = sound.cloneNode();
-    }
-    mySound.volume = (opt_volume === undefined ? 1 : opt_volume);
-    mySound.loop = false;
-    mySound.play();
-  }
-};
-
-/**
- * Play an audio file repeatedly at specified value. If volume is not specified,
- * use full volume (1).
- * @param {string} name Name of sound.
- * @param {?number} opt_volume Volume of sound (0-1).
- */
-Blockly.playAudioRepeatedly = function(name, opt_volume) {
+Blockly.playAudio = function(name, options) {
   var sound = Blockly.SOUNDS_[name];
   if (sound) {
     var mySound;
@@ -611,8 +585,9 @@ Blockly.playAudioRepeatedly = function(name, opt_volume) {
     sound.pause();
     Blockly.SOUNDS_[name] = mySound;
 
-    mySound.volume = (opt_volume === undefined ? 1 : opt_volume);
-    mySound.loop = true;
+    mySound.volume =
+        (options && options.volume === undefined) ? options.volume : 1;
+    mySound.loop = (options && options.loop) ? true : false;
     mySound.play();
   }
 };
