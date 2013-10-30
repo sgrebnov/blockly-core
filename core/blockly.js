@@ -625,7 +625,6 @@ Blockly.stopLoopingAudio = function(name) {
   var sound = Blockly.SOUNDS_[name];
   if (sound) {
     sound.pause();
-    sound.currentTime = 0;
   }
 };
 
