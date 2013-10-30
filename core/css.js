@@ -43,6 +43,7 @@ Blockly.Css.inject = function() {
       Blockly.assetUrl('media/handopen.cur'));
   goog.cssom.addCssText(text);
   
+  // Pass styles to svgweb manualy. No way to do it automatic
   if (window.svgweb) {
 	  window.svgweb.updateCssStyleSheets();	  
   }

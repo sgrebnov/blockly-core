@@ -80,8 +80,7 @@ Blockly.Comment.prototype.createIcon_ = function() {
        'y': 2 * Blockly.Icon.RADIUS - 3}, this.iconGroup_);
   if (window.svgweb) {
 	  this.iconMark_.appendChild(document.createTextNode('?', true));
-  }
-  else {
+  } else {
 	  this.iconMark_.appendChild(document.createTextNode('?'));
   }
 };

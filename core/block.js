@@ -214,8 +214,6 @@ Blockly.Block.terminateDrag_ = function() {
       selected.setDragging_(false);
       goog.Timer.callOnce(
           selected.bumpNeighbours_, Blockly.BUMP_DELAY, selected);
-      goog.Timer.callOnce(
-          selected.render, Blockly.BUMP_DELAY, selected);
       // Fire an event to allow scrollbars to resize.
       Blockly.fireUiEvent(window, 'resize');
     }
