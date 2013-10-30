@@ -586,7 +586,7 @@ Blockly.playAudio = function(name, options) {
     Blockly.SOUNDS_[name] = mySound;
 
     mySound.volume =
-        (options && options.volume === undefined) ? options.volume : 1;
+        (options && options.volume !== undefined) ? options.volume : 1;
     mySound.loop = (options && options.loop) ? true : false;
     mySound.play();
   }
