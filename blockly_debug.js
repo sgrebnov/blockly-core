@@ -417,14 +417,11 @@ Blockly.Names.equals = function $Blockly$Names$equals$($name1$$, $name2$$) {
 };
 Blockly.Xml = {};
 Blockly.Xml.workspaceToDom = function $Blockly$Xml$workspaceToDom$($blocks_workspace$$) {
-  var $width$$ = Blockly.svgSize().width, $xml$$ = goog.dom.createDom("xml");
+  Blockly.svgSize();
+  var $xml$$ = goog.dom.createDom("xml");
   $blocks_workspace$$ = $blocks_workspace$$.getTopBlocks(!0);
-  for(var $i$$ = 0, $block_xy$$;$block_xy$$ = $blocks_workspace$$[$i$$];$i$$++) {
-    var $element$$ = Blockly.Xml.blockToDom_($block_xy$$);
-    $block_xy$$ = $block_xy$$.getRelativeToSurfaceXY();
-    $element$$.setAttribute("x", Blockly.RTL ? $width$$ - $block_xy$$.x : $block_xy$$.x);
-    $element$$.setAttribute("y", $block_xy$$.y);
-    $xml$$.appendChild($element$$)
+  for(var $i$$ = 0, $block_element$$;$block_element$$ = $blocks_workspace$$[$i$$];$i$$++) {
+    $block_element$$ = Blockly.Xml.blockToDom_($block_element$$), $xml$$.appendChild($block_element$$)
   }
   return $xml$$
 };
@@ -493,16 +490,15 @@ Blockly.Xml.domToWorkspace = function $Blockly$Xml$domToWorkspace$($workspace$$,
   }
 };
 Blockly.Xml.domToBlock_ = function $Blockly$Xml$domToBlock_$($workspace$$, $xmlBlock$$) {
-  var $block$$ = $xmlBlock$$.getAttribute("type"), $block$$ = new Blockly.Block($workspace$$, $block$$);
+  var $block$$ = $xmlBlock$$.getAttribute("type"), $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("id"), $block$$ = new Blockly.Block($workspace$$, $block$$, $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
   $block$$.initSvg();
-  var $collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("inline");
-  $collapsed_deletable_disabled_editable_inline_movable_next_x$$ && $block$$.setInputsInline("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("collapsed")) && $block$$.setCollapsed("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("disabled")) && $block$$.setDisabled("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("deletable")) && $block$$.setDeletable("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("movable")) && $block$$.setMovable("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("editable")) && $block$$.setEditable("true" == $collapsed_deletable_disabled_editable_inline_movable_next_x$$);
-  for(var $blockChild_bubbleW_firstRealGrandchild_visible$$ = null, $collapsed_deletable_disabled_editable_inline_movable_next_x$$ = 0, $bubbleH_input$$1_xmlChild$$;$bubbleH_input$$1_xmlChild$$ = $xmlBlock$$.childNodes[$collapsed_deletable_disabled_editable_inline_movable_next_x$$];$collapsed_deletable_disabled_editable_inline_movable_next_x$$++) {
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("inline")) && $block$$.setInputsInline("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("collapsed")) && $block$$.setCollapsed("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("disabled")) && $block$$.setDisabled("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("deletable")) && $block$$.setDeletable("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("movable")) && $block$$.setMovable("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $xmlBlock$$.getAttribute("editable")) && $block$$.setEditable("true" == $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$);
+  for(var $blockChild_bubbleW_firstRealGrandchild_visible$$ = null, $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = 0, $bubbleH_input$$1_xmlChild$$;$bubbleH_input$$1_xmlChild$$ = $xmlBlock$$.childNodes[$collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$];$collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$++) {
     if(3 != $bubbleH_input$$1_xmlChild$$.nodeType || !$bubbleH_input$$1_xmlChild$$.data.match(/^\s*$/)) {
       for(var $blockChild_bubbleW_firstRealGrandchild_visible$$ = null, $name$$63_y$$ = 0, $grandchildNode$$;$grandchildNode$$ = $bubbleH_input$$1_xmlChild$$.childNodes[$name$$63_y$$];$name$$63_y$$++) {
         3 == $grandchildNode$$.nodeType && $grandchildNode$$.data.match(/^\s*$/) || ($blockChild_bubbleW_firstRealGrandchild_visible$$ = $grandchildNode$$)
@@ -558,7 +554,7 @@ Blockly.Xml.domToBlock_ = function $Blockly$Xml$domToBlock_$($workspace$$, $xmlB
       }
     }
   }
-  ($collapsed_deletable_disabled_editable_inline_movable_next_x$$ = $block$$.nextConnection && $block$$.nextConnection.targetBlock()) ? $collapsed_deletable_disabled_editable_inline_movable_next_x$$.render() : $block$$.render();
+  ($collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$ = $block$$.nextConnection && $block$$.nextConnection.targetBlock()) ? $collapsed_deletable_disabled_editable_id$$1_inline_movable_next_x$$.render() : $block$$.render();
   return $block$$
 };
 Blockly.Xml.deleteNext = function $Blockly$Xml$deleteNext$($xmlBlock$$) {
@@ -1283,140 +1279,681 @@ Blockly.Scrollbar.insertAfter_ = function $Blockly$Scrollbar$insertAfter_$($newN
   }
   $siblingNode$$ ? $parentNode$$.insertBefore($newNode$$, $siblingNode$$) : $parentNode$$.appendChild($newNode$$)
 };
-goog.disposable = {};
-goog.disposable.IDisposable = function $goog$disposable$IDisposable$() {
+Blockly.Trashcan = function $Blockly$Trashcan$($workspace$$) {
+  this.workspace_ = $workspace$$
 };
-goog.Disposable = function $goog$Disposable$() {
-  goog.Disposable.MONITORING_MODE != goog.Disposable.MonitoringMode.OFF && (this.creationStack = Error().stack, goog.Disposable.instances_[goog.getUid(this)] = this)
+Blockly.Trashcan.prototype.CLOSED_URL_ = "media/canclosed.png";
+Blockly.Trashcan.prototype.OPEN_URL_ = "media/canopen.png";
+Blockly.Trashcan.prototype.WIDTH_ = 70;
+Blockly.Trashcan.prototype.HEIGHT_ = 70;
+Blockly.Trashcan.prototype.MARGIN_TOP_ = 15;
+Blockly.Trashcan.prototype.MARGIN_SIDE_ = 22;
+Blockly.Trashcan.prototype.isOpen = !1;
+Blockly.Trashcan.prototype.radius = 50;
+Blockly.Trashcan.prototype.svgGroup_ = null;
+Blockly.Trashcan.prototype.svgClosedCan_ = null;
+Blockly.Trashcan.prototype.svgOpenCan_ = null;
+Blockly.Trashcan.prototype.left_ = 0;
+Blockly.Trashcan.prototype.top_ = 0;
+Blockly.Trashcan.prototype.createDom = function $Blockly$Trashcan$$createDom$() {
+  this.svgGroup_ = Blockly.createSvgElement("g", {filter:"url(#blocklyTrashcanShadowFilter)"}, null);
+  this.svgClosedCan_ = Blockly.createSvgElement("image", {width:this.WIDTH_, height:this.HEIGHT_}, this.svgGroup_);
+  this.svgClosedCan_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.pathToBlockly + this.CLOSED_URL_);
+  this.svgOpenCan_ = Blockly.createSvgElement("image", {width:this.WIDTH_, height:this.HEIGHT_}, this.svgGroup_);
+  this.svgOpenCan_.setAttribute("visibility", "hidden");
+  this.svgOpenCan_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.pathToBlockly + this.OPEN_URL_);
+  return this.svgGroup_
 };
-goog.Disposable.MonitoringMode = {OFF:0, PERMANENT:1, INTERACTIVE:2};
-goog.Disposable.MONITORING_MODE = 0;
-goog.Disposable.instances_ = {};
-goog.Disposable.getUndisposedObjects = function $goog$Disposable$getUndisposedObjects$() {
-  var $ret$$ = [], $id$$;
-  for($id$$ in goog.Disposable.instances_) {
-    goog.Disposable.instances_.hasOwnProperty($id$$) && $ret$$.push(goog.Disposable.instances_[Number($id$$)])
+Blockly.Trashcan.prototype.init = function $Blockly$Trashcan$$init$() {
+  this.setOpen_(!1);
+  this.position_();
+  Blockly.bindEvent_(window, "resize", this, this.position_)
+};
+Blockly.Trashcan.prototype.dispose = function $Blockly$Trashcan$$dispose$() {
+  this.svgGroup_ && (goog.dom.removeNode(this.svgGroup_), this.svgGroup_ = null);
+  this.workspace_ = this.svgOpenCan_ = this.svgClosedCan_ = null
+};
+Blockly.Trashcan.prototype.position_ = function $Blockly$Trashcan$$position_$() {
+  var $metrics$$ = this.workspace_.getMetrics();
+  $metrics$$ && (this.left_ = Blockly.RTL ? this.MARGIN_SIDE_ : $metrics$$.viewWidth + $metrics$$.absoluteLeft - this.WIDTH_ - this.MARGIN_SIDE_, this.top_ = this.MARGIN_TOP_, this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ")"))
+};
+Blockly.Trashcan.prototype.onMouseMove = function $Blockly$Trashcan$$onMouseMove$($e$$16_mouseXY$$) {
+  if(this.svgGroup_) {
+    $e$$16_mouseXY$$ = Blockly.mouseToSvg($e$$16_mouseXY$$);
+    var $trashXY$$ = Blockly.getSvgXY_(this.svgGroup_);
+    $e$$16_mouseXY$$ = $e$$16_mouseXY$$.x + this.radius > $trashXY$$.x && $e$$16_mouseXY$$.x < $trashXY$$.x + this.WIDTH_ + this.radius && $e$$16_mouseXY$$.y + this.radius > $trashXY$$.y && $e$$16_mouseXY$$.y < $trashXY$$.y + this.HEIGHT_ + this.radius;
+    this.isOpen != $e$$16_mouseXY$$ && this.setOpen_($e$$16_mouseXY$$)
   }
-  return $ret$$
 };
-goog.Disposable.clearUndisposedObjects = function $goog$Disposable$clearUndisposedObjects$() {
-  goog.Disposable.instances_ = {}
+Blockly.Trashcan.prototype.setOpen_ = function $Blockly$Trashcan$$setOpen_$($state$$) {
+  this.isOpen != $state$$ && (this.isOpen = $state$$, this.animateLid_())
 };
-goog.Disposable.prototype.disposed_ = !1;
-goog.Disposable.prototype.isDisposed = function $goog$Disposable$$isDisposed$() {
-  return this.disposed_
+Blockly.Trashcan.prototype.animateLid_ = function $Blockly$Trashcan$$animateLid_$() {
+  this.isOpen ? this.svgOpenCan_.setAttribute("visibility", "visible") : this.svgOpenCan_.setAttribute("visibility", "hidden")
 };
-goog.Disposable.prototype.getDisposed = goog.Disposable.prototype.isDisposed;
-goog.Disposable.prototype.dispose = function $goog$Disposable$$dispose$() {
-  if(!this.disposed_ && (this.disposed_ = !0, this.disposeInternal(), goog.Disposable.MONITORING_MODE != goog.Disposable.MonitoringMode.OFF)) {
-    var $uid$$ = goog.getUid(this);
-    if(goog.Disposable.MONITORING_MODE == goog.Disposable.MonitoringMode.PERMANENT && !goog.Disposable.instances_.hasOwnProperty($uid$$)) {
-      throw Error(this + " did not call the goog.Disposable base constructor or was disposed of after a clearUndisposedObjects call");
+Blockly.Trashcan.prototype.close = function $Blockly$Trashcan$$close$() {
+  this.setOpen_(!1)
+};
+Blockly.Workspace = function $Blockly$Workspace$($getMetrics$$, $setMetrics$$) {
+  this.getMetrics = $getMetrics$$;
+  this.setMetrics = $setMetrics$$;
+  this.isFlyout = !1;
+  this.topBlocks_ = [];
+  this.maxBlocks = Infinity;
+  Blockly.ConnectionDB.init(this)
+};
+Blockly.Workspace.SCAN_ANGLE = 3;
+Blockly.Workspace.prototype.dragMode = !1;
+Blockly.Workspace.prototype.scrollX = 0;
+Blockly.Workspace.prototype.scrollY = 0;
+Blockly.Workspace.prototype.trashcan = null;
+Blockly.Workspace.prototype.fireChangeEventPid_ = null;
+Blockly.Workspace.prototype.scrollbar = null;
+Blockly.Workspace.prototype.createDom = function $Blockly$Workspace$$createDom$() {
+  this.svgGroup_ = Blockly.createSvgElement("g", {}, null);
+  this.svgBlockCanvas_ = Blockly.createSvgElement("g", {}, this.svgGroup_);
+  this.svgBubbleCanvas_ = Blockly.createSvgElement("g", {}, this.svgGroup_);
+  this.fireChangeEvent();
+  return this.svgGroup_
+};
+Blockly.Workspace.prototype.dispose = function $Blockly$Workspace$$dispose$() {
+  this.svgGroup_ && (goog.dom.removeNode(this.svgGroup_), this.svgGroup_ = null);
+  this.svgBubbleCanvas_ = this.svgBlockCanvas_ = null;
+  this.trashcan && (this.trashcan.dispose(), this.trashcan = null)
+};
+Blockly.Workspace.prototype.addTrashcan = function $Blockly$Workspace$$addTrashcan$() {
+  if(Blockly.hasTrashcan && !Blockly.readOnly) {
+    this.trashcan = new Blockly.Trashcan(this);
+    var $svgTrashcan$$ = this.trashcan.createDom();
+    this.svgGroup_.insertBefore($svgTrashcan$$, this.svgBlockCanvas_);
+    this.trashcan.init()
+  }
+};
+Blockly.Workspace.prototype.getCanvas = function $Blockly$Workspace$$getCanvas$() {
+  return this.svgBlockCanvas_
+};
+Blockly.Workspace.prototype.getBubbleCanvas = function $Blockly$Workspace$$getBubbleCanvas$() {
+  return this.svgBubbleCanvas_
+};
+Blockly.Workspace.prototype.addTopBlock = function $Blockly$Workspace$$addTopBlock$($block$$) {
+  this.topBlocks_.push($block$$);
+  this.fireChangeEvent()
+};
+Blockly.Workspace.prototype.removeTopBlock = function $Blockly$Workspace$$removeTopBlock$($block$$) {
+  for(var $found$$ = !1, $child$$, $x$$ = 0;$child$$ = this.topBlocks_[$x$$];$x$$++) {
+    if($child$$ == $block$$) {
+      this.topBlocks_.splice($x$$, 1);
+      $found$$ = !0;
+      break
     }
-    delete goog.Disposable.instances_[$uid$$]
+  }
+  if(!$found$$) {
+    throw"Block not present in workspace's list of top-most blocks.";
+  }
+  this.fireChangeEvent()
+};
+Blockly.Workspace.prototype.getTopBlocks = function $Blockly$Workspace$$getTopBlocks$($ordered$$) {
+  var $blocks$$ = [].concat(this.topBlocks_);
+  if($ordered$$ && 1 < $blocks$$.length) {
+    var $offset$$ = Math.sin(Blockly.Workspace.SCAN_ANGLE / 180 * Math.PI);
+    Blockly.RTL && ($offset$$ *= -1);
+    $blocks$$.sort(function($a$$, $b$$) {
+      var $aXY$$ = $a$$.getRelativeToSurfaceXY(), $bXY$$ = $b$$.getRelativeToSurfaceXY();
+      return $aXY$$.y + $offset$$ * $aXY$$.x - ($bXY$$.y + $offset$$ * $bXY$$.x)
+    })
+  }
+  return $blocks$$
+};
+Blockly.Workspace.prototype.getAllBlocks = function $Blockly$Workspace$$getAllBlocks$() {
+  for(var $blocks$$ = this.getTopBlocks(!1), $x$$ = 0;$x$$ < $blocks$$.length;$x$$++) {
+    $blocks$$ = $blocks$$.concat($blocks$$[$x$$].getChildren())
+  }
+  return $blocks$$
+};
+Blockly.Workspace.prototype.clear = function $Blockly$Workspace$$clear$() {
+  for(Blockly.hideChaff();this.topBlocks_.length;) {
+    this.topBlocks_[0].dispose()
   }
 };
-goog.Disposable.prototype.registerDisposable = function $goog$Disposable$$registerDisposable$($disposable$$) {
-  this.addOnDisposeCallback(goog.partial(goog.dispose, $disposable$$))
+Blockly.Workspace.prototype.render = function $Blockly$Workspace$$render$() {
+  for(var $renderList$$ = this.getAllBlocks(), $x$$ = 0, $block$$;$block$$ = $renderList$$[$x$$];$x$$++) {
+    $block$$.getChildren().length || $block$$.render()
+  }
 };
-goog.Disposable.prototype.addOnDisposeCallback = function $goog$Disposable$$addOnDisposeCallback$($callback$$, $opt_scope$$) {
-  this.onDisposeCallbacks_ || (this.onDisposeCallbacks_ = []);
-  this.onDisposeCallbacks_.push(goog.bind($callback$$, $opt_scope$$))
-};
-goog.Disposable.prototype.disposeInternal = function $goog$Disposable$$disposeInternal$() {
-  if(this.onDisposeCallbacks_) {
-    for(;this.onDisposeCallbacks_.length;) {
-      this.onDisposeCallbacks_.shift()()
+Blockly.Workspace.prototype.getBlockById = function $Blockly$Workspace$$getBlockById$($id$$) {
+  for(var $blocks$$ = this.getAllBlocks(), $x$$ = 0, $block$$;$block$$ = $blocks$$[$x$$];$x$$++) {
+    if($block$$.id == $id$$) {
+      return $block$$
     }
   }
+  return null
 };
-goog.Disposable.isDisposed = function $goog$Disposable$isDisposed$($obj$$) {
-  return $obj$$ && "function" == typeof $obj$$.isDisposed ? $obj$$.isDisposed() : !1
+Blockly.Workspace.prototype.traceOn = function $Blockly$Workspace$$traceOn$($armed$$) {
+  this.traceOn_ = $armed$$;
+  this.traceWrapper_ && (Blockly.unbindEvent_(this.traceWrapper_), this.traceWrapper_ = null);
+  $armed$$ && (this.traceWrapper_ = Blockly.bindEvent_(this.svgBlockCanvas_, "blocklySelectChange", this, function() {
+    this.traceOn_ = !1
+  }))
 };
-goog.dispose = function $goog$dispose$($obj$$) {
-  $obj$$ && "function" == typeof $obj$$.dispose && $obj$$.dispose()
-};
-goog.disposeAll = function $goog$disposeAll$($var_args$$) {
-  for(var $i$$ = 0, $len$$ = arguments.length;$i$$ < $len$$;++$i$$) {
-    var $disposable$$ = arguments[$i$$];
-    goog.isArrayLike($disposable$$) ? goog.disposeAll.apply(null, $disposable$$) : goog.dispose($disposable$$)
+Blockly.Workspace.prototype.highlightBlock = function $Blockly$Workspace$$highlightBlock$($id$$) {
+  if(this.traceOn_) {
+    var $block$$ = null;
+    if($id$$ && ($block$$ = this.getBlockById($id$$), !$block$$)) {
+      return
+    }
+    this.traceOn(!1);
+    $block$$ ? $block$$.select() : Blockly.selected && Blockly.selected.unselect();
+    this.traceOn(!0)
   }
 };
-goog.events = {};
-goog.events.Event = function $goog$events$Event$($type$$, $opt_target$$) {
-  this.type = $type$$;
-  this.currentTarget = this.target = $opt_target$$
+Blockly.Workspace.prototype.fireChangeEvent = function $Blockly$Workspace$$fireChangeEvent$() {
+  this.fireChangeEventPid_ && window.clearTimeout(this.fireChangeEventPid_);
+  var $canvas$$ = this.svgBlockCanvas_;
+  $canvas$$ && (this.fireChangeEventPid_ = window.setTimeout(function() {
+    Blockly.fireUiEvent($canvas$$, "blocklyWorkspaceChange")
+  }, 0))
 };
-goog.events.Event.prototype.disposeInternal = function $goog$events$Event$$disposeInternal$() {
+Blockly.Workspace.prototype.paste = function $Blockly$Workspace$$paste$($blockY$$1_xmlBlock$$) {
+  if(!($blockY$$1_xmlBlock$$.getElementsByTagName("block").length >= this.remainingCapacity())) {
+    var $block$$ = Blockly.Xml.domToBlock_(this, $blockY$$1_xmlBlock$$), $blockX$$ = parseInt($blockY$$1_xmlBlock$$.getAttribute("x"), 10);
+    $blockY$$1_xmlBlock$$ = parseInt($blockY$$1_xmlBlock$$.getAttribute("y"), 10);
+    if(!isNaN($blockX$$) && !isNaN($blockY$$1_xmlBlock$$)) {
+      Blockly.RTL && ($blockX$$ = -$blockX$$);
+      do {
+        for(var $collide$$ = !1, $allBlocks$$ = this.getAllBlocks(), $x$$ = 0, $otherBlock_otherXY$$;$otherBlock_otherXY$$ = $allBlocks$$[$x$$];$x$$++) {
+          $otherBlock_otherXY$$ = $otherBlock_otherXY$$.getRelativeToSurfaceXY(), 1 >= Math.abs($blockX$$ - $otherBlock_otherXY$$.x) && 1 >= Math.abs($blockY$$1_xmlBlock$$ - $otherBlock_otherXY$$.y) && ($blockX$$ = Blockly.RTL ? $blockX$$ - Blockly.SNAP_RADIUS : $blockX$$ + Blockly.SNAP_RADIUS, $blockY$$1_xmlBlock$$ += 2 * Blockly.SNAP_RADIUS, $collide$$ = !0)
+        }
+      }while($collide$$);
+      $block$$.moveBy($blockX$$, $blockY$$1_xmlBlock$$)
+    }
+    $block$$.select()
+  }
 };
-goog.events.Event.prototype.dispose = function $goog$events$Event$$dispose$() {
+Blockly.Workspace.prototype.remainingCapacity = function $Blockly$Workspace$$remainingCapacity$() {
+  return Infinity == this.maxBlocks ? Infinity : this.maxBlocks - this.getAllBlocks().length
 };
-goog.events.Event.prototype.propagationStopped_ = !1;
-goog.events.Event.prototype.defaultPrevented = !1;
-goog.events.Event.prototype.returnValue_ = !0;
-goog.events.Event.prototype.stopPropagation = function $goog$events$Event$$stopPropagation$() {
-  this.propagationStopped_ = !0
+Blockly.BlockSvg = function $Blockly$BlockSvg$($block$$) {
+  this.block_ = $block$$;
+  var $options$$ = {};
+  $block$$.htmlId && ($options$$.id = $block$$.htmlId);
+  this.svgGroup_ = Blockly.createSvgElement("g", $options$$, null);
+  this.svgPathDark_ = Blockly.createSvgElement("path", {"class":"blocklyPathDark", transform:"translate(1, 1)"}, this.svgGroup_);
+  this.svgPath_ = Blockly.createSvgElement("path", {"class":"blocklyPath"}, this.svgGroup_);
+  this.svgPathLight_ = Blockly.createSvgElement("path", {"class":"blocklyPathLight"}, this.svgGroup_);
+  this.svgPath_.tooltip = this.block_;
+  Blockly.Tooltip && Blockly.Tooltip.bindMouseEvents(this.svgPath_);
+  this.updateMovable()
 };
-goog.events.Event.prototype.preventDefault = function $goog$events$Event$$preventDefault$() {
-  this.defaultPrevented = !0;
-  this.returnValue_ = !1
+Blockly.BlockSvg.INLINE = -1;
+Blockly.BlockSvg.prototype.init = function $Blockly$BlockSvg$$init$() {
+  var $block$$ = this.block_;
+  this.updateColour();
+  for(var $x$$ = 0, $input$$;$input$$ = $block$$.inputList[$x$$];$x$$++) {
+    $input$$.init()
+  }
+  $block$$.mutator && $block$$.mutator.createIcon()
 };
-goog.events.Event.stopPropagation = function $goog$events$Event$stopPropagation$($e$$) {
-  $e$$.stopPropagation()
+Blockly.BlockSvg.prototype.updateMovable = function $Blockly$BlockSvg$$updateMovable$() {
+  this.block_.isMovable() ? Blockly.addClass_(this.svgGroup_, "blocklyDraggable") : Blockly.removeClass_(this.svgGroup_, "blocklyDraggable")
 };
-goog.events.Event.preventDefault = function $goog$events$Event$preventDefault$($e$$) {
-  $e$$.preventDefault()
+Blockly.BlockSvg.prototype.getRootElement = function $Blockly$BlockSvg$$getRootElement$() {
+  return this.svgGroup_
 };
-goog.events.Listenable = function $goog$events$Listenable$() {
+Blockly.BlockSvg.SEP_SPACE_X = 10;
+Blockly.BlockSvg.SEP_SPACE_Y = 10;
+Blockly.BlockSvg.INLINE_PADDING_Y = 5;
+Blockly.BlockSvg.MIN_BLOCK_Y = 25;
+Blockly.BlockSvg.TAB_HEIGHT = 20;
+Blockly.BlockSvg.TAB_WIDTH = 8;
+Blockly.BlockSvg.NOTCH_WIDTH = 30;
+Blockly.BlockSvg.CORNER_RADIUS = 8;
+Blockly.BlockSvg.TITLE_HEIGHT = 18;
+Blockly.BlockSvg.DISTANCE_45_INSIDE = (1 - Math.SQRT1_2) * (Blockly.BlockSvg.CORNER_RADIUS - 1) + 1;
+Blockly.BlockSvg.DISTANCE_45_OUTSIDE = (1 - Math.SQRT1_2) * (Blockly.BlockSvg.CORNER_RADIUS + 1) - 1;
+Blockly.BlockSvg.NOTCH_PATH_LEFT = "l 6,4 3,0 6,-4";
+Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT = "l 6.5,4 2,0 6.5,-4";
+Blockly.BlockSvg.NOTCH_PATH_RIGHT = "l -6,4 -3,0 -6,-4";
+Blockly.BlockSvg.JAGGED_TEETH = "l 8,0 0,4 8,4 -16,8 8,4";
+Blockly.BlockSvg.JAGGED_TEETH_HEIGHT = 20;
+Blockly.BlockSvg.TAB_PATH_DOWN = "v 5 c 0,10 -" + Blockly.BlockSvg.TAB_WIDTH + ",-8 -" + Blockly.BlockSvg.TAB_WIDTH + ",7.5 s " + Blockly.BlockSvg.TAB_WIDTH + ",-2.5 " + Blockly.BlockSvg.TAB_WIDTH + ",7.5";
+Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL = "v 6.5 m -" + 0.98 * Blockly.BlockSvg.TAB_WIDTH + ",2.5 q -" + 0.05 * Blockly.BlockSvg.TAB_WIDTH + ",10 " + 0.27 * Blockly.BlockSvg.TAB_WIDTH + ",10 m " + 0.71 * Blockly.BlockSvg.TAB_WIDTH + ",-2.5 v 1.5";
+Blockly.BlockSvg.TOP_LEFT_CORNER_START = "m 0," + Blockly.BlockSvg.CORNER_RADIUS;
+Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_RTL = "m " + Blockly.BlockSvg.DISTANCE_45_INSIDE + "," + Blockly.BlockSvg.DISTANCE_45_INSIDE;
+Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_LTR = "m 1," + (Blockly.BlockSvg.CORNER_RADIUS - 1);
+Blockly.BlockSvg.TOP_LEFT_CORNER = "A " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,1 " + Blockly.BlockSvg.CORNER_RADIUS + ",0";
+Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT = "A " + (Blockly.BlockSvg.CORNER_RADIUS - 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS - 1) + " 0 0,1 " + Blockly.BlockSvg.CORNER_RADIUS + ",1";
+Blockly.BlockSvg.INNER_TOP_LEFT_CORNER = Blockly.BlockSvg.NOTCH_PATH_RIGHT + " h -" + (Blockly.BlockSvg.NOTCH_WIDTH - 15 - Blockly.BlockSvg.CORNER_RADIUS) + " a " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,0 -" + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS;
+Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER = "a " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,0 " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS;
+Blockly.BlockSvg.INNER_TOP_LEFT_CORNER_HIGHLIGHT_RTL = "a " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1) + " 0 0,0 " + (-Blockly.BlockSvg.DISTANCE_45_OUTSIDE - 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS - Blockly.BlockSvg.DISTANCE_45_OUTSIDE);
+Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_RTL = "a " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1) + " 0 0,0 " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1);
+Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR = "a " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1) + " 0 0,0 " + (Blockly.BlockSvg.CORNER_RADIUS - Blockly.BlockSvg.DISTANCE_45_OUTSIDE) + "," + (Blockly.BlockSvg.DISTANCE_45_OUTSIDE + 1);
+Blockly.BlockSvg.prototype.dispose = function $Blockly$BlockSvg$$dispose$() {
+  goog.dom.removeNode(this.svgGroup_);
+  this.block_ = this.svgPathDark_ = this.svgPathLight_ = this.svgPath_ = this.svgGroup_ = null
 };
-goog.events.Listenable.USE_LISTENABLE_INTERFACE = !1;
-goog.events.Listenable.IMPLEMENTED_BY_PROP_ = "__closure_listenable";
-goog.events.Listenable.addImplementation = function $goog$events$Listenable$addImplementation$($cls$$) {
-  $cls$$.prototype[goog.events.Listenable.IMPLEMENTED_BY_PROP_] = !0
+Blockly.BlockSvg.prototype.disposeUiEffect = function $Blockly$BlockSvg$$disposeUiEffect$() {
+  Blockly.playAudio("delete");
+  var $xy$$ = Blockly.getSvgXY_(this.svgGroup_), $clone$$ = this.svgGroup_.cloneNode(!0);
+  $clone$$.translateX_ = $xy$$.x;
+  $clone$$.translateY_ = $xy$$.y;
+  $clone$$.setAttribute("transform", "translate(" + $clone$$.translateX_ + "," + $clone$$.translateY_ + ")");
+  Blockly.svg.appendChild($clone$$);
+  0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? ($clone$$.style.display = "inline", $clone$$.bBox_ = {x:$clone$$.getBBox().x, y:$clone$$.getBBox().y, width:$clone$$.scrollWidth, height:$clone$$.scrollHeight}) : $clone$$.bBox_ = $clone$$.getBBox();
+  $clone$$.startDate_ = new Date;
+  Blockly.BlockSvg.disposeUiStep_($clone$$)
 };
-goog.events.Listenable.isImplementedBy = function $goog$events$Listenable$isImplementedBy$($obj$$) {
-  return!(!$obj$$ || !$obj$$[goog.events.Listenable.IMPLEMENTED_BY_PROP_])
+Blockly.BlockSvg.disposeUiStep_ = function $Blockly$BlockSvg$disposeUiStep_$($clone$$) {
+  var $percent$$ = (new Date - $clone$$.startDate_) / 150;
+  1 < $percent$$ ? goog.dom.removeNode($clone$$) : ($clone$$.setAttribute("transform", "translate(" + ($clone$$.translateX_ + (Blockly.RTL ? -1 : 1) * $clone$$.bBox_.width / 2 * $percent$$ + ", " + ($clone$$.translateY_ + $clone$$.bBox_.height * $percent$$)) + ") scale(" + (1 - $percent$$) + ")"), window.setTimeout(function() {
+    Blockly.BlockSvg.disposeUiStep_($clone$$)
+  }, 10))
 };
-goog.events.ListenableKey = function $goog$events$ListenableKey$() {
+Blockly.BlockSvg.prototype.connectionUiEffect = function $Blockly$BlockSvg$$connectionUiEffect$() {
+  Blockly.playAudio("click");
+  var $ripple_xy$$ = Blockly.getSvgXY_(this.svgGroup_);
+  this.block_.outputConnection ? ($ripple_xy$$.x += Blockly.RTL ? 3 : -3, $ripple_xy$$.y += 13) : this.block_.previousConnection && ($ripple_xy$$.x += Blockly.RTL ? -23 : 23, $ripple_xy$$.y += 3);
+  $ripple_xy$$ = Blockly.createSvgElement("circle", {cx:$ripple_xy$$.x, cy:$ripple_xy$$.y, r:0, fill:"none", stroke:"#888", "stroke-width":10}, Blockly.svg);
+  $ripple_xy$$.startDate_ = new Date;
+  Blockly.BlockSvg.connectionUiStep_($ripple_xy$$)
 };
-goog.events.ListenableKey.counter_ = 0;
-goog.events.ListenableKey.reserveKey = function $goog$events$ListenableKey$reserveKey$() {
-  return++goog.events.ListenableKey.counter_
+Blockly.BlockSvg.connectionUiStep_ = function $Blockly$BlockSvg$connectionUiStep_$($ripple$$) {
+  var $percent$$ = (new Date - $ripple$$.startDate_) / 150;
+  1 < $percent$$ ? goog.dom.removeNode($ripple$$) : ($ripple$$.setAttribute("r", 25 * $percent$$), $ripple$$.style.opacity = 1 - $percent$$, window.setTimeout(function() {
+    Blockly.BlockSvg.connectionUiStep_($ripple$$)
+  }, 10))
 };
-goog.events.Listener = function $goog$events$Listener$() {
-  goog.events.Listener.ENABLE_MONITORING && (this.creationStack = Error().stack)
+Blockly.BlockSvg.prototype.updateColour = function $Blockly$BlockSvg$$updateColour$() {
+  if(!this.block_.disabled) {
+    var $hexColour$$ = Blockly.makeColour(this.block_.getColour(), this.block_.getSaturation(), this.block_.getValue()), $rgb_rgbDark$$ = goog.color.hexToRgb($hexColour$$), $rgbLight$$ = goog.color.lighten($rgb_rgbDark$$, 0.3), $rgb_rgbDark$$ = goog.color.darken($rgb_rgbDark$$, 0.4);
+    this.svgPathLight_.setAttribute("stroke", goog.color.rgbArrayToHex($rgbLight$$));
+    this.svgPathDark_.setAttribute("fill", goog.color.rgbArrayToHex($rgb_rgbDark$$));
+    this.svgPath_.setAttribute("fill", $hexColour$$)
+  }
 };
-goog.events.Listener.ENABLE_MONITORING = !1;
-goog.events.Listener.prototype.key = 0;
-goog.events.Listener.prototype.removed = !1;
-goog.events.Listener.prototype.callOnce = !1;
-goog.events.Listener.prototype.init = function $goog$events$Listener$$init$($listener$$, $proxy$$, $src$$, $type$$, $capture$$, $opt_handler$$) {
-  if(goog.isFunction($listener$$)) {
-    this.isFunctionListener_ = !0
+Blockly.BlockSvg.prototype.updateDisabled = function $Blockly$BlockSvg$$updateDisabled$() {
+  this.block_.disabled || this.block_.getInheritedDisabled() ? (Blockly.addClass_(this.svgGroup_, "blocklyDisabled"), this.svgPath_.setAttribute("fill", "url(#blocklyDisabledPattern)")) : (Blockly.removeClass_(this.svgGroup_, "blocklyDisabled"), this.updateColour());
+  for(var $children$$ = this.block_.getChildren(), $x$$ = 0, $child$$;$child$$ = $children$$[$x$$];$x$$++) {
+    $child$$.svg_.updateDisabled()
+  }
+};
+Blockly.BlockSvg.prototype.addSelect = function $Blockly$BlockSvg$$addSelect$() {
+  Blockly.addClass_(this.svgGroup_, "blocklySelected");
+  this.svgGroup_.parentNode.appendChild(this.svgGroup_)
+};
+Blockly.BlockSvg.prototype.removeSelect = function $Blockly$BlockSvg$$removeSelect$() {
+  Blockly.removeClass_(this.svgGroup_, "blocklySelected")
+};
+Blockly.BlockSvg.prototype.addDragging = function $Blockly$BlockSvg$$addDragging$() {
+  Blockly.addClass_(this.svgGroup_, "blocklyDragging")
+};
+Blockly.BlockSvg.prototype.removeDragging = function $Blockly$BlockSvg$$removeDragging$() {
+  Blockly.removeClass_(this.svgGroup_, "blocklyDragging")
+};
+Blockly.BlockSvg.prototype.render = function $Blockly$BlockSvg$$render$() {
+  this.block_.rendered = !0;
+  var $cursorX_parentBlock$$ = Blockly.BlockSvg.SEP_SPACE_X;
+  Blockly.RTL && ($cursorX_parentBlock$$ = -$cursorX_parentBlock$$);
+  for(var $icons$$ = this.block_.getIcons(), $x$$ = 0;$x$$ < $icons$$.length;$x$$++) {
+    $cursorX_parentBlock$$ = $icons$$[$x$$].renderIcon($cursorX_parentBlock$$)
+  }
+  $cursorX_parentBlock$$ += Blockly.RTL ? Blockly.BlockSvg.SEP_SPACE_X : -Blockly.BlockSvg.SEP_SPACE_X;
+  $icons$$ = this.renderCompute_($cursorX_parentBlock$$);
+  this.renderDraw_($cursorX_parentBlock$$, $icons$$);
+  ($cursorX_parentBlock$$ = this.block_.getParent()) ? $cursorX_parentBlock$$.render() : Blockly.fireUiEvent(window, "resize")
+};
+Blockly.BlockSvg.prototype.renderTitles_ = function $Blockly$BlockSvg$$renderTitles_$($titleList$$, $cursorX$$, $cursorY$$) {
+  Blockly.RTL && ($cursorX$$ = -$cursorX$$);
+  for(var $t$$ = 0, $title$$;$title$$ = $titleList$$[$t$$];$t$$++) {
+    var $titleWidth$$ = $title$$.getSize().width;
+    Blockly.RTL ? ($cursorX$$ -= $titleWidth$$, $title$$.getRootElement().setAttribute("transform", "translate(" + $cursorX$$ + ", " + $cursorY$$ + ")"), $titleWidth$$ && ($cursorX$$ -= Blockly.BlockSvg.SEP_SPACE_X)) : ($title$$.getRootElement().setAttribute("transform", "translate(" + $cursorX$$ + ", " + $cursorY$$ + ")"), $titleWidth$$ && ($cursorX$$ += $titleWidth$$ + Blockly.BlockSvg.SEP_SPACE_X))
+  }
+  return Blockly.RTL ? -$cursorX$$ : $cursorX$$
+};
+Blockly.BlockSvg.prototype.renderCompute_ = function $Blockly$BlockSvg$$renderCompute_$($iconWidth_y$$) {
+  var $inputList_z$$ = this.block_.inputList, $inputRows$$ = [];
+  $inputRows$$.rightEdge = $iconWidth_y$$ + 2 * Blockly.BlockSvg.SEP_SPACE_X;
+  if(this.block_.previousConnection || this.block_.nextConnection) {
+    $inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.SEP_SPACE_X)
+  }
+  for(var $titleValueWidth$$ = 0, $titleStatementWidth$$ = 0, $hasValue$$ = !1, $hasStatement$$ = !1, $hasDummy$$ = !1, $lastType$$ = void 0, $isInline$$ = this.block_.inputsInline && !this.block_.isCollapsed(), $i$$ = 0, $input$$;$input$$ = $inputList_z$$[$i$$];$i$$++) {
+    if($input$$.isVisible()) {
+      var $row$$;
+      $isInline$$ && $lastType$$ && $lastType$$ != Blockly.NEXT_STATEMENT && $input$$.type != Blockly.NEXT_STATEMENT ? $row$$ = $inputRows$$[$inputRows$$.length - 1] : ($lastType$$ = $input$$.type, $row$$ = [], $row$$.type = $isInline$$ && $input$$.type != Blockly.NEXT_STATEMENT ? Blockly.BlockSvg.INLINE : $input$$.type, $row$$.height = 0, $inputRows$$.push($row$$));
+      $row$$.push($input$$);
+      $input$$.renderHeight = Blockly.BlockSvg.MIN_BLOCK_Y;
+      $input$$.renderWidth = $isInline$$ && $input$$.type == Blockly.INPUT_VALUE ? Blockly.BlockSvg.TAB_WIDTH + Blockly.BlockSvg.SEP_SPACE_X : 0;
+      if($input$$.connection && $input$$.connection.targetConnection) {
+        var $bBox_j$$ = $input$$.connection.targetBlock().getHeightWidth();
+        $input$$.renderHeight = Math.max($input$$.renderHeight, $bBox_j$$.height);
+        $input$$.renderWidth = Math.max($input$$.renderWidth, $bBox_j$$.width)
+      }
+      $row$$.height = Math.max($row$$.height, $input$$.renderHeight);
+      $input$$.titleWidth = 0;
+      1 == $inputRows$$.length && ($input$$.titleWidth += Blockly.RTL ? -$iconWidth_y$$ : $iconWidth_y$$);
+      for(var $bBox_j$$ = 0, $title$$10_titleSize$$;$title$$10_titleSize$$ = $input$$.titleRow[$bBox_j$$];$bBox_j$$++) {
+        0 != $bBox_j$$ && ($input$$.titleWidth += Blockly.BlockSvg.SEP_SPACE_X), $title$$10_titleSize$$ = $title$$10_titleSize$$.getSize(), $input$$.titleWidth += $title$$10_titleSize$$.width, $row$$.height = Math.max($row$$.height, $title$$10_titleSize$$.height)
+      }
+      $row$$.type != Blockly.BlockSvg.INLINE && ($row$$.type == Blockly.NEXT_STATEMENT ? ($hasStatement$$ = !0, $titleStatementWidth$$ = Math.max($titleStatementWidth$$, $input$$.titleWidth)) : ($row$$.type == Blockly.INPUT_VALUE ? $hasValue$$ = !0 : $row$$.type == Blockly.DUMMY_INPUT && ($hasDummy$$ = !0), $titleValueWidth$$ = Math.max($titleValueWidth$$, $input$$.titleWidth)))
+    }
+  }
+  for($iconWidth_y$$ = 0;$row$$ = $inputRows$$[$iconWidth_y$$];$iconWidth_y$$++) {
+    if($row$$.thicker = !1, $row$$.type == Blockly.BlockSvg.INLINE) {
+      for($inputList_z$$ = 0;$input$$ = $row$$[$inputList_z$$];$inputList_z$$++) {
+        if($input$$.type == Blockly.INPUT_VALUE) {
+          $row$$.height += 2 * Blockly.BlockSvg.INLINE_PADDING_Y;
+          $row$$.thicker = !0;
+          break
+        }
+      }
+    }
+  }
+  $inputRows$$.statementEdge = 2 * Blockly.BlockSvg.SEP_SPACE_X + $titleStatementWidth$$;
+  $hasStatement$$ && ($inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, $inputRows$$.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH));
+  $hasValue$$ ? $inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, $titleValueWidth$$ + 2 * Blockly.BlockSvg.SEP_SPACE_X + Blockly.BlockSvg.TAB_WIDTH) : $hasDummy$$ && ($inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, $titleValueWidth$$ + 2 * Blockly.BlockSvg.SEP_SPACE_X));
+  $inputRows$$.hasValue = $hasValue$$;
+  $inputRows$$.hasStatement = $hasStatement$$;
+  $inputRows$$.hasDummy = $hasDummy$$;
+  return $inputRows$$
+};
+Blockly.BlockSvg.prototype.renderDraw_ = function $Blockly$BlockSvg$$renderDraw_$($iconWidth$$, $inputRows$$) {
+  if(this.block_.outputConnection) {
+    this.squareBottomLeftCorner_ = this.squareTopLeftCorner_ = !0
   }else {
-    if($listener$$ && $listener$$.handleEvent && goog.isFunction($listener$$.handleEvent)) {
-      this.isFunctionListener_ = !1
+    this.squareBottomLeftCorner_ = this.squareTopLeftCorner_ = !1;
+    if(this.block_.previousConnection) {
+      var $highlightSteps_nextBlock$$ = this.block_.previousConnection.targetBlock();
+      $highlightSteps_nextBlock$$ && $highlightSteps_nextBlock$$.nextConnection && $highlightSteps_nextBlock$$.nextConnection.targetConnection == this.block_.previousConnection && (this.squareTopLeftCorner_ = !0)
+    }
+    this.block_.nextConnection && ($highlightSteps_nextBlock$$ = this.block_.nextConnection.targetBlock()) && $highlightSteps_nextBlock$$.previousConnection && $highlightSteps_nextBlock$$.previousConnection.targetConnection == this.block_.nextConnection && (this.squareBottomLeftCorner_ = !0)
+  }
+  var $connectionsXY_pathString$$ = this.block_.getRelativeToSurfaceXY(), $steps$$ = [], $inlineSteps$$ = [], $highlightSteps_nextBlock$$ = [], $highlightInlineSteps$$ = [];
+  this.renderDrawTop_($steps$$, $highlightSteps_nextBlock$$, $connectionsXY_pathString$$, $inputRows$$.rightEdge);
+  var $cursorY$$ = this.renderDrawRight_($steps$$, $highlightSteps_nextBlock$$, $inlineSteps$$, $highlightInlineSteps$$, $connectionsXY_pathString$$, $inputRows$$, $iconWidth$$);
+  this.renderDrawBottom_($steps$$, $highlightSteps_nextBlock$$, $connectionsXY_pathString$$, $cursorY$$);
+  this.renderDrawLeft_($steps$$, $highlightSteps_nextBlock$$, $connectionsXY_pathString$$, $cursorY$$);
+  $connectionsXY_pathString$$ = $steps$$.join(" ") + "\n" + $inlineSteps$$.join(" ");
+  this.svgPath_.setAttribute("d", $connectionsXY_pathString$$);
+  this.svgPathDark_.setAttribute("d", $connectionsXY_pathString$$);
+  $connectionsXY_pathString$$ = $highlightSteps_nextBlock$$.join(" ") + "\n" + $highlightInlineSteps$$.join(" ");
+  this.svgPathLight_.setAttribute("d", $connectionsXY_pathString$$);
+  Blockly.RTL && (this.svgPath_.setAttribute("transform", "scale(-1 1)"), this.svgPathLight_.setAttribute("transform", "scale(-1 1)"), this.svgPathDark_.setAttribute("transform", "translate(1,1) scale(-1 1)"))
+};
+Blockly.BlockSvg.prototype.renderDrawTop_ = function $Blockly$BlockSvg$$renderDrawTop_$($steps$$, $highlightSteps$$, $connectionsXY$$, $rightEdge$$) {
+  this.squareTopLeftCorner_ ? ($steps$$.push("m 0,0"), $highlightSteps$$.push("m 1,1")) : ($steps$$.push(Blockly.BlockSvg.TOP_LEFT_CORNER_START), $highlightSteps$$.push(Blockly.RTL ? Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_RTL : Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_LTR), $steps$$.push(Blockly.BlockSvg.TOP_LEFT_CORNER), $highlightSteps$$.push(Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT));
+  Blockly.BROKEN_CONTROL_POINTS && $steps$$.push("c 0,5 0,-5 0,0");
+  this.block_.previousConnection && ($steps$$.push("H", Blockly.BlockSvg.NOTCH_WIDTH - 15), $highlightSteps$$.push("H", Blockly.BlockSvg.NOTCH_WIDTH - 15), $steps$$.push(Blockly.BlockSvg.NOTCH_PATH_LEFT), $highlightSteps$$.push(Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT), this.block_.previousConnection.moveTo($connectionsXY$$.x + (Blockly.RTL ? -Blockly.BlockSvg.NOTCH_WIDTH : Blockly.BlockSvg.NOTCH_WIDTH), $connectionsXY$$.y));
+  $steps$$.push("H", $rightEdge$$);
+  $highlightSteps$$.push("H", $rightEdge$$ + (Blockly.RTL ? -1 : 0))
+};
+Blockly.BlockSvg.prototype.renderDrawRight_ = function $Blockly$BlockSvg$$renderDrawRight_$($steps$$, $highlightSteps$$, $inlineSteps$$, $highlightInlineSteps$$, $connectionsXY$$, $inputRows$$, $iconWidth$$) {
+  for(var $cursorX$$, $cursorY$$ = 0, $connectionX$$, $connectionY$$, $y$$ = 0, $row$$;$row$$ = $inputRows$$[$y$$];$y$$++) {
+    $cursorX$$ = Blockly.BlockSvg.SEP_SPACE_X;
+    0 == $y$$ && ($cursorX$$ += Blockly.RTL ? -$iconWidth$$ : $iconWidth$$);
+    $highlightSteps$$.push("M", $inputRows$$.rightEdge - 1 + "," + ($cursorY$$ + 1));
+    if(this.block_.isCollapsed()) {
+      var $input$$ = $row$$[0];
+      $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT;
+      this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$);
+      $steps$$.push(Blockly.BlockSvg.JAGGED_TEETH);
+      Blockly.RTL ? $highlightSteps$$.push("l 8,0 0,3.8 7,3.2 m -14.5,9 l 8,4") : $highlightSteps$$.push("h 8");
+      $input$$ = $row$$.height - Blockly.BlockSvg.JAGGED_TEETH_HEIGHT;
+      $steps$$.push("v", $input$$);
+      Blockly.RTL && $highlightSteps$$.push("v", $input$$ - 2)
     }else {
-      throw Error("Invalid listener argument");
+      if($row$$.type == Blockly.BlockSvg.INLINE) {
+        for(var $titleRightX_x$$ = 0;$input$$ = $row$$[$titleRightX_x$$];$titleRightX_x$$++) {
+          $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $row$$.thicker && ($connectionX$$ += Blockly.BlockSvg.INLINE_PADDING_Y), $cursorX$$ = this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$), $input$$.type != Blockly.DUMMY_INPUT && ($cursorX$$ += $input$$.renderWidth + Blockly.BlockSvg.SEP_SPACE_X), $input$$.type == Blockly.INPUT_VALUE && ($inlineSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.SEP_SPACE_X + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y)), $inlineSteps$$.push("h", 
+          Blockly.BlockSvg.TAB_WIDTH - $input$$.renderWidth), $inlineSteps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN), $inlineSteps$$.push("v", $input$$.renderHeight - Blockly.BlockSvg.TAB_HEIGHT), $inlineSteps$$.push("h", $input$$.renderWidth - Blockly.BlockSvg.TAB_WIDTH), $inlineSteps$$.push("z"), Blockly.RTL ? ($highlightInlineSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.SEP_SPACE_X + Blockly.BlockSvg.TAB_WIDTH - $input$$.renderWidth - 1 + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y + 
+          1)), $highlightInlineSteps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL), $highlightInlineSteps$$.push("v", $input$$.renderHeight - Blockly.BlockSvg.TAB_HEIGHT + 2), $highlightInlineSteps$$.push("h", $input$$.renderWidth - Blockly.BlockSvg.TAB_WIDTH)) : ($highlightInlineSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.SEP_SPACE_X + 1 + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y + 1)), $highlightInlineSteps$$.push("v", $input$$.renderHeight), $highlightInlineSteps$$.push("h", 
+          Blockly.BlockSvg.TAB_WIDTH - $input$$.renderWidth), $highlightInlineSteps$$.push("M", $cursorX$$ - $input$$.renderWidth - Blockly.BlockSvg.SEP_SPACE_X + 3.8 + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y + Blockly.BlockSvg.TAB_HEIGHT - 0.4)), $highlightInlineSteps$$.push("l", 0.42 * Blockly.BlockSvg.TAB_WIDTH + ",-1.8")), $connectionX$$ = Blockly.RTL ? $connectionsXY$$.x - $cursorX$$ - Blockly.BlockSvg.TAB_WIDTH + Blockly.BlockSvg.SEP_SPACE_X + $input$$.renderWidth - 1 : $connectionsXY$$.x + 
+          $cursorX$$ + Blockly.BlockSvg.TAB_WIDTH - Blockly.BlockSvg.SEP_SPACE_X - $input$$.renderWidth + 1, $connectionY$$ = $connectionsXY$$.y + $cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y, $input$$.connection.moveTo($connectionX$$, $connectionY$$), $input$$.connection.targetConnection && $input$$.connection.tighten_())
+        }
+        $cursorX$$ = Math.max($cursorX$$, $inputRows$$.rightEdge);
+        $steps$$.push("H", $cursorX$$);
+        $highlightSteps$$.push("H", $cursorX$$ + (Blockly.RTL ? -1 : 0));
+        $steps$$.push("v", $row$$.height);
+        Blockly.RTL && $highlightSteps$$.push("v", $row$$.height - 2)
+      }else {
+        $row$$.type == Blockly.INPUT_VALUE ? ($input$$ = $row$$[0], $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $input$$.align != Blockly.ALIGN_LEFT && ($titleRightX_x$$ = $inputRows$$.rightEdge - $input$$.titleWidth - Blockly.BlockSvg.TAB_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X, $input$$.align == Blockly.ALIGN_RIGHT ? $cursorX$$ += $titleRightX_x$$ : $input$$.align == Blockly.ALIGN_CENTRE && ($cursorX$$ += ($titleRightX_x$$ + $cursorX$$) / 2)), this.renderTitles_($input$$.titleRow, 
+        $cursorX$$, $connectionX$$), $steps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN), $steps$$.push("v", $row$$.height - Blockly.BlockSvg.TAB_HEIGHT), Blockly.RTL ? ($highlightSteps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL), $highlightSteps$$.push("v", $row$$.height - Blockly.BlockSvg.TAB_HEIGHT)) : ($highlightSteps$$.push("M", $inputRows$$.rightEdge - 4.2 + "," + ($cursorY$$ + Blockly.BlockSvg.TAB_HEIGHT - 0.4)), $highlightSteps$$.push("l", 0.42 * Blockly.BlockSvg.TAB_WIDTH + ",-1.8")), 
+        $connectionX$$ = $connectionsXY$$.x + (Blockly.RTL ? -$inputRows$$.rightEdge - 1 : $inputRows$$.rightEdge + 1), $connectionY$$ = $connectionsXY$$.y + $cursorY$$, $input$$.connection.moveTo($connectionX$$, $connectionY$$), $input$$.connection.targetConnection && $input$$.connection.tighten_()) : $row$$.type == Blockly.DUMMY_INPUT ? ($input$$ = $row$$[0], $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $input$$.align != Blockly.ALIGN_LEFT && ($titleRightX_x$$ = $inputRows$$.rightEdge - 
+        $input$$.titleWidth - 2 * Blockly.BlockSvg.SEP_SPACE_X, $inputRows$$.hasValue && ($titleRightX_x$$ -= Blockly.BlockSvg.TAB_WIDTH), $input$$.align == Blockly.ALIGN_RIGHT ? $cursorX$$ += $titleRightX_x$$ : $input$$.align == Blockly.ALIGN_CENTRE && ($cursorX$$ += ($titleRightX_x$$ + $cursorX$$) / 2)), this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$), $steps$$.push("v", $row$$.height), Blockly.RTL && $highlightSteps$$.push("v", $row$$.height - 2)) : $row$$.type == Blockly.NEXT_STATEMENT && 
+        ($input$$ = $row$$[0], 0 == $y$$ && ($steps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y), Blockly.RTL && $highlightSteps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y - 1), $cursorY$$ += Blockly.BlockSvg.SEP_SPACE_Y), $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $input$$.align != Blockly.ALIGN_LEFT && ($titleRightX_x$$ = $inputRows$$.statementEdge - $input$$.titleWidth - 2 * Blockly.BlockSvg.SEP_SPACE_X, $input$$.align == Blockly.ALIGN_RIGHT ? $cursorX$$ += $titleRightX_x$$ : $input$$.align == 
+        Blockly.ALIGN_CENTRE && ($cursorX$$ += ($titleRightX_x$$ + $cursorX$$) / 2)), this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$), $cursorX$$ = $inputRows$$.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH, $steps$$.push("H", $cursorX$$), $steps$$.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER), $steps$$.push("v", $row$$.height - 2 * Blockly.BlockSvg.CORNER_RADIUS), $steps$$.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER), $steps$$.push("H", $inputRows$$.rightEdge), Blockly.RTL ? ($highlightSteps$$.push("M", 
+        $cursorX$$ - Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.DISTANCE_45_OUTSIDE + "," + ($cursorY$$ + Blockly.BlockSvg.DISTANCE_45_OUTSIDE)), $highlightSteps$$.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER_HIGHLIGHT_RTL), $highlightSteps$$.push("v", $row$$.height - 2 * Blockly.BlockSvg.CORNER_RADIUS), $highlightSteps$$.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_RTL), $highlightSteps$$.push("H", $inputRows$$.rightEdge - 1)) : ($highlightSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.NOTCH_WIDTH + 
+        Blockly.BlockSvg.DISTANCE_45_OUTSIDE + "," + ($cursorY$$ + $row$$.height - Blockly.BlockSvg.DISTANCE_45_OUTSIDE)), $highlightSteps$$.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR), $highlightSteps$$.push("H", $inputRows$$.rightEdge)), $connectionX$$ = $connectionsXY$$.x + (Blockly.RTL ? -$cursorX$$ : $cursorX$$), $connectionY$$ = $connectionsXY$$.y + $cursorY$$ + 1, $input$$.connection.moveTo($connectionX$$, $connectionY$$), $input$$.connection.targetConnection && $input$$.connection.tighten_(), 
+        $y$$ == $inputRows$$.length - 1 || $inputRows$$[$y$$ + 1].type == Blockly.NEXT_STATEMENT) && ($steps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y), Blockly.RTL && $highlightSteps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y - 1), $cursorY$$ += Blockly.BlockSvg.SEP_SPACE_Y)
+      }
+    }
+    $cursorY$$ += $row$$.height
+  }
+  $inputRows$$.length || ($cursorY$$ = Blockly.BlockSvg.MIN_BLOCK_Y, $steps$$.push("V", $cursorY$$), Blockly.RTL && $highlightSteps$$.push("V", $cursorY$$ - 1));
+  return $cursorY$$
+};
+Blockly.BlockSvg.prototype.renderDrawBottom_ = function $Blockly$BlockSvg$$renderDrawBottom_$($steps$$, $highlightSteps$$, $connectionsXY$$, $cursorY$$) {
+  this.block_.nextConnection && ($steps$$.push("H", Blockly.BlockSvg.NOTCH_WIDTH + " " + Blockly.BlockSvg.NOTCH_PATH_RIGHT), this.block_.nextConnection.moveTo(Blockly.RTL ? $connectionsXY$$.x - Blockly.BlockSvg.NOTCH_WIDTH : $connectionsXY$$.x + Blockly.BlockSvg.NOTCH_WIDTH, $connectionsXY$$.y + $cursorY$$ + 1), this.block_.nextConnection.targetConnection && this.block_.nextConnection.tighten_());
+  Blockly.BROKEN_CONTROL_POINTS && $steps$$.push("c 0,5 0,-5 0,0");
+  this.squareBottomLeftCorner_ ? ($steps$$.push("H 0"), Blockly.RTL || $highlightSteps$$.push("M", "1," + $cursorY$$)) : ($steps$$.push("H", Blockly.BlockSvg.CORNER_RADIUS), $steps$$.push("a", Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,1 -" + Blockly.BlockSvg.CORNER_RADIUS + ",-" + Blockly.BlockSvg.CORNER_RADIUS), Blockly.RTL || ($highlightSteps$$.push("M", Blockly.BlockSvg.DISTANCE_45_INSIDE + "," + ($cursorY$$ - Blockly.BlockSvg.DISTANCE_45_INSIDE)), $highlightSteps$$.push("A", 
+  Blockly.BlockSvg.CORNER_RADIUS - 1 + "," + (Blockly.BlockSvg.CORNER_RADIUS - 1) + " 0 0,1 1," + ($cursorY$$ - Blockly.BlockSvg.CORNER_RADIUS))))
+};
+Blockly.BlockSvg.prototype.renderDrawLeft_ = function $Blockly$BlockSvg$$renderDrawLeft_$($steps$$, $highlightSteps$$, $connectionsXY$$, $cursorY$$) {
+  this.block_.outputConnection ? (this.block_.outputConnection.moveTo($connectionsXY$$.x, $connectionsXY$$.y), $steps$$.push("V", Blockly.BlockSvg.TAB_HEIGHT), $steps$$.push("c 0,-10 -" + Blockly.BlockSvg.TAB_WIDTH + ",8 -" + Blockly.BlockSvg.TAB_WIDTH + ",-7.5 s " + Blockly.BlockSvg.TAB_WIDTH + ",2.5 " + Blockly.BlockSvg.TAB_WIDTH + ",-7.5"), Blockly.RTL ? ($highlightSteps$$.push("M", -0.3 * Blockly.BlockSvg.TAB_WIDTH + ",8.9"), $highlightSteps$$.push("l", -0.45 * Blockly.BlockSvg.TAB_WIDTH + ",-2.1")) : 
+  ($highlightSteps$$.push("V", Blockly.BlockSvg.TAB_HEIGHT - 1), $highlightSteps$$.push("m", -0.92 * Blockly.BlockSvg.TAB_WIDTH + ",-1 q " + -0.19 * Blockly.BlockSvg.TAB_WIDTH + ",-5.5 0,-11"), $highlightSteps$$.push("m", 0.92 * Blockly.BlockSvg.TAB_WIDTH + ",1 V 1 H 2"))) : Blockly.RTL || (this.squareTopLeftCorner_ ? $highlightSteps$$.push("V", 1) : $highlightSteps$$.push("V", Blockly.BlockSvg.CORNER_RADIUS));
+  $steps$$.push("z")
+};
+Blockly.Field = function $Blockly$Field$($text$$) {
+  this.sourceBlock_ = null;
+  this.fieldGroup_ = Blockly.createSvgElement("g", {}, null);
+  this.borderRect_ = Blockly.createSvgElement("rect", {rx:4, ry:4, x:-Blockly.BlockSvg.SEP_SPACE_X / 2, y:-12, height:16}, this.fieldGroup_);
+  this.textElement_ = Blockly.createSvgElement("text", {"class":"blocklyText"}, this.fieldGroup_);
+  this.size_ = {height:25, width:0};
+  this.setText($text$$);
+  this.visible_ = !0
+};
+Blockly.Field.NBSP = "\u00a0";
+Blockly.Field.prototype.EDITABLE = !0;
+Blockly.Field.prototype.init = function $Blockly$Field$$init$($block$$) {
+  if(this.sourceBlock_) {
+    throw"Field has already been initialized once.";
+  }
+  this.sourceBlock_ = $block$$;
+  this.updateEditable();
+  $block$$.getSvgRoot().appendChild(this.fieldGroup_);
+  this.mouseUpWrapper_ = Blockly.bindEvent_(this.fieldGroup_, "mouseup", this, this.onMouseUp_);
+  this.setText(null)
+};
+Blockly.Field.prototype.dispose = function $Blockly$Field$$dispose$() {
+  this.mouseUpWrapper_ && (Blockly.unbindEvent_(this.mouseUpWrapper_), this.mouseUpWrapper_ = null);
+  this.sourceBlock_ = null;
+  goog.dom.removeNode(this.fieldGroup_);
+  this.borderRect_ = this.textElement_ = this.fieldGroup_ = null
+};
+Blockly.Field.prototype.updateEditable = function $Blockly$Field$$updateEditable$() {
+  this.EDITABLE && (this.sourceBlock_.isEditable() ? (Blockly.addClass_(this.fieldGroup_, "blocklyEditableText"), Blockly.removeClass_(this.fieldGroup_, "blocklyNoNEditableText"), this.fieldGroup_.style.cursor = this.CURSOR) : (Blockly.addClass_(this.fieldGroup_, "blocklyNonEditableText"), Blockly.removeClass_(this.fieldGroup_, "blocklyEditableText"), this.fieldGroup_.style.cursor = ""))
+};
+Blockly.Field.prototype.isVisible = function $Blockly$Field$$isVisible$() {
+  return this.visible_
+};
+Blockly.Field.prototype.setVisible = function $Blockly$Field$$setVisible$($visible$$) {
+  this.visible_ = $visible$$;
+  this.getRootElement().style.display = $visible$$ ? "block" : "none"
+};
+Blockly.Field.prototype.getRootElement = function $Blockly$Field$$getRootElement$() {
+  return this.fieldGroup_
+};
+Blockly.Field.prototype.render_ = function $Blockly$Field$$render_$() {
+  var $width$$;
+  $width$$ = this.textElement_.getComputedTextLength ? this.textElement_.getComputedTextLength() : 1;
+  this.borderRect_ && this.borderRect_.setAttribute("width", $width$$ + Blockly.BlockSvg.SEP_SPACE_X);
+  this.size_.width = $width$$
+};
+Blockly.Field.prototype.getSize = function $Blockly$Field$$getSize$() {
+  this.size_.width || this.render_();
+  return this.size_
+};
+Blockly.Field.prototype.getText = function $Blockly$Field$$getText$() {
+  return this.text_
+};
+Blockly.Field.prototype.setText = function $Blockly$Field$$setText$($text$$) {
+  null !== $text$$ && $text$$ !== this.text_ && (this.text_ = $text$$, goog.dom.removeChildren(this.textElement_), $text$$ = $text$$.replace(/\s/g, Blockly.Field.NBSP), $text$$ || ($text$$ = Blockly.Field.NBSP), $text$$ = document.createTextNode($text$$), this.textElement_.appendChild($text$$), this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
+};
+Blockly.Field.prototype.getValue = function $Blockly$Field$$getValue$() {
+  return this.getText()
+};
+Blockly.Field.prototype.setValue = function $Blockly$Field$$setValue$($text$$) {
+  this.setText($text$$)
+};
+Blockly.Field.prototype.onMouseUp_ = function $Blockly$Field$$onMouseUp_$($e$$) {
+  Blockly.isRightButton($e$$) || 2 != Blockly.Block.dragMode_ && this.sourceBlock_.isEditable() && this.showEditor_()
+};
+Blockly.Field.prototype.setTooltip = function $Blockly$Field$$setTooltip$($newTip$$) {
+};
+Blockly.FieldDropdown = function $Blockly$FieldDropdown$($menuGenerator$$, $opt_changeHandler$$) {
+  this.menuGenerator_ = $menuGenerator$$;
+  this.changeHandler_ = $opt_changeHandler$$;
+  this.trimOptions_();
+  var $firstTuple$$ = this.getOptions_()[0];
+  this.value_ = $firstTuple$$[1];
+  this.arrow_ = Blockly.createSvgElement("tspan", {}, null);
+  this.arrow_.appendChild(document.createTextNode(Blockly.RTL ? "\u25be " : " \u25be"));
+  Blockly.FieldDropdown.superClass_.constructor.call(this, $firstTuple$$[0])
+};
+goog.inherits(Blockly.FieldDropdown, Blockly.Field);
+Blockly.FieldDropdown.createDom = function $Blockly$FieldDropdown$createDom$() {
+  var $svgGroup$$ = Blockly.createSvgElement("g", {"class":"blocklyHidden blocklyFieldDropdown"}, null);
+  Blockly.FieldDropdown.svgGroup_ = $svgGroup$$;
+  Blockly.FieldDropdown.svgShadow_ = Blockly.createSvgElement("rect", {"class":"blocklyDropdownMenuShadow", x:0, y:1, rx:2, ry:2}, $svgGroup$$);
+  Blockly.FieldDropdown.svgBackground_ = Blockly.createSvgElement("rect", {x:-2, y:-1, rx:2, ry:2, filter:"url(#blocklyEmboss)"}, $svgGroup$$);
+  Blockly.FieldDropdown.svgOptions_ = Blockly.createSvgElement("g", {"class":"blocklyDropdownMenuOptions"}, $svgGroup$$);
+  return $svgGroup$$
+};
+Blockly.FieldDropdown.prototype.dispose = function $Blockly$FieldDropdown$$dispose$() {
+  Blockly.FieldDropdown.openDropdown_ == this && Blockly.FieldDropdown.hide();
+  Blockly.Field.prototype.dispose.call(this)
+};
+Blockly.FieldDropdown.CORNER_RADIUS = 2;
+Blockly.FieldDropdown.prototype.CURSOR = "default";
+Blockly.FieldDropdown.openDropdown_ = null;
+Blockly.FieldDropdown.prototype.showEditor_ = function $Blockly$FieldDropdown$$showEditor_$() {
+  function $callbackFactory$$($value$$) {
+    return function($e$$) {
+      if(this.changeHandler_) {
+        var $override$$ = this.changeHandler_($value$$);
+        void 0 !== $override$$ && ($value$$ = $override$$)
+      }
+      null !== $value$$ && this.setValue($value$$);
+      $e$$.stopPropagation()
     }
   }
-  this.listener = $listener$$;
-  this.proxy = $proxy$$;
-  this.src = $src$$;
-  this.type = $type$$;
-  this.capture = !!$capture$$;
-  this.handler = $opt_handler$$;
-  this.callOnce = !1;
-  this.key = goog.events.ListenableKey.reserveKey();
-  this.removed = !1
+  var $svgGroup$$ = Blockly.FieldDropdown.svgGroup_, $svgOptions$$ = Blockly.FieldDropdown.svgOptions_, $svgBackground_xy$$ = Blockly.FieldDropdown.svgBackground_, $borderBBox_hexColour$$ = Blockly.FieldDropdown.svgShadow_;
+  goog.dom.removeChildren($svgOptions$$);
+  Blockly.removeClass_($svgGroup$$, "blocklyHidden");
+  Blockly.FieldDropdown.openDropdown_ = this;
+  for(var $maxWidth$$ = 0, $resizeList$$ = [], $checkElement$$ = null, $height$$11_options$$ = this.getOptions_(), $width$$15_x$$ = 0;$width$$15_x$$ < $height$$11_options$$.length;$width$$15_x$$++) {
+    var $value$$0$$ = $height$$11_options$$[$width$$15_x$$][1], $gElement$$ = Blockly.ContextMenu.optionToDom($height$$11_options$$[$width$$15_x$$][0]), $rectElement$$ = $gElement$$.firstChild, $textElement$$ = $gElement$$.lastChild;
+    $svgOptions$$.appendChild($gElement$$);
+    $checkElement$$ || $value$$0$$ != this.value_ || ($checkElement$$ = Blockly.createSvgElement("text", {"class":"blocklyMenuText", y:15}, null), $gElement$$.insertBefore($checkElement$$, $textElement$$), $checkElement$$.appendChild(document.createTextNode("\u2713")));
+    $gElement$$.setAttribute("transform", "translate(0, " + $width$$15_x$$ * Blockly.ContextMenu.Y_HEIGHT + ")");
+    $resizeList$$.push($rectElement$$);
+    Blockly.bindEvent_($gElement$$, "mousedown", null, Blockly.noEvent);
+    Blockly.bindEvent_($gElement$$, "mouseup", this, $callbackFactory$$($value$$0$$));
+    Blockly.bindEvent_($gElement$$, "mouseup", null, Blockly.FieldDropdown.hide);
+    $maxWidth$$ = $textElement$$.getComputedTextLength ? Math.max($maxWidth$$, $textElement$$.getComputedTextLength()) : 1
+  }
+  $maxWidth$$ += 2 * Blockly.ContextMenu.X_PADDING;
+  for($width$$15_x$$ = 0;$width$$15_x$$ < $resizeList$$.length;$width$$15_x$$++) {
+    $resizeList$$[$width$$15_x$$].setAttribute("width", $maxWidth$$)
+  }
+  if(Blockly.RTL) {
+    for($width$$15_x$$ = 0;$gElement$$ = $svgOptions$$.childNodes[$width$$15_x$$];$width$$15_x$$++) {
+      $textElement$$ = $gElement$$.lastChild, $textElement$$.setAttribute("text-anchor", "end"), $textElement$$.setAttribute("x", $maxWidth$$ - Blockly.ContextMenu.X_PADDING)
+    }
+  }
+  $checkElement$$ && (Blockly.RTL ? ($checkElement$$.setAttribute("text-anchor", "end"), $checkElement$$.setAttribute("x", $maxWidth$$ - 5)) : $checkElement$$.setAttribute("x", 5));
+  $width$$15_x$$ = $maxWidth$$ + 2 * Blockly.FieldDropdown.CORNER_RADIUS;
+  $height$$11_options$$ = $height$$11_options$$.length * Blockly.ContextMenu.Y_HEIGHT + Blockly.FieldDropdown.CORNER_RADIUS + 1;
+  $borderBBox_hexColour$$.setAttribute("width", $width$$15_x$$);
+  $borderBBox_hexColour$$.setAttribute("height", $height$$11_options$$);
+  $svgBackground_xy$$.setAttribute("width", $width$$15_x$$);
+  $svgBackground_xy$$.setAttribute("height", $height$$11_options$$);
+  $borderBBox_hexColour$$ = Blockly.makeColour(this.sourceBlock_.getColour(), this.sourceBlock_.getSaturation(), this.sourceBlock_.getValue());
+  $svgBackground_xy$$.setAttribute("fill", $borderBBox_hexColour$$);
+  $svgBackground_xy$$ = Blockly.getSvgXY_(this.borderRect_);
+  0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (this.borderRect_.style.display = "inline", $borderBBox_hexColour$$ = {x:this.borderRect_.getBBox().x, y:this.borderRect_.getBBox().y, width:this.borderRect_.scrollWidth, height:this.borderRect_.scrollHeight}) : $borderBBox_hexColour$$ = this.borderRect_.getBBox();
+  $width$$15_x$$ = Blockly.RTL ? $svgBackground_xy$$.x - $maxWidth$$ + Blockly.ContextMenu.X_PADDING + $borderBBox_hexColour$$.width - Blockly.BlockSvg.SEP_SPACE_X / 2 : $svgBackground_xy$$.x - Blockly.ContextMenu.X_PADDING + Blockly.BlockSvg.SEP_SPACE_X / 2;
+  $svgGroup$$.setAttribute("transform", "translate(" + $width$$15_x$$ + ", " + ($svgBackground_xy$$.y + $borderBBox_hexColour$$.height) + ")")
 };
-goog.events.Listener.prototype.handleEvent = function $goog$events$Listener$$handleEvent$($eventObject$$) {
-  return this.isFunctionListener_ ? this.listener.call(this.handler || this.src, $eventObject$$) : this.listener.handleEvent.call(this.listener, $eventObject$$)
+Blockly.FieldDropdown.prototype.trimOptions_ = function $Blockly$FieldDropdown$$trimOptions_$() {
+  this.suffixTitle = this.prefixTitle = null;
+  var $options$$ = this.menuGenerator_;
+  if(goog.isArray($options$$) && !(2 > $options$$.length)) {
+    var $newOptions_strings$$ = $options$$.map(function($t$$) {
+      return $t$$[0]
+    }), $shortest_x$$ = Blockly.shortestStringLength($newOptions_strings$$), $prefixLength$$ = Blockly.commonWordPrefix($newOptions_strings$$, $shortest_x$$), $suffixLength$$ = Blockly.commonWordSuffix($newOptions_strings$$, $shortest_x$$);
+    if(($prefixLength$$ || $suffixLength$$) && !($shortest_x$$ <= $prefixLength$$ + $suffixLength$$)) {
+      $prefixLength$$ && (this.prefixTitle = $newOptions_strings$$[0].substring(0, $prefixLength$$ - 1));
+      $suffixLength$$ && (this.suffixTitle = $newOptions_strings$$[0].substr(1 - $suffixLength$$));
+      $newOptions_strings$$ = [];
+      for($shortest_x$$ = 0;$shortest_x$$ < $options$$.length;$shortest_x$$++) {
+        var $text$$ = $options$$[$shortest_x$$][0], $value$$ = $options$$[$shortest_x$$][1], $text$$ = $text$$.substring($prefixLength$$, $text$$.length - $suffixLength$$);
+        $newOptions_strings$$[$shortest_x$$] = [$text$$, $value$$]
+      }
+      this.menuGenerator_ = $newOptions_strings$$
+    }
+  }
 };
-goog.debug = {};
-goog.debug.errorHandlerWeakDep = {protectEntryPoint:function $goog$debug$errorHandlerWeakDep$protectEntryPoint$($fn$$, $opt_tracers$$) {
-  return $fn$$
-}};
+Blockly.FieldDropdown.prototype.getOptions_ = function $Blockly$FieldDropdown$$getOptions_$() {
+  return goog.isFunction(this.menuGenerator_) ? this.menuGenerator_.call(this) : this.menuGenerator_
+};
+Blockly.FieldDropdown.prototype.getValue = function $Blockly$FieldDropdown$$getValue$() {
+  return this.value_
+};
+Blockly.FieldDropdown.prototype.setValue = function $Blockly$FieldDropdown$$setValue$($newValue$$) {
+  this.value_ = $newValue$$;
+  for(var $options$$ = this.getOptions_(), $x$$ = 0;$x$$ < $options$$.length;$x$$++) {
+    if($options$$[$x$$][1] == $newValue$$) {
+      this.setText($options$$[$x$$][0]);
+      return
+    }
+  }
+  this.setText($newValue$$)
+};
+Blockly.FieldDropdown.prototype.setText = function $Blockly$FieldDropdown$$setText$($text$$14_textNode$$) {
+  this.sourceBlock_ && (this.arrow_.style.fill = Blockly.makeColour(this.sourceBlock_.getColour(), this.sourceBlock_.getSaturation(), this.sourceBlock_.getValue()));
+  null !== $text$$14_textNode$$ && (this.text_ = $text$$14_textNode$$, goog.dom.removeChildren(this.textElement_), $text$$14_textNode$$ = $text$$14_textNode$$.replace(/\s/g, Blockly.Field.NBSP), $text$$14_textNode$$ || ($text$$14_textNode$$ = Blockly.Field.NBSP), $text$$14_textNode$$ = document.createTextNode($text$$14_textNode$$), this.textElement_.appendChild($text$$14_textNode$$), Blockly.RTL ? this.textElement_.insertBefore(this.arrow_, this.textElement_.firstChild) : this.textElement_.appendChild(this.arrow_), 
+  this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
+};
+Blockly.FieldDropdown.hide = function $Blockly$FieldDropdown$hide$() {
+  var $svgGroup$$ = Blockly.FieldDropdown.svgGroup_;
+  $svgGroup$$ && Blockly.addClass_($svgGroup$$, "blocklyHidden");
+  Blockly.FieldDropdown.openDropdown_ = null
+};
+Blockly.Msg = {};
+goog.string.StringBuffer = function $goog$string$StringBuffer$($opt_a1$$, $var_args$$) {
+  null != $opt_a1$$ && this.append.apply(this, arguments)
+};
+goog.string.StringBuffer.prototype.buffer_ = "";
+goog.string.StringBuffer.prototype.set = function $goog$string$StringBuffer$$set$($s$$) {
+  this.buffer_ = "" + $s$$
+};
+goog.string.StringBuffer.prototype.append = function $goog$string$StringBuffer$$append$($a1$$, $opt_a2$$, $var_args$$) {
+  this.buffer_ += $a1$$;
+  if(null != $opt_a2$$) {
+    for(var $i$$ = 1;$i$$ < arguments.length;$i$$++) {
+      this.buffer_ += arguments[$i$$]
+    }
+  }
+  return this
+};
+goog.string.StringBuffer.prototype.clear = function $goog$string$StringBuffer$$clear$() {
+  this.buffer_ = ""
+};
+goog.string.StringBuffer.prototype.getLength = function $goog$string$StringBuffer$$getLength$() {
+  return this.buffer_.length
+};
+goog.string.StringBuffer.prototype.toString = function $goog$string$StringBuffer$$toString$() {
+  return this.buffer_
+};
 goog.object = {};
 goog.object.forEach = function $goog$object$forEach$($obj$$, $f$$, $opt_obj$$) {
   for(var $key$$ in $obj$$) {
@@ -1552,16 +2089,16 @@ goog.object.clone = function $goog$object$clone$($obj$$) {
   return $res$$
 };
 goog.object.unsafeClone = function $goog$object$unsafeClone$($obj$$) {
-  var $clone$$1_type$$ = goog.typeOf($obj$$);
-  if("object" == $clone$$1_type$$ || "array" == $clone$$1_type$$) {
+  var $clone$$3_type$$ = goog.typeOf($obj$$);
+  if("object" == $clone$$3_type$$ || "array" == $clone$$3_type$$) {
     if($obj$$.clone) {
       return $obj$$.clone()
     }
-    var $clone$$1_type$$ = "array" == $clone$$1_type$$ ? [] : {}, $key$$;
+    var $clone$$3_type$$ = "array" == $clone$$3_type$$ ? [] : {}, $key$$;
     for($key$$ in $obj$$) {
-      $clone$$1_type$$[$key$$] = goog.object.unsafeClone($obj$$[$key$$])
+      $clone$$3_type$$[$key$$] = goog.object.unsafeClone($obj$$[$key$$])
     }
-    return $clone$$1_type$$
+    return $clone$$3_type$$
   }
   return $obj$$
 };
@@ -1615,8 +2152,7 @@ goog.object.createImmutableView = function $goog$object$createImmutableView$($ob
 goog.object.isImmutableView = function $goog$object$isImmutableView$($obj$$) {
   return!!Object.isFrozen && Object.isFrozen($obj$$)
 };
-goog.events.BrowserFeature = {HAS_W3C_BUTTON:!goog.userAgent.IE || goog.userAgent.isDocumentMode(9), HAS_W3C_EVENT_SUPPORT:!goog.userAgent.IE || goog.userAgent.isDocumentMode(9), SET_KEY_CODE_TO_PREVENT_DEFAULT:goog.userAgent.IE && !goog.userAgent.isVersion("9"), HAS_NAVIGATOR_ONLINE_PROPERTY:!goog.userAgent.WEBKIT || goog.userAgent.isVersion("528"), HAS_HTML5_NETWORK_EVENT_SUPPORT:goog.userAgent.GECKO && goog.userAgent.isVersion("1.9b") || goog.userAgent.IE && goog.userAgent.isVersion("8") || goog.userAgent.OPERA && 
-goog.userAgent.isVersion("9.5") || goog.userAgent.WEBKIT && goog.userAgent.isVersion("528"), HTML5_NETWORK_EVENTS_FIRE_ON_BODY:goog.userAgent.GECKO && !goog.userAgent.isVersion("8") || goog.userAgent.IE && !goog.userAgent.isVersion("9"), TOUCH_ENABLED:"ontouchstart" in goog.global || !!(goog.global.document && document.documentElement && "ontouchstart" in document.documentElement) || !(!goog.global.navigator || !goog.global.navigator.msMaxTouchPoints)};
+goog.debug = {};
 goog.debug.Error = function $goog$debug$Error$($opt_msg$$) {
   Error.captureStackTrace ? Error.captureStackTrace(this, goog.debug.Error) : this.stack = Error().stack || "";
   $opt_msg$$ && (this.message = String($opt_msg$$))
@@ -1688,14 +2224,14 @@ goog.array.ARRAY_PROTOTYPE_ = Array.prototype;
 goog.array.indexOf = goog.NATIVE_ARRAY_PROTOTYPES && goog.array.ARRAY_PROTOTYPE_.indexOf ? function($arr$$, $obj$$, $opt_fromIndex$$) {
   goog.asserts.assert(null != $arr$$.length);
   return goog.array.ARRAY_PROTOTYPE_.indexOf.call($arr$$, $obj$$, $opt_fromIndex$$)
-} : function($arr$$, $obj$$, $fromIndex_i$$23_opt_fromIndex$$) {
-  $fromIndex_i$$23_opt_fromIndex$$ = null == $fromIndex_i$$23_opt_fromIndex$$ ? 0 : 0 > $fromIndex_i$$23_opt_fromIndex$$ ? Math.max(0, $arr$$.length + $fromIndex_i$$23_opt_fromIndex$$) : $fromIndex_i$$23_opt_fromIndex$$;
+} : function($arr$$, $obj$$, $fromIndex_i$$24_opt_fromIndex$$) {
+  $fromIndex_i$$24_opt_fromIndex$$ = null == $fromIndex_i$$24_opt_fromIndex$$ ? 0 : 0 > $fromIndex_i$$24_opt_fromIndex$$ ? Math.max(0, $arr$$.length + $fromIndex_i$$24_opt_fromIndex$$) : $fromIndex_i$$24_opt_fromIndex$$;
   if(goog.isString($arr$$)) {
-    return goog.isString($obj$$) && 1 == $obj$$.length ? $arr$$.indexOf($obj$$, $fromIndex_i$$23_opt_fromIndex$$) : -1
+    return goog.isString($obj$$) && 1 == $obj$$.length ? $arr$$.indexOf($obj$$, $fromIndex_i$$24_opt_fromIndex$$) : -1
   }
-  for(;$fromIndex_i$$23_opt_fromIndex$$ < $arr$$.length;$fromIndex_i$$23_opt_fromIndex$$++) {
-    if($fromIndex_i$$23_opt_fromIndex$$ in $arr$$ && $arr$$[$fromIndex_i$$23_opt_fromIndex$$] === $obj$$) {
-      return $fromIndex_i$$23_opt_fromIndex$$
+  for(;$fromIndex_i$$24_opt_fromIndex$$ < $arr$$.length;$fromIndex_i$$24_opt_fromIndex$$++) {
+    if($fromIndex_i$$24_opt_fromIndex$$ in $arr$$ && $arr$$[$fromIndex_i$$24_opt_fromIndex$$] === $obj$$) {
+      return $fromIndex_i$$24_opt_fromIndex$$
     }
   }
   return-1
@@ -1703,15 +2239,15 @@ goog.array.indexOf = goog.NATIVE_ARRAY_PROTOTYPES && goog.array.ARRAY_PROTOTYPE_
 goog.array.lastIndexOf = goog.NATIVE_ARRAY_PROTOTYPES && goog.array.ARRAY_PROTOTYPE_.lastIndexOf ? function($arr$$, $obj$$, $opt_fromIndex$$) {
   goog.asserts.assert(null != $arr$$.length);
   return goog.array.ARRAY_PROTOTYPE_.lastIndexOf.call($arr$$, $obj$$, null == $opt_fromIndex$$ ? $arr$$.length - 1 : $opt_fromIndex$$)
-} : function($arr$$, $obj$$, $fromIndex$$2_i$$24_opt_fromIndex$$) {
-  $fromIndex$$2_i$$24_opt_fromIndex$$ = null == $fromIndex$$2_i$$24_opt_fromIndex$$ ? $arr$$.length - 1 : $fromIndex$$2_i$$24_opt_fromIndex$$;
-  0 > $fromIndex$$2_i$$24_opt_fromIndex$$ && ($fromIndex$$2_i$$24_opt_fromIndex$$ = Math.max(0, $arr$$.length + $fromIndex$$2_i$$24_opt_fromIndex$$));
+} : function($arr$$, $obj$$, $fromIndex$$2_i$$25_opt_fromIndex$$) {
+  $fromIndex$$2_i$$25_opt_fromIndex$$ = null == $fromIndex$$2_i$$25_opt_fromIndex$$ ? $arr$$.length - 1 : $fromIndex$$2_i$$25_opt_fromIndex$$;
+  0 > $fromIndex$$2_i$$25_opt_fromIndex$$ && ($fromIndex$$2_i$$25_opt_fromIndex$$ = Math.max(0, $arr$$.length + $fromIndex$$2_i$$25_opt_fromIndex$$));
   if(goog.isString($arr$$)) {
-    return goog.isString($obj$$) && 1 == $obj$$.length ? $arr$$.lastIndexOf($obj$$, $fromIndex$$2_i$$24_opt_fromIndex$$) : -1
+    return goog.isString($obj$$) && 1 == $obj$$.length ? $arr$$.lastIndexOf($obj$$, $fromIndex$$2_i$$25_opt_fromIndex$$) : -1
   }
-  for(;0 <= $fromIndex$$2_i$$24_opt_fromIndex$$;$fromIndex$$2_i$$24_opt_fromIndex$$--) {
-    if($fromIndex$$2_i$$24_opt_fromIndex$$ in $arr$$ && $arr$$[$fromIndex$$2_i$$24_opt_fromIndex$$] === $obj$$) {
-      return $fromIndex$$2_i$$24_opt_fromIndex$$
+  for(;0 <= $fromIndex$$2_i$$25_opt_fromIndex$$;$fromIndex$$2_i$$25_opt_fromIndex$$--) {
+    if($fromIndex$$2_i$$25_opt_fromIndex$$ in $arr$$ && $arr$$[$fromIndex$$2_i$$25_opt_fromIndex$$] === $obj$$) {
+      return $fromIndex$$2_i$$25_opt_fromIndex$$
     }
   }
   return-1
@@ -1725,8 +2261,8 @@ goog.array.forEach = goog.NATIVE_ARRAY_PROTOTYPES && goog.array.ARRAY_PROTOTYPE_
   }
 };
 goog.array.forEachRight = function $goog$array$forEachRight$($arr$$, $f$$, $opt_obj$$) {
-  for(var $i$$26_l$$ = $arr$$.length, $arr2$$ = goog.isString($arr$$) ? $arr$$.split("") : $arr$$, $i$$26_l$$ = $i$$26_l$$ - 1;0 <= $i$$26_l$$;--$i$$26_l$$) {
-    $i$$26_l$$ in $arr2$$ && $f$$.call($opt_obj$$, $arr2$$[$i$$26_l$$], $i$$26_l$$, $arr$$)
+  for(var $i$$27_l$$ = $arr$$.length, $arr2$$ = goog.isString($arr$$) ? $arr$$.split("") : $arr$$, $i$$27_l$$ = $i$$27_l$$ - 1;0 <= $i$$27_l$$;--$i$$27_l$$) {
+    $i$$27_l$$ in $arr2$$ && $f$$.call($opt_obj$$, $arr2$$[$i$$27_l$$], $i$$27_l$$, $arr$$)
   }
 };
 goog.array.filter = goog.NATIVE_ARRAY_PROTOTYPES && goog.array.ARRAY_PROTOTYPE_.filter ? function($arr$$, $f$$, $opt_obj$$) {
@@ -1816,9 +2352,9 @@ goog.array.findRight = function $goog$array$findRight$($arr$$, $f$$23_i$$, $opt_
   return 0 > $f$$23_i$$ ? null : goog.isString($arr$$) ? $arr$$.charAt($f$$23_i$$) : $arr$$[$f$$23_i$$]
 };
 goog.array.findIndexRight = function $goog$array$findIndexRight$($arr$$, $f$$, $opt_obj$$) {
-  for(var $i$$34_l$$ = $arr$$.length, $arr2$$ = goog.isString($arr$$) ? $arr$$.split("") : $arr$$, $i$$34_l$$ = $i$$34_l$$ - 1;0 <= $i$$34_l$$;$i$$34_l$$--) {
-    if($i$$34_l$$ in $arr2$$ && $f$$.call($opt_obj$$, $arr2$$[$i$$34_l$$], $i$$34_l$$, $arr$$)) {
-      return $i$$34_l$$
+  for(var $i$$35_l$$ = $arr$$.length, $arr2$$ = goog.isString($arr$$) ? $arr$$.split("") : $arr$$, $i$$35_l$$ = $i$$35_l$$ - 1;0 <= $i$$35_l$$;$i$$35_l$$--) {
+    if($i$$35_l$$ in $arr2$$ && $f$$.call($opt_obj$$, $arr2$$[$i$$35_l$$], $i$$35_l$$, $arr$$)) {
+      return $i$$35_l$$
     }
   }
   return-1
@@ -2065,1399 +2601,6 @@ goog.array.shuffle = function $goog$array$shuffle$($arr$$, $opt_randFn$$) {
     $arr$$[$i$$] = $arr$$[$j$$];
     $arr$$[$j$$] = $tmp$$
   }
-};
-goog.debug.entryPointRegistry = {};
-goog.debug.EntryPointMonitor = function $goog$debug$EntryPointMonitor$() {
-};
-goog.debug.entryPointRegistry.refList_ = [];
-goog.debug.entryPointRegistry.monitors_ = [];
-goog.debug.entryPointRegistry.monitorsMayExist_ = !1;
-goog.debug.entryPointRegistry.register = function $goog$debug$entryPointRegistry$register$($callback$$) {
-  goog.debug.entryPointRegistry.refList_[goog.debug.entryPointRegistry.refList_.length] = $callback$$;
-  if(goog.debug.entryPointRegistry.monitorsMayExist_) {
-    for(var $monitors$$ = goog.debug.entryPointRegistry.monitors_, $i$$ = 0;$i$$ < $monitors$$.length;$i$$++) {
-      $callback$$(goog.bind($monitors$$[$i$$].wrap, $monitors$$[$i$$]))
-    }
-  }
-};
-goog.debug.entryPointRegistry.monitorAll = function $goog$debug$entryPointRegistry$monitorAll$($monitor$$) {
-  goog.debug.entryPointRegistry.monitorsMayExist_ = !0;
-  for(var $transformer$$ = goog.bind($monitor$$.wrap, $monitor$$), $i$$ = 0;$i$$ < goog.debug.entryPointRegistry.refList_.length;$i$$++) {
-    goog.debug.entryPointRegistry.refList_[$i$$]($transformer$$)
-  }
-  goog.debug.entryPointRegistry.monitors_.push($monitor$$)
-};
-goog.debug.entryPointRegistry.unmonitorAllIfPossible = function $goog$debug$entryPointRegistry$unmonitorAllIfPossible$($monitor$$1_transformer$$) {
-  var $monitors$$ = goog.debug.entryPointRegistry.monitors_;
-  goog.asserts.assert($monitor$$1_transformer$$ == $monitors$$[$monitors$$.length - 1], "Only the most recent monitor can be unwrapped.");
-  $monitor$$1_transformer$$ = goog.bind($monitor$$1_transformer$$.unwrap, $monitor$$1_transformer$$);
-  for(var $i$$ = 0;$i$$ < goog.debug.entryPointRegistry.refList_.length;$i$$++) {
-    goog.debug.entryPointRegistry.refList_[$i$$]($monitor$$1_transformer$$)
-  }
-  $monitors$$.length--
-};
-goog.events.EventWrapper = function $goog$events$EventWrapper$() {
-};
-goog.events.EventWrapper.prototype.listen = function $goog$events$EventWrapper$$listen$($src$$, $listener$$, $opt_capt$$, $opt_scope$$, $opt_eventHandler$$) {
-};
-goog.events.EventWrapper.prototype.unlisten = function $goog$events$EventWrapper$$unlisten$($src$$, $listener$$, $opt_capt$$, $opt_scope$$, $opt_eventHandler$$) {
-};
-goog.events.EventType = {CLICK:"click", DBLCLICK:"dblclick", MOUSEDOWN:"mousedown", MOUSEUP:"mouseup", MOUSEOVER:"mouseover", MOUSEOUT:"mouseout", MOUSEMOVE:"mousemove", SELECTSTART:"selectstart", KEYPRESS:"keypress", KEYDOWN:"keydown", KEYUP:"keyup", BLUR:"blur", FOCUS:"focus", DEACTIVATE:"deactivate", FOCUSIN:goog.userAgent.IE ? "focusin" : "DOMFocusIn", FOCUSOUT:goog.userAgent.IE ? "focusout" : "DOMFocusOut", CHANGE:"change", SELECT:"select", SUBMIT:"submit", INPUT:"input", PROPERTYCHANGE:"propertychange", 
-DRAGSTART:"dragstart", DRAG:"drag", DRAGENTER:"dragenter", DRAGOVER:"dragover", DRAGLEAVE:"dragleave", DROP:"drop", DRAGEND:"dragend", TOUCHSTART:"touchstart", TOUCHMOVE:"touchmove", TOUCHEND:"touchend", TOUCHCANCEL:"touchcancel", BEFOREUNLOAD:"beforeunload", CONTEXTMENU:"contextmenu", ERROR:"error", HELP:"help", LOAD:"load", LOSECAPTURE:"losecapture", READYSTATECHANGE:"readystatechange", RESIZE:"resize", SCROLL:"scroll", UNLOAD:"unload", HASHCHANGE:"hashchange", PAGEHIDE:"pagehide", PAGESHOW:"pageshow", 
-POPSTATE:"popstate", COPY:"copy", PASTE:"paste", CUT:"cut", BEFORECOPY:"beforecopy", BEFORECUT:"beforecut", BEFOREPASTE:"beforepaste", ONLINE:"online", OFFLINE:"offline", MESSAGE:"message", CONNECT:"connect", TRANSITIONEND:goog.userAgent.WEBKIT ? "webkitTransitionEnd" : goog.userAgent.OPERA ? "oTransitionEnd" : "transitionend", MSGESTURECHANGE:"MSGestureChange", MSGESTUREEND:"MSGestureEnd", MSGESTUREHOLD:"MSGestureHold", MSGESTURESTART:"MSGestureStart", MSGESTURETAP:"MSGestureTap", MSGOTPOINTERCAPTURE:"MSGotPointerCapture", 
-MSINERTIASTART:"MSInertiaStart", MSLOSTPOINTERCAPTURE:"MSLostPointerCapture", MSPOINTERCANCEL:"MSPointerCancel", MSPOINTERDOWN:"MSPointerDown", MSPOINTERMOVE:"MSPointerMove", MSPOINTEROVER:"MSPointerOver", MSPOINTEROUT:"MSPointerOut", MSPOINTERUP:"MSPointerUp", TEXTINPUT:"textinput", COMPOSITIONSTART:"compositionstart", COMPOSITIONUPDATE:"compositionupdate", COMPOSITIONEND:"compositionend"};
-goog.reflect = {};
-goog.reflect.object = function $goog$reflect$object$($type$$, $object$$) {
-  return $object$$
-};
-goog.reflect.sinkValue = function $goog$reflect$sinkValue$($x$$) {
-  goog.reflect.sinkValue[" "]($x$$);
-  return $x$$
-};
-goog.reflect.sinkValue[" "] = goog.nullFunction;
-goog.reflect.canAccessProperty = function $goog$reflect$canAccessProperty$($obj$$, $prop$$) {
-  try {
-    return goog.reflect.sinkValue($obj$$[$prop$$]), !0
-  }catch($e$$) {
-  }
-  return!1
-};
-goog.events.BrowserEvent = function $goog$events$BrowserEvent$($opt_e$$, $opt_currentTarget$$) {
-  $opt_e$$ && this.init($opt_e$$, $opt_currentTarget$$)
-};
-goog.inherits(goog.events.BrowserEvent, goog.events.Event);
-goog.events.BrowserEvent.MouseButton = {LEFT:0, MIDDLE:1, RIGHT:2};
-goog.events.BrowserEvent.IEButtonMap = [1, 4, 2];
-goog.events.BrowserEvent.prototype.target = null;
-goog.events.BrowserEvent.prototype.relatedTarget = null;
-goog.events.BrowserEvent.prototype.offsetX = 0;
-goog.events.BrowserEvent.prototype.offsetY = 0;
-goog.events.BrowserEvent.prototype.clientX = 0;
-goog.events.BrowserEvent.prototype.clientY = 0;
-goog.events.BrowserEvent.prototype.screenX = 0;
-goog.events.BrowserEvent.prototype.screenY = 0;
-goog.events.BrowserEvent.prototype.button = 0;
-goog.events.BrowserEvent.prototype.keyCode = 0;
-goog.events.BrowserEvent.prototype.charCode = 0;
-goog.events.BrowserEvent.prototype.ctrlKey = !1;
-goog.events.BrowserEvent.prototype.altKey = !1;
-goog.events.BrowserEvent.prototype.shiftKey = !1;
-goog.events.BrowserEvent.prototype.metaKey = !1;
-goog.events.BrowserEvent.prototype.platformModifierKey = !1;
-goog.events.BrowserEvent.prototype.event_ = null;
-goog.events.BrowserEvent.prototype.init = function $goog$events$BrowserEvent$$init$($e$$, $opt_currentTarget$$) {
-  var $type$$ = this.type = $e$$.type;
-  goog.events.Event.call(this, $type$$);
-  this.target = $e$$.target || $e$$.srcElement;
-  this.currentTarget = $opt_currentTarget$$;
-  var $relatedTarget$$ = $e$$.relatedTarget;
-  $relatedTarget$$ ? goog.userAgent.GECKO && (goog.reflect.canAccessProperty($relatedTarget$$, "nodeName") || ($relatedTarget$$ = null)) : $type$$ == goog.events.EventType.MOUSEOVER ? $relatedTarget$$ = $e$$.fromElement : $type$$ == goog.events.EventType.MOUSEOUT && ($relatedTarget$$ = $e$$.toElement);
-  this.relatedTarget = $relatedTarget$$;
-  this.offsetX = goog.userAgent.WEBKIT || void 0 !== $e$$.offsetX ? $e$$.offsetX : $e$$.layerX;
-  this.offsetY = goog.userAgent.WEBKIT || void 0 !== $e$$.offsetY ? $e$$.offsetY : $e$$.layerY;
-  this.clientX = void 0 !== $e$$.clientX ? $e$$.clientX : $e$$.pageX;
-  this.clientY = void 0 !== $e$$.clientY ? $e$$.clientY : $e$$.pageY;
-  this.screenX = $e$$.screenX || 0;
-  this.screenY = $e$$.screenY || 0;
-  this.button = $e$$.button;
-  this.keyCode = $e$$.keyCode || 0;
-  this.charCode = $e$$.charCode || ("keypress" == $type$$ ? $e$$.keyCode : 0);
-  this.ctrlKey = $e$$.ctrlKey;
-  this.altKey = $e$$.altKey;
-  this.shiftKey = $e$$.shiftKey;
-  this.metaKey = $e$$.metaKey;
-  this.platformModifierKey = goog.userAgent.MAC ? $e$$.metaKey : $e$$.ctrlKey;
-  this.state = $e$$.state;
-  this.event_ = $e$$;
-  $e$$.defaultPrevented && this.preventDefault();
-  delete this.propagationStopped_
-};
-goog.events.BrowserEvent.prototype.isButton = function $goog$events$BrowserEvent$$isButton$($button$$) {
-  return goog.events.BrowserFeature.HAS_W3C_BUTTON ? this.event_.button == $button$$ : "click" == this.type ? $button$$ == goog.events.BrowserEvent.MouseButton.LEFT : !!(this.event_.button & goog.events.BrowserEvent.IEButtonMap[$button$$])
-};
-goog.events.BrowserEvent.prototype.isMouseActionButton = function $goog$events$BrowserEvent$$isMouseActionButton$() {
-  return this.isButton(goog.events.BrowserEvent.MouseButton.LEFT) && !(goog.userAgent.WEBKIT && goog.userAgent.MAC && this.ctrlKey)
-};
-goog.events.BrowserEvent.prototype.stopPropagation = function $goog$events$BrowserEvent$$stopPropagation$() {
-  goog.events.BrowserEvent.superClass_.stopPropagation.call(this);
-  this.event_.stopPropagation ? this.event_.stopPropagation() : this.event_.cancelBubble = !0
-};
-goog.events.BrowserEvent.prototype.preventDefault = function $goog$events$BrowserEvent$$preventDefault$() {
-  goog.events.BrowserEvent.superClass_.preventDefault.call(this);
-  var $be$$ = this.event_;
-  if($be$$.preventDefault) {
-    $be$$.preventDefault()
-  }else {
-    if($be$$.returnValue = !1, goog.events.BrowserFeature.SET_KEY_CODE_TO_PREVENT_DEFAULT) {
-      try {
-        if($be$$.ctrlKey || 112 <= $be$$.keyCode && 123 >= $be$$.keyCode) {
-          $be$$.keyCode = -1
-        }
-      }catch($ex$$) {
-      }
-    }
-  }
-};
-goog.events.BrowserEvent.prototype.getBrowserEvent = function $goog$events$BrowserEvent$$getBrowserEvent$() {
-  return this.event_
-};
-goog.events.BrowserEvent.prototype.disposeInternal = function $goog$events$BrowserEvent$$disposeInternal$() {
-};
-goog.events.listeners_ = {};
-goog.events.listenerTree_ = {};
-goog.events.sources_ = {};
-goog.events.onString_ = "on";
-goog.events.onStringMap_ = {};
-goog.events.keySeparator_ = "_";
-goog.events.listen = function $goog$events$listen$($listenableKey_src$$, $key$$43_type$$, $listener$$, $opt_capt$$, $opt_handler$$) {
-  if(goog.isArray($key$$43_type$$)) {
-    for(var $i$$ = 0;$i$$ < $key$$43_type$$.length;$i$$++) {
-      goog.events.listen($listenableKey_src$$, $key$$43_type$$[$i$$], $listener$$, $opt_capt$$, $opt_handler$$)
-    }
-    return null
-  }
-  $listenableKey_src$$ = goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenableKey_src$$) ? $listenableKey_src$$.listen($key$$43_type$$, goog.events.wrapListener_($listener$$), $opt_capt$$, $opt_handler$$) : goog.events.listen_($listenableKey_src$$, $key$$43_type$$, $listener$$, !1, $opt_capt$$, $opt_handler$$);
-  $key$$43_type$$ = $listenableKey_src$$.key;
-  goog.events.listeners_[$key$$43_type$$] = $listenableKey_src$$;
-  return $key$$43_type$$
-};
-goog.events.listen_ = function $goog$events$listen_$($src$$, $type$$, $listener$$, $callOnce$$, $capture$$1_opt_capt$$, $opt_handler$$) {
-  if(!$type$$) {
-    throw Error("Invalid event type");
-  }
-  $capture$$1_opt_capt$$ = !!$capture$$1_opt_capt$$;
-  var $listenerObj_map$$ = goog.events.listenerTree_;
-  $type$$ in $listenerObj_map$$ || ($listenerObj_map$$[$type$$] = {count_:0, remaining_:0});
-  $listenerObj_map$$ = $listenerObj_map$$[$type$$];
-  $capture$$1_opt_capt$$ in $listenerObj_map$$ || ($listenerObj_map$$[$capture$$1_opt_capt$$] = {count_:0, remaining_:0}, $listenerObj_map$$.count_++);
-  var $listenerObj_map$$ = $listenerObj_map$$[$capture$$1_opt_capt$$], $srcUid$$ = goog.getUid($src$$), $listenerArray$$;
-  $listenerObj_map$$.remaining_++;
-  if($listenerObj_map$$[$srcUid$$]) {
-    $listenerArray$$ = $listenerObj_map$$[$srcUid$$];
-    for(var $i$$56_proxy$$ = 0;$i$$56_proxy$$ < $listenerArray$$.length;$i$$56_proxy$$++) {
-      if($listenerObj_map$$ = $listenerArray$$[$i$$56_proxy$$], $listenerObj_map$$.listener == $listener$$ && $listenerObj_map$$.handler == $opt_handler$$) {
-        if($listenerObj_map$$.removed) {
-          break
-        }
-        $callOnce$$ || ($listenerArray$$[$i$$56_proxy$$].callOnce = !1);
-        return $listenerArray$$[$i$$56_proxy$$]
-      }
-    }
-  }else {
-    $listenerArray$$ = $listenerObj_map$$[$srcUid$$] = [], $listenerObj_map$$.count_++
-  }
-  $i$$56_proxy$$ = goog.events.getProxy();
-  $listenerObj_map$$ = new goog.events.Listener;
-  $listenerObj_map$$.init($listener$$, $i$$56_proxy$$, $src$$, $type$$, $capture$$1_opt_capt$$, $opt_handler$$);
-  $listenerObj_map$$.callOnce = $callOnce$$;
-  $i$$56_proxy$$.src = $src$$;
-  $i$$56_proxy$$.listener = $listenerObj_map$$;
-  $listenerArray$$.push($listenerObj_map$$);
-  goog.events.sources_[$srcUid$$] || (goog.events.sources_[$srcUid$$] = []);
-  goog.events.sources_[$srcUid$$].push($listenerObj_map$$);
-  $src$$.addEventListener ? $src$$ != goog.global && $src$$.customEvent_ || $src$$.addEventListener($type$$, $i$$56_proxy$$, $capture$$1_opt_capt$$) : $src$$.attachEvent(goog.events.getOnString_($type$$), $i$$56_proxy$$);
-  return $listenerObj_map$$
-};
-goog.events.getProxy = function $goog$events$getProxy$() {
-  var $proxyCallbackFunction$$ = goog.events.handleBrowserEvent_, $f$$ = goog.events.BrowserFeature.HAS_W3C_EVENT_SUPPORT ? function($eventObject$$) {
-    return $proxyCallbackFunction$$.call($f$$.src, $f$$.listener, $eventObject$$)
-  } : function($eventObject$$) {
-    $eventObject$$ = $proxyCallbackFunction$$.call($f$$.src, $f$$.listener, $eventObject$$);
-    if(!$eventObject$$) {
-      return $eventObject$$
-    }
-  };
-  return $f$$
-};
-goog.events.listenOnce = function $goog$events$listenOnce$($listenableKey$$1_src$$, $key$$44_type$$, $listener$$, $opt_capt$$, $opt_handler$$) {
-  if(goog.isArray($key$$44_type$$)) {
-    for(var $i$$ = 0;$i$$ < $key$$44_type$$.length;$i$$++) {
-      goog.events.listenOnce($listenableKey$$1_src$$, $key$$44_type$$[$i$$], $listener$$, $opt_capt$$, $opt_handler$$)
-    }
-    return null
-  }
-  $listenableKey$$1_src$$ = goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenableKey$$1_src$$) ? $listenableKey$$1_src$$.listenOnce($key$$44_type$$, goog.events.wrapListener_($listener$$), $opt_capt$$, $opt_handler$$) : goog.events.listen_($listenableKey$$1_src$$, $key$$44_type$$, $listener$$, !0, $opt_capt$$, $opt_handler$$);
-  $key$$44_type$$ = $listenableKey$$1_src$$.key;
-  goog.events.listeners_[$key$$44_type$$] = $listenableKey$$1_src$$;
-  return $key$$44_type$$
-};
-goog.events.listenWithWrapper = function $goog$events$listenWithWrapper$($src$$, $wrapper$$, $listener$$, $opt_capt$$, $opt_handler$$) {
-  $wrapper$$.listen($src$$, $listener$$, $opt_capt$$, $opt_handler$$)
-};
-goog.events.unlisten = function $goog$events$unlisten$($listenerArray$$1_src$$, $type$$, $listener$$, $capture$$2_opt_capt$$, $opt_handler$$) {
-  if(goog.isArray($type$$)) {
-    for(var $i$$ = 0;$i$$ < $type$$.length;$i$$++) {
-      goog.events.unlisten($listenerArray$$1_src$$, $type$$[$i$$], $listener$$, $capture$$2_opt_capt$$, $opt_handler$$)
-    }
-    return null
-  }
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenerArray$$1_src$$)) {
-    return $listenerArray$$1_src$$.unlisten($type$$, goog.events.wrapListener_($listener$$), $capture$$2_opt_capt$$, $opt_handler$$)
-  }
-  $capture$$2_opt_capt$$ = !!$capture$$2_opt_capt$$;
-  $listenerArray$$1_src$$ = goog.events.getListeners_($listenerArray$$1_src$$, $type$$, $capture$$2_opt_capt$$);
-  if(!$listenerArray$$1_src$$) {
-    return!1
-  }
-  for($i$$ = 0;$i$$ < $listenerArray$$1_src$$.length;$i$$++) {
-    if($listenerArray$$1_src$$[$i$$].listener == $listener$$ && $listenerArray$$1_src$$[$i$$].capture == $capture$$2_opt_capt$$ && $listenerArray$$1_src$$[$i$$].handler == $opt_handler$$) {
-      return goog.events.unlistenByKey($listenerArray$$1_src$$[$i$$].key)
-    }
-  }
-  return!1
-};
-goog.events.unlistenByKey = function $goog$events$unlistenByKey$($key$$) {
-  var $listener$$40_listenerArray$$ = goog.events.listeners_[$key$$];
-  if(!$listener$$40_listenerArray$$ || $listener$$40_listenerArray$$.removed) {
-    return!1
-  }
-  var $src$$12_srcUid$$ = $listener$$40_listenerArray$$.src;
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($src$$12_srcUid$$)) {
-    return $src$$12_srcUid$$.unlistenByKey($listener$$40_listenerArray$$)
-  }
-  var $type$$ = $listener$$40_listenerArray$$.type, $proxy$$ = $listener$$40_listenerArray$$.proxy, $capture$$ = $listener$$40_listenerArray$$.capture;
-  $src$$12_srcUid$$.removeEventListener ? $src$$12_srcUid$$ != goog.global && $src$$12_srcUid$$.customEvent_ || $src$$12_srcUid$$.removeEventListener($type$$, $proxy$$, $capture$$) : $src$$12_srcUid$$.detachEvent && $src$$12_srcUid$$.detachEvent(goog.events.getOnString_($type$$), $proxy$$);
-  $src$$12_srcUid$$ = goog.getUid($src$$12_srcUid$$);
-  goog.events.sources_[$src$$12_srcUid$$] && ($proxy$$ = goog.events.sources_[$src$$12_srcUid$$], goog.array.remove($proxy$$, $listener$$40_listenerArray$$), 0 == $proxy$$.length && delete goog.events.sources_[$src$$12_srcUid$$]);
-  $listener$$40_listenerArray$$.removed = !0;
-  if($listener$$40_listenerArray$$ = goog.events.listenerTree_[$type$$][$capture$$][$src$$12_srcUid$$]) {
-    $listener$$40_listenerArray$$.needsCleanup_ = !0, goog.events.cleanUp_($type$$, $capture$$, $src$$12_srcUid$$, $listener$$40_listenerArray$$)
-  }
-  delete goog.events.listeners_[$key$$];
-  return!0
-};
-goog.events.unlistenWithWrapper = function $goog$events$unlistenWithWrapper$($src$$, $wrapper$$, $listener$$, $opt_capt$$, $opt_handler$$) {
-  $wrapper$$.unlisten($src$$, $listener$$, $opt_capt$$, $opt_handler$$)
-};
-goog.events.cleanUp = function $goog$events$cleanUp$($listenableKey$$) {
-  delete goog.events.listeners_[$listenableKey$$.key]
-};
-goog.events.cleanUp_ = function $goog$events$cleanUp_$($type$$, $capture$$, $srcUid$$, $listenerArray$$) {
-  if(!$listenerArray$$.locked_ && $listenerArray$$.needsCleanup_) {
-    for(var $oldIndex$$ = 0, $newIndex$$ = 0;$oldIndex$$ < $listenerArray$$.length;$oldIndex$$++) {
-      $listenerArray$$[$oldIndex$$].removed ? $listenerArray$$[$oldIndex$$].proxy.src = null : ($oldIndex$$ != $newIndex$$ && ($listenerArray$$[$newIndex$$] = $listenerArray$$[$oldIndex$$]), $newIndex$$++)
-    }
-    $listenerArray$$.length = $newIndex$$;
-    $listenerArray$$.needsCleanup_ = !1;
-    0 == $newIndex$$ && (delete goog.events.listenerTree_[$type$$][$capture$$][$srcUid$$], goog.events.listenerTree_[$type$$][$capture$$].count_--, 0 == goog.events.listenerTree_[$type$$][$capture$$].count_ && (delete goog.events.listenerTree_[$type$$][$capture$$], goog.events.listenerTree_[$type$$].count_--), 0 == goog.events.listenerTree_[$type$$].count_ && delete goog.events.listenerTree_[$type$$])
-  }
-};
-goog.events.removeAll = function $goog$events$removeAll$($opt_obj$$, $opt_type$$) {
-  var $count$$ = 0, $noType$$ = null == $opt_type$$;
-  if(null != $opt_obj$$) {
-    if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && $opt_obj$$ && goog.events.Listenable.isImplementedBy($opt_obj$$)) {
-      return $opt_obj$$.removeAllListeners($opt_type$$)
-    }
-    var $sourcesArray$$1_srcUid$$ = goog.getUid($opt_obj$$);
-    if(goog.events.sources_[$sourcesArray$$1_srcUid$$]) {
-      for(var $sourcesArray$$1_srcUid$$ = goog.events.sources_[$sourcesArray$$1_srcUid$$], $i$$ = $sourcesArray$$1_srcUid$$.length - 1;0 <= $i$$;$i$$--) {
-        var $listener$$0$$ = $sourcesArray$$1_srcUid$$[$i$$];
-        if($noType$$ || $opt_type$$ == $listener$$0$$.type) {
-          goog.events.unlistenByKey($listener$$0$$.key), $count$$++
-        }
-      }
-    }
-  }else {
-    goog.object.forEach(goog.events.listeners_, function($listener$$, $key$$) {
-      goog.events.unlistenByKey($key$$);
-      $count$$++
-    })
-  }
-  return $count$$
-};
-goog.events.getListeners = function $goog$events$getListeners$($obj$$, $type$$, $capture$$) {
-  return goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($obj$$) ? $obj$$.getListeners($type$$, $capture$$) : goog.events.getListeners_($obj$$, $type$$, $capture$$) || []
-};
-goog.events.getListeners_ = function $goog$events$getListeners_$($obj$$, $type$$, $capture$$) {
-  var $map$$ = goog.events.listenerTree_;
-  return $type$$ in $map$$ && ($map$$ = $map$$[$type$$], $capture$$ in $map$$ && ($map$$ = $map$$[$capture$$], $obj$$ = goog.getUid($obj$$), $map$$[$obj$$])) ? $map$$[$obj$$] : null
-};
-goog.events.getListener = function $goog$events$getListener$($listenerArray$$4_src$$, $i$$60_type$$, $listener$$, $capture$$7_opt_capt$$, $opt_handler$$) {
-  $capture$$7_opt_capt$$ = !!$capture$$7_opt_capt$$;
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenerArray$$4_src$$)) {
-    return $listenerArray$$4_src$$.getListener($i$$60_type$$, goog.events.wrapListener_($listener$$), $capture$$7_opt_capt$$, $opt_handler$$)
-  }
-  if($listenerArray$$4_src$$ = goog.events.getListeners_($listenerArray$$4_src$$, $i$$60_type$$, $capture$$7_opt_capt$$)) {
-    for($i$$60_type$$ = 0;$i$$60_type$$ < $listenerArray$$4_src$$.length;$i$$60_type$$++) {
-      if(!$listenerArray$$4_src$$[$i$$60_type$$].removed && $listenerArray$$4_src$$[$i$$60_type$$].listener == $listener$$ && $listenerArray$$4_src$$[$i$$60_type$$].capture == $capture$$7_opt_capt$$ && $listenerArray$$4_src$$[$i$$60_type$$].handler == $opt_handler$$) {
-        return $listenerArray$$4_src$$[$i$$60_type$$]
-      }
-    }
-  }
-  return null
-};
-goog.events.hasListener = function $goog$events$hasListener$($obj$$67_objUid$$, $opt_type$$, $opt_capture$$) {
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($obj$$67_objUid$$)) {
-    return $obj$$67_objUid$$.hasListener($opt_type$$, $opt_capture$$)
-  }
-  $obj$$67_objUid$$ = goog.getUid($obj$$67_objUid$$);
-  var $listeners_map$$ = goog.events.sources_[$obj$$67_objUid$$];
-  if($listeners_map$$) {
-    var $hasType$$ = goog.isDef($opt_type$$), $hasCapture$$ = goog.isDef($opt_capture$$);
-    return $hasType$$ && $hasCapture$$ ? ($listeners_map$$ = goog.events.listenerTree_[$opt_type$$], !!$listeners_map$$ && !!$listeners_map$$[$opt_capture$$] && $obj$$67_objUid$$ in $listeners_map$$[$opt_capture$$]) : $hasType$$ || $hasCapture$$ ? goog.array.some($listeners_map$$, function($listener$$) {
-      return $hasType$$ && $listener$$.type == $opt_type$$ || $hasCapture$$ && $listener$$.capture == $opt_capture$$
-    }) : !0
-  }
-  return!1
-};
-goog.events.expose = function $goog$events$expose$($e$$) {
-  var $str$$ = [], $key$$;
-  for($key$$ in $e$$) {
-    $e$$[$key$$] && $e$$[$key$$].id ? $str$$.push($key$$ + " = " + $e$$[$key$$] + " (" + $e$$[$key$$].id + ")") : $str$$.push($key$$ + " = " + $e$$[$key$$])
-  }
-  return $str$$.join("\n")
-};
-goog.events.getOnString_ = function $goog$events$getOnString_$($type$$) {
-  return $type$$ in goog.events.onStringMap_ ? goog.events.onStringMap_[$type$$] : goog.events.onStringMap_[$type$$] = goog.events.onString_ + $type$$
-};
-goog.events.fireListeners = function $goog$events$fireListeners$($obj$$, $type$$, $capture$$, $eventObject$$) {
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($obj$$)) {
-    return $obj$$.fireListeners($type$$, $capture$$, $eventObject$$)
-  }
-  var $map$$ = goog.events.listenerTree_;
-  return $type$$ in $map$$ && ($map$$ = $map$$[$type$$], $capture$$ in $map$$) ? goog.events.fireListeners_($map$$[$capture$$], $obj$$, $type$$, $capture$$, $eventObject$$) : !0
-};
-goog.events.fireListeners_ = function $goog$events$fireListeners_$($map$$, $obj$$69_objUid$$, $type$$, $capture$$, $eventObject$$) {
-  var $retval$$ = 1;
-  $obj$$69_objUid$$ = goog.getUid($obj$$69_objUid$$);
-  if($map$$[$obj$$69_objUid$$]) {
-    var $remaining$$ = --$map$$.remaining_, $listenerArray$$ = $map$$[$obj$$69_objUid$$];
-    $listenerArray$$.locked_ ? $listenerArray$$.locked_++ : $listenerArray$$.locked_ = 1;
-    try {
-      for(var $length$$ = $listenerArray$$.length, $i$$ = 0;$i$$ < $length$$;$i$$++) {
-        var $listener$$ = $listenerArray$$[$i$$];
-        $listener$$ && !$listener$$.removed && ($retval$$ &= !1 !== goog.events.fireListener($listener$$, $eventObject$$))
-      }
-    }finally {
-      $map$$.remaining_ = Math.max($remaining$$, $map$$.remaining_), $listenerArray$$.locked_--, goog.events.cleanUp_($type$$, $capture$$, $obj$$69_objUid$$, $listenerArray$$)
-    }
-  }
-  return Boolean($retval$$)
-};
-goog.events.fireListener = function $goog$events$fireListener$($listener$$, $eventObject$$) {
-  $listener$$.callOnce && goog.events.unlistenByKey($listener$$.key);
-  return $listener$$.handleEvent($eventObject$$)
-};
-goog.events.getTotalListenerCount = function $goog$events$getTotalListenerCount$() {
-  return goog.object.getCount(goog.events.listeners_)
-};
-goog.events.dispatchEvent = function $goog$events$dispatchEvent$($src$$, $e$$) {
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE) {
-    return $src$$.dispatchEvent($e$$)
-  }
-  var $hasCapture$$1_type$$ = $e$$.type || $e$$, $current$$1_map$$ = goog.events.listenerTree_;
-  if(!($hasCapture$$1_type$$ in $current$$1_map$$)) {
-    return!0
-  }
-  if(goog.isString($e$$)) {
-    $e$$ = new goog.events.Event($e$$, $src$$)
-  }else {
-    if($e$$ instanceof goog.events.Event) {
-      $e$$.target = $e$$.target || $src$$
-    }else {
-      var $oldEvent_rv$$ = $e$$;
-      $e$$ = new goog.events.Event($hasCapture$$1_type$$, $src$$);
-      goog.object.extend($e$$, $oldEvent_rv$$)
-    }
-  }
-  var $oldEvent_rv$$ = 1, $ancestors$$, $current$$1_map$$ = $current$$1_map$$[$hasCapture$$1_type$$], $hasCapture$$1_type$$ = !0 in $current$$1_map$$, $parent$$;
-  if($hasCapture$$1_type$$) {
-    $ancestors$$ = [];
-    for($parent$$ = $src$$;$parent$$;$parent$$ = $parent$$.getParentEventTarget()) {
-      $ancestors$$.push($parent$$)
-    }
-    $parent$$ = $current$$1_map$$[!0];
-    $parent$$.remaining_ = $parent$$.count_;
-    for(var $i$$ = $ancestors$$.length - 1;!$e$$.propagationStopped_ && 0 <= $i$$ && $parent$$.remaining_;$i$$--) {
-      $e$$.currentTarget = $ancestors$$[$i$$], $oldEvent_rv$$ &= goog.events.fireListeners_($parent$$, $ancestors$$[$i$$], $e$$.type, !0, $e$$) && !1 != $e$$.returnValue_
-    }
-  }
-  if(!1 in $current$$1_map$$) {
-    if($parent$$ = $current$$1_map$$[!1], $parent$$.remaining_ = $parent$$.count_, $hasCapture$$1_type$$) {
-      for($i$$ = 0;!$e$$.propagationStopped_ && $i$$ < $ancestors$$.length && $parent$$.remaining_;$i$$++) {
-        $e$$.currentTarget = $ancestors$$[$i$$], $oldEvent_rv$$ &= goog.events.fireListeners_($parent$$, $ancestors$$[$i$$], $e$$.type, !1, $e$$) && !1 != $e$$.returnValue_
-      }
-    }else {
-      for($current$$1_map$$ = $src$$;!$e$$.propagationStopped_ && $current$$1_map$$ && $parent$$.remaining_;$current$$1_map$$ = $current$$1_map$$.getParentEventTarget()) {
-        $e$$.currentTarget = $current$$1_map$$, $oldEvent_rv$$ &= goog.events.fireListeners_($parent$$, $current$$1_map$$, $e$$.type, !1, $e$$) && !1 != $e$$.returnValue_
-      }
-    }
-  }
-  return Boolean($oldEvent_rv$$)
-};
-goog.events.protectBrowserEventEntryPoint = function $goog$events$protectBrowserEventEntryPoint$($errorHandler$$) {
-  goog.events.handleBrowserEvent_ = $errorHandler$$.protectEntryPoint(goog.events.handleBrowserEvent_)
-};
-goog.events.handleBrowserEvent_ = function $goog$events$handleBrowserEvent_$($listener$$, $opt_evt$$) {
-  if($listener$$.removed) {
-    return!0
-  }
-  var $be$$1_type$$ = $listener$$.type, $map$$ = goog.events.listenerTree_;
-  if(!($be$$1_type$$ in $map$$)) {
-    return!0
-  }
-  var $map$$ = $map$$[$be$$1_type$$], $ieEvent_retval$$, $targetsMap$$;
-  if(!goog.events.BrowserFeature.HAS_W3C_EVENT_SUPPORT) {
-    $ieEvent_retval$$ = $opt_evt$$ || goog.getObjectByName("window.event");
-    var $hasCapture$$ = !0 in $map$$, $hasBubble$$ = !1 in $map$$;
-    if($hasCapture$$) {
-      if(goog.events.isMarkedIeEvent_($ieEvent_retval$$)) {
-        return!0
-      }
-      goog.events.markIeEvent_($ieEvent_retval$$)
-    }
-    var $evt$$ = new goog.events.BrowserEvent;
-    $evt$$.init($ieEvent_retval$$, this);
-    $ieEvent_retval$$ = !0;
-    try {
-      if($hasCapture$$) {
-        for(var $ancestors$$ = [], $parent$$ = $evt$$.currentTarget;$parent$$;$parent$$ = $parent$$.parentNode) {
-          $ancestors$$.push($parent$$)
-        }
-        $targetsMap$$ = $map$$[!0];
-        $targetsMap$$.remaining_ = $targetsMap$$.count_;
-        for(var $i$$ = $ancestors$$.length - 1;!$evt$$.propagationStopped_ && 0 <= $i$$ && $targetsMap$$.remaining_;$i$$--) {
-          $evt$$.currentTarget = $ancestors$$[$i$$], $ieEvent_retval$$ &= goog.events.fireListeners_($targetsMap$$, $ancestors$$[$i$$], $be$$1_type$$, !0, $evt$$)
-        }
-        if($hasBubble$$) {
-          for($targetsMap$$ = $map$$[!1], $targetsMap$$.remaining_ = $targetsMap$$.count_, $i$$ = 0;!$evt$$.propagationStopped_ && $i$$ < $ancestors$$.length && $targetsMap$$.remaining_;$i$$++) {
-            $evt$$.currentTarget = $ancestors$$[$i$$], $ieEvent_retval$$ &= goog.events.fireListeners_($targetsMap$$, $ancestors$$[$i$$], $be$$1_type$$, !1, $evt$$)
-          }
-        }
-      }else {
-        $ieEvent_retval$$ = goog.events.fireListener($listener$$, $evt$$)
-      }
-    }finally {
-      $ancestors$$ && ($ancestors$$.length = 0)
-    }
-    return $ieEvent_retval$$
-  }
-  $be$$1_type$$ = new goog.events.BrowserEvent($opt_evt$$, this);
-  return $ieEvent_retval$$ = goog.events.fireListener($listener$$, $be$$1_type$$)
-};
-goog.events.markIeEvent_ = function $goog$events$markIeEvent_$($e$$) {
-  var $useReturnValue$$ = !1;
-  if(0 == $e$$.keyCode) {
-    try {
-      $e$$.keyCode = -1;
-      return
-    }catch($ex$$) {
-      $useReturnValue$$ = !0
-    }
-  }
-  if($useReturnValue$$ || void 0 == $e$$.returnValue) {
-    $e$$.returnValue = !0
-  }
-};
-goog.events.isMarkedIeEvent_ = function $goog$events$isMarkedIeEvent_$($e$$) {
-  return 0 > $e$$.keyCode || void 0 != $e$$.returnValue
-};
-goog.events.uniqueIdCounter_ = 0;
-goog.events.getUniqueId = function $goog$events$getUniqueId$($identifier$$) {
-  return $identifier$$ + "_" + goog.events.uniqueIdCounter_++
-};
-goog.events.LISTENER_WRAPPER_PROP_ = "__closure_events_fn_" + (1E9 * Math.random() >>> 0);
-goog.events.wrapListener_ = function $goog$events$wrapListener_$($listener$$) {
-  return goog.isFunction($listener$$) ? $listener$$ : $listener$$[goog.events.LISTENER_WRAPPER_PROP_] || ($listener$$[goog.events.LISTENER_WRAPPER_PROP_] = function $$listener$$$goog$events$LISTENER_WRAPPER_PROP_$($e$$) {
-    return $listener$$.handleEvent($e$$)
-  })
-};
-goog.debug.entryPointRegistry.register(function($transformer$$) {
-  goog.events.handleBrowserEvent_ = $transformer$$(goog.events.handleBrowserEvent_)
-});
-goog.events.EventTarget = function $goog$events$EventTarget$() {
-  goog.Disposable.call(this);
-  goog.events.Listenable.USE_LISTENABLE_INTERFACE && (this.eventTargetListeners_ = {}, this.reallyDisposed_ = !1, this.actualEventTarget_ = this)
-};
-goog.inherits(goog.events.EventTarget, goog.Disposable);
-goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.addImplementation(goog.events.EventTarget);
-goog.events.EventTarget.prototype.customEvent_ = !0;
-goog.events.EventTarget.prototype.parentEventTarget_ = null;
-goog.events.EventTarget.prototype.getParentEventTarget = function $goog$events$EventTarget$$getParentEventTarget$() {
-  return this.parentEventTarget_
-};
-goog.events.EventTarget.prototype.setParentEventTarget = function $goog$events$EventTarget$$setParentEventTarget$($parent$$) {
-  this.parentEventTarget_ = $parent$$
-};
-goog.events.EventTarget.prototype.addEventListener = function $goog$events$EventTarget$$addEventListener$($type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$) {
-  goog.events.listen(this, $type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$)
-};
-goog.events.EventTarget.prototype.removeEventListener = function $goog$events$EventTarget$$removeEventListener$($type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$) {
-  goog.events.unlisten(this, $type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$)
-};
-goog.events.EventTarget.prototype.dispatchEvent = function $goog$events$EventTarget$$dispatchEvent$($e$$) {
-  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE) {
-    if(this.reallyDisposed_) {
-      return!0
-    }
-    var $ancestorsTree$$, $ancestor$$ = this.getParentEventTarget();
-    if($ancestor$$) {
-      for($ancestorsTree$$ = [];$ancestor$$;$ancestor$$ = $ancestor$$.getParentEventTarget()) {
-        $ancestorsTree$$.push($ancestor$$)
-      }
-    }
-    return goog.events.EventTarget.dispatchEventInternal_(this.actualEventTarget_, $e$$, $ancestorsTree$$)
-  }
-  return goog.events.dispatchEvent(this, $e$$)
-};
-goog.events.EventTarget.prototype.disposeInternal = function $goog$events$EventTarget$$disposeInternal$() {
-  goog.events.EventTarget.superClass_.disposeInternal.call(this);
-  goog.events.Listenable.USE_LISTENABLE_INTERFACE ? (this.removeAllListeners(), this.reallyDisposed_ = !0) : goog.events.removeAll(this);
-  this.parentEventTarget_ = null
-};
-goog.events.Listenable.USE_LISTENABLE_INTERFACE && (goog.events.EventTarget.prototype.listen = function $goog$events$EventTarget$$listen$($type$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$) {
-  return this.listenInternal_($type$$, $listener$$, !1, $opt_useCapture$$, $opt_listenerScope$$)
-}, goog.events.EventTarget.prototype.listenOnce = function $goog$events$EventTarget$$listenOnce$($type$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$) {
-  return this.listenInternal_($type$$, $listener$$, !0, $opt_useCapture$$, $opt_listenerScope$$)
-}, goog.events.EventTarget.prototype.listenInternal_ = function $goog$events$EventTarget$$listenInternal_$($type$$, $listener$$, $callOnce$$, $opt_useCapture$$, $opt_listenerScope$$) {
-  goog.asserts.assert(!this.reallyDisposed_, "Can not listen on disposed object.");
-  var $listenerArray$$ = this.eventTargetListeners_[$type$$] || (this.eventTargetListeners_[$type$$] = []), $index$$54_listenerObj$$;
-  $index$$54_listenerObj$$ = goog.events.EventTarget.findListenerIndex_($listenerArray$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$);
-  if(-1 < $index$$54_listenerObj$$) {
-    return $index$$54_listenerObj$$ = $listenerArray$$[$index$$54_listenerObj$$], $callOnce$$ || ($index$$54_listenerObj$$.callOnce = !1), $index$$54_listenerObj$$
-  }
-  $index$$54_listenerObj$$ = new goog.events.Listener;
-  $index$$54_listenerObj$$.init($listener$$, null, this, $type$$, !!$opt_useCapture$$, $opt_listenerScope$$);
-  $index$$54_listenerObj$$.callOnce = $callOnce$$;
-  $listenerArray$$.push($index$$54_listenerObj$$);
-  return $index$$54_listenerObj$$
-}, goog.events.EventTarget.prototype.unlisten = function $goog$events$EventTarget$$unlisten$($listenerArray$$7_type$$, $index$$55_listener$$, $listenerObj$$2_opt_useCapture$$, $opt_listenerScope$$) {
-  if(!($listenerArray$$7_type$$ in this.eventTargetListeners_)) {
-    return!1
-  }
-  $listenerArray$$7_type$$ = this.eventTargetListeners_[$listenerArray$$7_type$$];
-  $index$$55_listener$$ = goog.events.EventTarget.findListenerIndex_($listenerArray$$7_type$$, $index$$55_listener$$, $listenerObj$$2_opt_useCapture$$, $opt_listenerScope$$);
-  return-1 < $index$$55_listener$$ ? ($listenerObj$$2_opt_useCapture$$ = $listenerArray$$7_type$$[$index$$55_listener$$], goog.events.cleanUp($listenerObj$$2_opt_useCapture$$), $listenerObj$$2_opt_useCapture$$.removed = !0, goog.array.removeAt($listenerArray$$7_type$$, $index$$55_listener$$)) : !1
-}, goog.events.EventTarget.prototype.unlistenByKey = function $goog$events$EventTarget$$unlistenByKey$($key$$) {
-  var $removed_type$$ = $key$$.type;
-  if(!($removed_type$$ in this.eventTargetListeners_)) {
-    return!1
-  }
-  if($removed_type$$ = goog.array.remove(this.eventTargetListeners_[$removed_type$$], $key$$)) {
-    goog.events.cleanUp($key$$), $key$$.removed = !0
-  }
-  return $removed_type$$
-}, goog.events.EventTarget.prototype.removeAllListeners = function $goog$events$EventTarget$$removeAllListeners$($opt_type$$, $opt_capture$$) {
-  var $count$$ = 0, $type$$;
-  for($type$$ in this.eventTargetListeners_) {
-    if(!$opt_type$$ || $type$$ == $opt_type$$) {
-      for(var $listenerArray$$ = this.eventTargetListeners_[$type$$], $i$$ = 0;$i$$ < $listenerArray$$.length;$i$$++) {
-        ++$count$$, goog.events.cleanUp($listenerArray$$[$i$$]), $listenerArray$$[$i$$].removed = !0
-      }
-      $listenerArray$$.length = 0
-    }
-  }
-  return $count$$
-}, goog.events.EventTarget.prototype.fireListeners = function $goog$events$EventTarget$$fireListeners$($listenerArray$$9_type$$, $capture$$, $eventObject$$) {
-  goog.asserts.assert(!this.reallyDisposed_, "Can not fire listeners after dispose() completed.");
-  if(!($listenerArray$$9_type$$ in this.eventTargetListeners_)) {
-    return!0
-  }
-  var $rv$$ = !0;
-  $listenerArray$$9_type$$ = goog.array.clone(this.eventTargetListeners_[$listenerArray$$9_type$$]);
-  for(var $i$$ = 0;$i$$ < $listenerArray$$9_type$$.length;++$i$$) {
-    var $listener$$ = $listenerArray$$9_type$$[$i$$];
-    $listener$$ && !$listener$$.removed && $listener$$.capture == $capture$$ && ($listener$$.callOnce && this.unlistenByKey($listener$$), $rv$$ = !1 !== $listener$$.handleEvent($eventObject$$) && $rv$$)
-  }
-  return $rv$$ && !1 != $eventObject$$.returnValue_
-}, goog.events.EventTarget.prototype.getListeners = function $goog$events$EventTarget$$getListeners$($type$$, $capture$$) {
-  var $listenerArray$$ = this.eventTargetListeners_[$type$$], $rv$$ = [];
-  if($listenerArray$$) {
-    for(var $i$$ = 0;$i$$ < $listenerArray$$.length;++$i$$) {
-      var $listenerObj$$ = $listenerArray$$[$i$$];
-      $listenerObj$$.capture == $capture$$ && $rv$$.push($listenerObj$$)
-    }
-  }
-  return $rv$$
-}, goog.events.EventTarget.prototype.getListener = function $goog$events$EventTarget$$getListener$($listenerArray$$11_type$$, $listener$$, $capture$$, $opt_listenerScope$$) {
-  $listenerArray$$11_type$$ = this.eventTargetListeners_[$listenerArray$$11_type$$];
-  var $i$$ = -1;
-  $listenerArray$$11_type$$ && ($i$$ = goog.events.EventTarget.findListenerIndex_($listenerArray$$11_type$$, $listener$$, $capture$$, $opt_listenerScope$$));
-  return-1 < $i$$ ? $listenerArray$$11_type$$[$i$$] : null
-}, goog.events.EventTarget.prototype.hasListener = function $goog$events$EventTarget$$hasListener$($opt_type$$, $opt_capture$$) {
-  var $hasType$$ = goog.isDef($opt_type$$), $hasCapture$$ = goog.isDef($opt_capture$$);
-  return goog.object.some(this.eventTargetListeners_, function($listenersArray$$, $type$$) {
-    for(var $i$$ = 0;$i$$ < $listenersArray$$.length;++$i$$) {
-      if(!($hasType$$ && $listenersArray$$[$i$$].type != $opt_type$$ || $hasCapture$$ && $listenersArray$$[$i$$].capture != $opt_capture$$)) {
-        return!0
-      }
-    }
-    return!1
-  })
-}, goog.events.EventTarget.prototype.setTargetForTesting = function $goog$events$EventTarget$$setTargetForTesting$($target$$) {
-  this.actualEventTarget_ = $target$$
-}, goog.events.EventTarget.dispatchEventInternal_ = function $goog$events$EventTarget$dispatchEventInternal_$($target$$, $e$$, $opt_ancestorsTree$$) {
-  var $type$$ = $e$$.type || $e$$;
-  if(goog.isString($e$$)) {
-    $e$$ = new goog.events.Event($e$$, $target$$)
-  }else {
-    if($e$$ instanceof goog.events.Event) {
-      $e$$.target = $e$$.target || $target$$
-    }else {
-      var $oldEvent$$1_rv$$ = $e$$;
-      $e$$ = new goog.events.Event($type$$, $target$$);
-      goog.object.extend($e$$, $oldEvent$$1_rv$$)
-    }
-  }
-  var $oldEvent$$1_rv$$ = !0, $currentTarget$$;
-  if($opt_ancestorsTree$$) {
-    for(var $i$$ = $opt_ancestorsTree$$.length - 1;!$e$$.propagationStopped_ && 0 <= $i$$;$i$$--) {
-      $currentTarget$$ = $e$$.currentTarget = $opt_ancestorsTree$$[$i$$], $oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !0, $e$$) && $oldEvent$$1_rv$$
-    }
-  }
-  $e$$.propagationStopped_ || ($currentTarget$$ = $e$$.currentTarget = $target$$, $oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !0, $e$$) && $oldEvent$$1_rv$$, $e$$.propagationStopped_ || ($oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !1, $e$$) && $oldEvent$$1_rv$$));
-  if($opt_ancestorsTree$$) {
-    for($i$$ = 0;!$e$$.propagationStopped_ && $i$$ < $opt_ancestorsTree$$.length;$i$$++) {
-      $currentTarget$$ = $e$$.currentTarget = $opt_ancestorsTree$$[$i$$], $oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !1, $e$$) && $oldEvent$$1_rv$$
-    }
-  }
-  return $oldEvent$$1_rv$$
-}, goog.events.EventTarget.findListenerIndex_ = function $goog$events$EventTarget$findListenerIndex_$($listenerArray$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$) {
-  for(var $i$$ = 0;$i$$ < $listenerArray$$.length;++$i$$) {
-    var $listenerObj$$ = $listenerArray$$[$i$$];
-    if($listenerObj$$.listener == $listener$$ && $listenerObj$$.capture == !!$opt_useCapture$$ && $listenerObj$$.handler == $opt_listenerScope$$) {
-      return $i$$
-    }
-  }
-  return-1
-});
-goog.Timer = function $goog$Timer$($opt_interval$$, $opt_timerObject$$) {
-  goog.events.EventTarget.call(this);
-  this.interval_ = $opt_interval$$ || 1;
-  this.timerObject_ = $opt_timerObject$$ || goog.Timer.defaultTimerObject;
-  this.boundTick_ = goog.bind(this.tick_, this);
-  this.last_ = goog.now()
-};
-goog.inherits(goog.Timer, goog.events.EventTarget);
-goog.Timer.MAX_TIMEOUT_ = 2147483647;
-goog.Timer.prototype.enabled = !1;
-goog.Timer.defaultTimerObject = goog.global;
-goog.Timer.intervalScale = 0.8;
-goog.Timer.prototype.timer_ = null;
-goog.Timer.prototype.getInterval = function $goog$Timer$$getInterval$() {
-  return this.interval_
-};
-goog.Timer.prototype.setInterval = function $goog$Timer$$setInterval$($interval$$) {
-  this.interval_ = $interval$$;
-  this.timer_ && this.enabled ? (this.stop(), this.start()) : this.timer_ && this.stop()
-};
-goog.Timer.prototype.tick_ = function $goog$Timer$$tick_$() {
-  if(this.enabled) {
-    var $elapsed$$ = goog.now() - this.last_;
-    0 < $elapsed$$ && $elapsed$$ < this.interval_ * goog.Timer.intervalScale ? this.timer_ = this.timerObject_.setTimeout(this.boundTick_, this.interval_ - $elapsed$$) : (this.dispatchTick(), this.enabled && (this.timer_ = this.timerObject_.setTimeout(this.boundTick_, this.interval_), this.last_ = goog.now()))
-  }
-};
-goog.Timer.prototype.dispatchTick = function $goog$Timer$$dispatchTick$() {
-  this.dispatchEvent(goog.Timer.TICK)
-};
-goog.Timer.prototype.start = function $goog$Timer$$start$() {
-  this.enabled = !0;
-  this.timer_ || (this.timer_ = this.timerObject_.setTimeout(this.boundTick_, this.interval_), this.last_ = goog.now())
-};
-goog.Timer.prototype.stop = function $goog$Timer$$stop$() {
-  this.enabled = !1;
-  this.timer_ && (this.timerObject_.clearTimeout(this.timer_), this.timer_ = null)
-};
-goog.Timer.prototype.disposeInternal = function $goog$Timer$$disposeInternal$() {
-  goog.Timer.superClass_.disposeInternal.call(this);
-  this.stop();
-  delete this.timerObject_
-};
-goog.Timer.TICK = "tick";
-goog.Timer.callOnce = function $goog$Timer$callOnce$($listener$$, $opt_delay$$, $opt_handler$$) {
-  if(goog.isFunction($listener$$)) {
-    $opt_handler$$ && ($listener$$ = goog.bind($listener$$, $opt_handler$$))
-  }else {
-    if($listener$$ && "function" == typeof $listener$$.handleEvent) {
-      $listener$$ = goog.bind($listener$$.handleEvent, $listener$$)
-    }else {
-      throw Error("Invalid listener argument");
-    }
-  }
-  return $opt_delay$$ > goog.Timer.MAX_TIMEOUT_ ? -1 : goog.Timer.defaultTimerObject.setTimeout($listener$$, $opt_delay$$ || 0)
-};
-goog.Timer.clear = function $goog$Timer$clear$($timerId$$) {
-  goog.Timer.defaultTimerObject.clearTimeout($timerId$$)
-};
-Blockly.Trashcan = function $Blockly$Trashcan$($workspace$$) {
-  this.workspace_ = $workspace$$
-};
-Blockly.Trashcan.prototype.BODY_URL_ = "media/trashbody.png";
-Blockly.Trashcan.prototype.LID_URL_ = "media/trashlid.png";
-Blockly.Trashcan.prototype.WIDTH_ = 47;
-Blockly.Trashcan.prototype.BODY_HEIGHT_ = 45;
-Blockly.Trashcan.prototype.LID_HEIGHT_ = 15;
-Blockly.Trashcan.prototype.MARGIN_BOTTOM_ = 35;
-Blockly.Trashcan.prototype.MARGIN_SIDE_ = 35;
-Blockly.Trashcan.prototype.isOpen = !1;
-Blockly.Trashcan.prototype.svgGroup_ = null;
-Blockly.Trashcan.prototype.svgBody_ = null;
-Blockly.Trashcan.prototype.svgLid_ = null;
-Blockly.Trashcan.prototype.lidTask_ = 0;
-Blockly.Trashcan.prototype.lidAngle_ = 0;
-Blockly.Trashcan.prototype.left_ = 0;
-Blockly.Trashcan.prototype.top_ = 0;
-Blockly.Trashcan.prototype.createDom = function $Blockly$Trashcan$$createDom$() {
-  this.svgGroup_ = Blockly.createSvgElement("g", {filter:"url(#blocklyTrashcanShadowFilter)"}, null);
-  this.svgBody_ = Blockly.createSvgElement("image", {width:this.WIDTH_, height:this.BODY_HEIGHT_}, this.svgGroup_);
-  this.svgBody_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.pathToBlockly + this.BODY_URL_);
-  this.svgBody_.setAttribute("y", this.LID_HEIGHT_);
-  this.svgLid_ = Blockly.createSvgElement("image", {width:this.WIDTH_, height:this.LID_HEIGHT_}, this.svgGroup_);
-  this.svgLid_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.pathToBlockly + this.LID_URL_);
-  return this.svgGroup_
-};
-Blockly.Trashcan.prototype.init = function $Blockly$Trashcan$$init$() {
-  this.setOpen_(!1);
-  this.position_();
-  Blockly.bindEvent_(window, "resize", this, this.position_)
-};
-Blockly.Trashcan.prototype.dispose = function $Blockly$Trashcan$$dispose$() {
-  this.svgGroup_ && (goog.dom.removeNode(this.svgGroup_), this.svgGroup_ = null);
-  this.workspace_ = this.svgLid_ = this.svgBody_ = null;
-  goog.Timer.clear(this.lidTask_)
-};
-Blockly.Trashcan.prototype.position_ = function $Blockly$Trashcan$$position_$() {
-  var $metrics$$ = this.workspace_.getMetrics();
-  $metrics$$ && (this.left_ = Blockly.RTL ? this.MARGIN_SIDE_ : $metrics$$.viewWidth + $metrics$$.absoluteLeft - this.WIDTH_ - this.MARGIN_SIDE_, this.top_ = $metrics$$.viewHeight + $metrics$$.absoluteTop - (this.BODY_HEIGHT_ + this.LID_HEIGHT_) - this.MARGIN_BOTTOM_, this.svgGroup_.setAttribute("transform", "translate(" + this.left_ + "," + this.top_ + ")"))
-};
-Blockly.Trashcan.prototype.onMouseMove = function $Blockly$Trashcan$$onMouseMove$($e$$27_mouseXY$$) {
-  if(this.svgGroup_) {
-    $e$$27_mouseXY$$ = Blockly.mouseToSvg($e$$27_mouseXY$$);
-    var $trashXY$$ = Blockly.getSvgXY_(this.svgGroup_);
-    $e$$27_mouseXY$$ = $e$$27_mouseXY$$.x > $trashXY$$.x && $e$$27_mouseXY$$.x < $trashXY$$.x + this.WIDTH_ && $e$$27_mouseXY$$.y > $trashXY$$.y && $e$$27_mouseXY$$.y < $trashXY$$.y + this.BODY_HEIGHT_ + this.LID_HEIGHT_;
-    this.isOpen != $e$$27_mouseXY$$ && this.setOpen_($e$$27_mouseXY$$)
-  }
-};
-Blockly.Trashcan.prototype.setOpen_ = function $Blockly$Trashcan$$setOpen_$($state$$) {
-  this.isOpen != $state$$ && (goog.Timer.clear(this.lidTask_), this.isOpen = $state$$, this.animateLid_())
-};
-Blockly.Trashcan.prototype.animateLid_ = function $Blockly$Trashcan$$animateLid_$() {
-  this.lidAngle_ += this.isOpen ? 10 : -10;
-  this.lidAngle_ = Math.max(0, this.lidAngle_);
-  this.svgLid_.setAttribute("transform", "rotate(" + (Blockly.RTL ? -this.lidAngle_ : this.lidAngle_) + ", " + (Blockly.RTL ? 4 : this.WIDTH_ - 4) + ", " + (this.LID_HEIGHT_ - 2) + ")");
-  if(this.isOpen ? 45 > this.lidAngle_ : 0 < this.lidAngle_) {
-    this.lidTask_ = goog.Timer.callOnce(this.animateLid_, 5, this)
-  }
-};
-Blockly.Trashcan.prototype.close = function $Blockly$Trashcan$$close$() {
-  this.setOpen_(!1)
-};
-Blockly.Workspace = function $Blockly$Workspace$($getMetrics$$, $setMetrics$$) {
-  this.getMetrics = $getMetrics$$;
-  this.setMetrics = $setMetrics$$;
-  this.isFlyout = !1;
-  this.topBlocks_ = [];
-  this.maxBlocks = Infinity;
-  Blockly.ConnectionDB.init(this)
-};
-Blockly.Workspace.SCAN_ANGLE = 3;
-Blockly.Workspace.prototype.dragMode = !1;
-Blockly.Workspace.prototype.scrollX = 0;
-Blockly.Workspace.prototype.scrollY = 0;
-Blockly.Workspace.prototype.trashcan = null;
-Blockly.Workspace.prototype.fireChangeEventPid_ = null;
-Blockly.Workspace.prototype.scrollbar = null;
-Blockly.Workspace.prototype.createDom = function $Blockly$Workspace$$createDom$() {
-  this.svgGroup_ = Blockly.createSvgElement("g", {}, null);
-  this.svgBlockCanvas_ = Blockly.createSvgElement("g", {}, this.svgGroup_);
-  this.svgBubbleCanvas_ = Blockly.createSvgElement("g", {}, this.svgGroup_);
-  this.fireChangeEvent();
-  return this.svgGroup_
-};
-Blockly.Workspace.prototype.dispose = function $Blockly$Workspace$$dispose$() {
-  this.svgGroup_ && (goog.dom.removeNode(this.svgGroup_), this.svgGroup_ = null);
-  this.svgBubbleCanvas_ = this.svgBlockCanvas_ = null;
-  this.trashcan && (this.trashcan.dispose(), this.trashcan = null)
-};
-Blockly.Workspace.prototype.addTrashcan = function $Blockly$Workspace$$addTrashcan$() {
-  if(Blockly.hasTrashcan && !Blockly.readOnly) {
-    this.trashcan = new Blockly.Trashcan(this);
-    var $svgTrashcan$$ = this.trashcan.createDom();
-    this.svgGroup_.insertBefore($svgTrashcan$$, this.svgBlockCanvas_);
-    this.trashcan.init()
-  }
-};
-Blockly.Workspace.prototype.getCanvas = function $Blockly$Workspace$$getCanvas$() {
-  return this.svgBlockCanvas_
-};
-Blockly.Workspace.prototype.getBubbleCanvas = function $Blockly$Workspace$$getBubbleCanvas$() {
-  return this.svgBubbleCanvas_
-};
-Blockly.Workspace.prototype.addTopBlock = function $Blockly$Workspace$$addTopBlock$($block$$) {
-  this.topBlocks_.push($block$$);
-  this.fireChangeEvent()
-};
-Blockly.Workspace.prototype.removeTopBlock = function $Blockly$Workspace$$removeTopBlock$($block$$) {
-  for(var $found$$ = !1, $child$$, $x$$ = 0;$child$$ = this.topBlocks_[$x$$];$x$$++) {
-    if($child$$ == $block$$) {
-      this.topBlocks_.splice($x$$, 1);
-      $found$$ = !0;
-      break
-    }
-  }
-  if(!$found$$) {
-    throw"Block not present in workspace's list of top-most blocks.";
-  }
-  this.fireChangeEvent()
-};
-Blockly.Workspace.prototype.getTopBlocks = function $Blockly$Workspace$$getTopBlocks$($ordered$$) {
-  var $blocks$$ = [].concat(this.topBlocks_);
-  if($ordered$$ && 1 < $blocks$$.length) {
-    var $offset$$ = Math.sin(Blockly.Workspace.SCAN_ANGLE / 180 * Math.PI);
-    Blockly.RTL && ($offset$$ *= -1);
-    $blocks$$.sort(function($a$$, $b$$) {
-      var $aXY$$ = $a$$.getRelativeToSurfaceXY(), $bXY$$ = $b$$.getRelativeToSurfaceXY();
-      return $aXY$$.y + $offset$$ * $aXY$$.x - ($bXY$$.y + $offset$$ * $bXY$$.x)
-    })
-  }
-  return $blocks$$
-};
-Blockly.Workspace.prototype.getAllBlocks = function $Blockly$Workspace$$getAllBlocks$() {
-  for(var $blocks$$ = this.getTopBlocks(!1), $x$$ = 0;$x$$ < $blocks$$.length;$x$$++) {
-    $blocks$$ = $blocks$$.concat($blocks$$[$x$$].getChildren())
-  }
-  return $blocks$$
-};
-Blockly.Workspace.prototype.clear = function $Blockly$Workspace$$clear$() {
-  for(Blockly.hideChaff();this.topBlocks_.length;) {
-    this.topBlocks_[0].dispose()
-  }
-};
-Blockly.Workspace.prototype.render = function $Blockly$Workspace$$render$() {
-  for(var $renderList$$ = this.getAllBlocks(), $x$$ = 0, $block$$;$block$$ = $renderList$$[$x$$];$x$$++) {
-    $block$$.getChildren().length || $block$$.render()
-  }
-};
-Blockly.Workspace.prototype.getBlockById = function $Blockly$Workspace$$getBlockById$($id$$) {
-  for(var $blocks$$ = this.getAllBlocks(), $x$$ = 0, $block$$;$block$$ = $blocks$$[$x$$];$x$$++) {
-    if($block$$.id == $id$$) {
-      return $block$$
-    }
-  }
-  return null
-};
-Blockly.Workspace.prototype.traceOn = function $Blockly$Workspace$$traceOn$($armed$$) {
-  this.traceOn_ = $armed$$;
-  this.traceWrapper_ && (Blockly.unbindEvent_(this.traceWrapper_), this.traceWrapper_ = null);
-  $armed$$ && (this.traceWrapper_ = Blockly.bindEvent_(this.svgBlockCanvas_, "blocklySelectChange", this, function() {
-    this.traceOn_ = !1
-  }))
-};
-Blockly.Workspace.prototype.highlightBlock = function $Blockly$Workspace$$highlightBlock$($id$$) {
-  if(this.traceOn_) {
-    var $block$$ = null;
-    if($id$$ && ($block$$ = this.getBlockById($id$$), !$block$$)) {
-      return
-    }
-    this.traceOn(!1);
-    $block$$ ? $block$$.select() : Blockly.selected && Blockly.selected.unselect();
-    this.traceOn(!0)
-  }
-};
-Blockly.Workspace.prototype.fireChangeEvent = function $Blockly$Workspace$$fireChangeEvent$() {
-  this.fireChangeEventPid_ && window.clearTimeout(this.fireChangeEventPid_);
-  var $canvas$$ = this.svgBlockCanvas_;
-  $canvas$$ && (this.fireChangeEventPid_ = window.setTimeout(function() {
-    Blockly.fireUiEvent($canvas$$, "blocklyWorkspaceChange")
-  }, 0))
-};
-Blockly.Workspace.prototype.paste = function $Blockly$Workspace$$paste$($blockY$$1_xmlBlock$$) {
-  if(!($blockY$$1_xmlBlock$$.getElementsByTagName("block").length >= this.remainingCapacity())) {
-    var $block$$ = Blockly.Xml.domToBlock_(this, $blockY$$1_xmlBlock$$), $blockX$$ = parseInt($blockY$$1_xmlBlock$$.getAttribute("x"), 10);
-    $blockY$$1_xmlBlock$$ = parseInt($blockY$$1_xmlBlock$$.getAttribute("y"), 10);
-    if(!isNaN($blockX$$) && !isNaN($blockY$$1_xmlBlock$$)) {
-      Blockly.RTL && ($blockX$$ = -$blockX$$);
-      do {
-        for(var $collide$$ = !1, $allBlocks$$ = this.getAllBlocks(), $x$$ = 0, $otherBlock_otherXY$$;$otherBlock_otherXY$$ = $allBlocks$$[$x$$];$x$$++) {
-          $otherBlock_otherXY$$ = $otherBlock_otherXY$$.getRelativeToSurfaceXY(), 1 >= Math.abs($blockX$$ - $otherBlock_otherXY$$.x) && 1 >= Math.abs($blockY$$1_xmlBlock$$ - $otherBlock_otherXY$$.y) && ($blockX$$ = Blockly.RTL ? $blockX$$ - Blockly.SNAP_RADIUS : $blockX$$ + Blockly.SNAP_RADIUS, $blockY$$1_xmlBlock$$ += 2 * Blockly.SNAP_RADIUS, $collide$$ = !0)
-        }
-      }while($collide$$);
-      $block$$.moveBy($blockX$$, $blockY$$1_xmlBlock$$)
-    }
-    $block$$.select()
-  }
-};
-Blockly.Workspace.prototype.remainingCapacity = function $Blockly$Workspace$$remainingCapacity$() {
-  return Infinity == this.maxBlocks ? Infinity : this.maxBlocks - this.getAllBlocks().length
-};
-Blockly.BlockSvg = function $Blockly$BlockSvg$($block$$) {
-  this.block_ = $block$$;
-  this.svgGroup_ = Blockly.createSvgElement("g", {}, null);
-  this.svgPathDark_ = Blockly.createSvgElement("path", {"class":"blocklyPathDark", transform:"translate(1, 1)"}, this.svgGroup_);
-  this.svgPath_ = Blockly.createSvgElement("path", {"class":"blocklyPath"}, this.svgGroup_);
-  this.svgPathLight_ = Blockly.createSvgElement("path", {"class":"blocklyPathLight"}, this.svgGroup_);
-  this.svgPath_.tooltip = this.block_;
-  Blockly.Tooltip && Blockly.Tooltip.bindMouseEvents(this.svgPath_);
-  this.updateMovable()
-};
-Blockly.BlockSvg.INLINE = -1;
-Blockly.BlockSvg.prototype.init = function $Blockly$BlockSvg$$init$() {
-  var $block$$ = this.block_;
-  this.updateColour();
-  for(var $x$$ = 0, $input$$;$input$$ = $block$$.inputList[$x$$];$x$$++) {
-    $input$$.init()
-  }
-  $block$$.mutator && $block$$.mutator.createIcon()
-};
-Blockly.BlockSvg.prototype.updateMovable = function $Blockly$BlockSvg$$updateMovable$() {
-  this.block_.isMovable() ? Blockly.addClass_(this.svgGroup_, "blocklyDraggable") : Blockly.removeClass_(this.svgGroup_, "blocklyDraggable")
-};
-Blockly.BlockSvg.prototype.getRootElement = function $Blockly$BlockSvg$$getRootElement$() {
-  return this.svgGroup_
-};
-Blockly.BlockSvg.SEP_SPACE_X = 10;
-Blockly.BlockSvg.SEP_SPACE_Y = 10;
-Blockly.BlockSvg.INLINE_PADDING_Y = 5;
-Blockly.BlockSvg.MIN_BLOCK_Y = 25;
-Blockly.BlockSvg.TAB_HEIGHT = 20;
-Blockly.BlockSvg.TAB_WIDTH = 8;
-Blockly.BlockSvg.NOTCH_WIDTH = 30;
-Blockly.BlockSvg.CORNER_RADIUS = 8;
-Blockly.BlockSvg.TITLE_HEIGHT = 18;
-Blockly.BlockSvg.DISTANCE_45_INSIDE = (1 - Math.SQRT1_2) * (Blockly.BlockSvg.CORNER_RADIUS - 1) + 1;
-Blockly.BlockSvg.DISTANCE_45_OUTSIDE = (1 - Math.SQRT1_2) * (Blockly.BlockSvg.CORNER_RADIUS + 1) - 1;
-Blockly.BlockSvg.NOTCH_PATH_LEFT = "l 6,4 3,0 6,-4";
-Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT = "l 6.5,4 2,0 6.5,-4";
-Blockly.BlockSvg.NOTCH_PATH_RIGHT = "l -6,4 -3,0 -6,-4";
-Blockly.BlockSvg.JAGGED_TEETH = "l 8,0 0,4 8,4 -16,8 8,4";
-Blockly.BlockSvg.JAGGED_TEETH_HEIGHT = 20;
-Blockly.BlockSvg.TAB_PATH_DOWN = "v 5 c 0,10 -" + Blockly.BlockSvg.TAB_WIDTH + ",-8 -" + Blockly.BlockSvg.TAB_WIDTH + ",7.5 s " + Blockly.BlockSvg.TAB_WIDTH + ",-2.5 " + Blockly.BlockSvg.TAB_WIDTH + ",7.5";
-Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL = "v 6.5 m -" + 0.98 * Blockly.BlockSvg.TAB_WIDTH + ",2.5 q -" + 0.05 * Blockly.BlockSvg.TAB_WIDTH + ",10 " + 0.27 * Blockly.BlockSvg.TAB_WIDTH + ",10 m " + 0.71 * Blockly.BlockSvg.TAB_WIDTH + ",-2.5 v 1.5";
-Blockly.BlockSvg.TOP_LEFT_CORNER_START = "m 0," + Blockly.BlockSvg.CORNER_RADIUS;
-Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_RTL = "m " + Blockly.BlockSvg.DISTANCE_45_INSIDE + "," + Blockly.BlockSvg.DISTANCE_45_INSIDE;
-Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_LTR = "m 1," + (Blockly.BlockSvg.CORNER_RADIUS - 1);
-Blockly.BlockSvg.TOP_LEFT_CORNER = "A " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,1 " + Blockly.BlockSvg.CORNER_RADIUS + ",0";
-Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT = "A " + (Blockly.BlockSvg.CORNER_RADIUS - 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS - 1) + " 0 0,1 " + Blockly.BlockSvg.CORNER_RADIUS + ",1";
-Blockly.BlockSvg.INNER_TOP_LEFT_CORNER = Blockly.BlockSvg.NOTCH_PATH_RIGHT + " h -" + (Blockly.BlockSvg.NOTCH_WIDTH - 15 - Blockly.BlockSvg.CORNER_RADIUS) + " a " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,0 -" + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS;
-Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER = "a " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,0 " + Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS;
-Blockly.BlockSvg.INNER_TOP_LEFT_CORNER_HIGHLIGHT_RTL = "a " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1) + " 0 0,0 " + (-Blockly.BlockSvg.DISTANCE_45_OUTSIDE - 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS - Blockly.BlockSvg.DISTANCE_45_OUTSIDE);
-Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_RTL = "a " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1) + " 0 0,0 " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1);
-Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR = "a " + (Blockly.BlockSvg.CORNER_RADIUS + 1) + "," + (Blockly.BlockSvg.CORNER_RADIUS + 1) + " 0 0,0 " + (Blockly.BlockSvg.CORNER_RADIUS - Blockly.BlockSvg.DISTANCE_45_OUTSIDE) + "," + (Blockly.BlockSvg.DISTANCE_45_OUTSIDE + 1);
-Blockly.BlockSvg.prototype.dispose = function $Blockly$BlockSvg$$dispose$() {
-  goog.dom.removeNode(this.svgGroup_);
-  this.block_ = this.svgPathDark_ = this.svgPathLight_ = this.svgPath_ = this.svgGroup_ = null
-};
-Blockly.BlockSvg.prototype.disposeUiEffect = function $Blockly$BlockSvg$$disposeUiEffect$() {
-  Blockly.playAudio("delete");
-  var $xy$$ = Blockly.getSvgXY_(this.svgGroup_), $clone$$ = this.svgGroup_.cloneNode(!0);
-  $clone$$.translateX_ = $xy$$.x;
-  $clone$$.translateY_ = $xy$$.y;
-  $clone$$.setAttribute("transform", "translate(" + $clone$$.translateX_ + "," + $clone$$.translateY_ + ")");
-  Blockly.svg.appendChild($clone$$);
-  $clone$$.bBox_ = $clone$$.getBBox();
-  $clone$$.startDate_ = new Date;
-  Blockly.BlockSvg.disposeUiStep_($clone$$)
-};
-Blockly.BlockSvg.disposeUiStep_ = function $Blockly$BlockSvg$disposeUiStep_$($clone$$) {
-  var $percent$$ = (new Date - $clone$$.startDate_) / 150;
-  1 < $percent$$ ? goog.dom.removeNode($clone$$) : ($clone$$.setAttribute("transform", "translate(" + ($clone$$.translateX_ + (Blockly.RTL ? -1 : 1) * $clone$$.bBox_.width / 2 * $percent$$ + ", " + ($clone$$.translateY_ + $clone$$.bBox_.height * $percent$$)) + ") scale(" + (1 - $percent$$) + ")"), window.setTimeout(function() {
-    Blockly.BlockSvg.disposeUiStep_($clone$$)
-  }, 10))
-};
-Blockly.BlockSvg.prototype.connectionUiEffect = function $Blockly$BlockSvg$$connectionUiEffect$() {
-  Blockly.playAudio("click");
-  var $ripple_xy$$ = Blockly.getSvgXY_(this.svgGroup_);
-  this.block_.outputConnection ? ($ripple_xy$$.x += Blockly.RTL ? 3 : -3, $ripple_xy$$.y += 13) : this.block_.previousConnection && ($ripple_xy$$.x += Blockly.RTL ? -23 : 23, $ripple_xy$$.y += 3);
-  $ripple_xy$$ = Blockly.createSvgElement("circle", {cx:$ripple_xy$$.x, cy:$ripple_xy$$.y, r:0, fill:"none", stroke:"#888", "stroke-width":10}, Blockly.svg);
-  $ripple_xy$$.startDate_ = new Date;
-  Blockly.BlockSvg.connectionUiStep_($ripple_xy$$)
-};
-Blockly.BlockSvg.connectionUiStep_ = function $Blockly$BlockSvg$connectionUiStep_$($ripple$$) {
-  var $percent$$ = (new Date - $ripple$$.startDate_) / 150;
-  1 < $percent$$ ? goog.dom.removeNode($ripple$$) : ($ripple$$.setAttribute("r", 25 * $percent$$), $ripple$$.style.opacity = 1 - $percent$$, window.setTimeout(function() {
-    Blockly.BlockSvg.connectionUiStep_($ripple$$)
-  }, 10))
-};
-Blockly.BlockSvg.prototype.updateColour = function $Blockly$BlockSvg$$updateColour$() {
-  if(!this.block_.disabled) {
-    var $hexColour$$ = Blockly.makeColour(this.block_.getColour()), $rgb_rgbDark$$ = goog.color.hexToRgb($hexColour$$), $rgbLight$$ = goog.color.lighten($rgb_rgbDark$$, 0.3), $rgb_rgbDark$$ = goog.color.darken($rgb_rgbDark$$, 0.4);
-    this.svgPathLight_.setAttribute("stroke", goog.color.rgbArrayToHex($rgbLight$$));
-    this.svgPathDark_.setAttribute("fill", goog.color.rgbArrayToHex($rgb_rgbDark$$));
-    this.svgPath_.setAttribute("fill", $hexColour$$)
-  }
-};
-Blockly.BlockSvg.prototype.updateDisabled = function $Blockly$BlockSvg$$updateDisabled$() {
-  this.block_.disabled || this.block_.getInheritedDisabled() ? (Blockly.addClass_(this.svgGroup_, "blocklyDisabled"), this.svgPath_.setAttribute("fill", "url(#blocklyDisabledPattern)")) : (Blockly.removeClass_(this.svgGroup_, "blocklyDisabled"), this.updateColour());
-  for(var $children$$ = this.block_.getChildren(), $x$$ = 0, $child$$;$child$$ = $children$$[$x$$];$x$$++) {
-    $child$$.svg_.updateDisabled()
-  }
-};
-Blockly.BlockSvg.prototype.addSelect = function $Blockly$BlockSvg$$addSelect$() {
-  Blockly.addClass_(this.svgGroup_, "blocklySelected");
-  this.svgGroup_.parentNode.appendChild(this.svgGroup_)
-};
-Blockly.BlockSvg.prototype.removeSelect = function $Blockly$BlockSvg$$removeSelect$() {
-  Blockly.removeClass_(this.svgGroup_, "blocklySelected")
-};
-Blockly.BlockSvg.prototype.addDragging = function $Blockly$BlockSvg$$addDragging$() {
-  Blockly.addClass_(this.svgGroup_, "blocklyDragging")
-};
-Blockly.BlockSvg.prototype.removeDragging = function $Blockly$BlockSvg$$removeDragging$() {
-  Blockly.removeClass_(this.svgGroup_, "blocklyDragging")
-};
-Blockly.BlockSvg.prototype.render = function $Blockly$BlockSvg$$render$() {
-  this.block_.rendered = !0;
-  var $cursorX_parentBlock$$ = Blockly.BlockSvg.SEP_SPACE_X;
-  Blockly.RTL && ($cursorX_parentBlock$$ = -$cursorX_parentBlock$$);
-  for(var $icons$$ = this.block_.getIcons(), $x$$ = 0;$x$$ < $icons$$.length;$x$$++) {
-    $cursorX_parentBlock$$ = $icons$$[$x$$].renderIcon($cursorX_parentBlock$$)
-  }
-  $cursorX_parentBlock$$ += Blockly.RTL ? Blockly.BlockSvg.SEP_SPACE_X : -Blockly.BlockSvg.SEP_SPACE_X;
-  $icons$$ = this.renderCompute_($cursorX_parentBlock$$);
-  this.renderDraw_($cursorX_parentBlock$$, $icons$$);
-  ($cursorX_parentBlock$$ = this.block_.getParent()) ? $cursorX_parentBlock$$.render() : Blockly.fireUiEvent(window, "resize")
-};
-Blockly.BlockSvg.prototype.renderTitles_ = function $Blockly$BlockSvg$$renderTitles_$($titleList$$, $cursorX$$, $cursorY$$) {
-  Blockly.RTL && ($cursorX$$ = -$cursorX$$);
-  for(var $t$$ = 0, $title$$;$title$$ = $titleList$$[$t$$];$t$$++) {
-    var $titleWidth$$ = $title$$.getSize().width;
-    Blockly.RTL ? ($cursorX$$ -= $titleWidth$$, $title$$.getRootElement().setAttribute("transform", "translate(" + $cursorX$$ + ", " + $cursorY$$ + ")"), $titleWidth$$ && ($cursorX$$ -= Blockly.BlockSvg.SEP_SPACE_X)) : ($title$$.getRootElement().setAttribute("transform", "translate(" + $cursorX$$ + ", " + $cursorY$$ + ")"), $titleWidth$$ && ($cursorX$$ += $titleWidth$$ + Blockly.BlockSvg.SEP_SPACE_X))
-  }
-  return Blockly.RTL ? -$cursorX$$ : $cursorX$$
-};
-Blockly.BlockSvg.prototype.renderCompute_ = function $Blockly$BlockSvg$$renderCompute_$($iconWidth_y$$) {
-  var $inputList_z$$ = this.block_.inputList, $inputRows$$ = [];
-  $inputRows$$.rightEdge = $iconWidth_y$$ + 2 * Blockly.BlockSvg.SEP_SPACE_X;
-  if(this.block_.previousConnection || this.block_.nextConnection) {
-    $inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.SEP_SPACE_X)
-  }
-  for(var $titleValueWidth$$ = 0, $titleStatementWidth$$ = 0, $hasValue$$ = !1, $hasStatement$$ = !1, $hasDummy$$ = !1, $lastType$$ = void 0, $isInline$$ = this.block_.inputsInline && !this.block_.isCollapsed(), $i$$ = 0, $input$$;$input$$ = $inputList_z$$[$i$$];$i$$++) {
-    if($input$$.isVisible()) {
-      var $row$$;
-      $isInline$$ && $lastType$$ && $lastType$$ != Blockly.NEXT_STATEMENT && $input$$.type != Blockly.NEXT_STATEMENT ? $row$$ = $inputRows$$[$inputRows$$.length - 1] : ($lastType$$ = $input$$.type, $row$$ = [], $row$$.type = $isInline$$ && $input$$.type != Blockly.NEXT_STATEMENT ? Blockly.BlockSvg.INLINE : $input$$.type, $row$$.height = 0, $inputRows$$.push($row$$));
-      $row$$.push($input$$);
-      $input$$.renderHeight = Blockly.BlockSvg.MIN_BLOCK_Y;
-      $input$$.renderWidth = $isInline$$ && $input$$.type == Blockly.INPUT_VALUE ? Blockly.BlockSvg.TAB_WIDTH + Blockly.BlockSvg.SEP_SPACE_X : 0;
-      if($input$$.connection && $input$$.connection.targetConnection) {
-        var $bBox_j$$ = $input$$.connection.targetBlock().getHeightWidth();
-        $input$$.renderHeight = Math.max($input$$.renderHeight, $bBox_j$$.height);
-        $input$$.renderWidth = Math.max($input$$.renderWidth, $bBox_j$$.width)
-      }
-      $row$$.height = Math.max($row$$.height, $input$$.renderHeight);
-      $input$$.titleWidth = 0;
-      1 == $inputRows$$.length && ($input$$.titleWidth += Blockly.RTL ? -$iconWidth_y$$ : $iconWidth_y$$);
-      for(var $bBox_j$$ = 0, $title$$10_titleSize$$;$title$$10_titleSize$$ = $input$$.titleRow[$bBox_j$$];$bBox_j$$++) {
-        0 != $bBox_j$$ && ($input$$.titleWidth += Blockly.BlockSvg.SEP_SPACE_X), $title$$10_titleSize$$ = $title$$10_titleSize$$.getSize(), $input$$.titleWidth += $title$$10_titleSize$$.width, $row$$.height = Math.max($row$$.height, $title$$10_titleSize$$.height)
-      }
-      $row$$.type != Blockly.BlockSvg.INLINE && ($row$$.type == Blockly.NEXT_STATEMENT ? ($hasStatement$$ = !0, $titleStatementWidth$$ = Math.max($titleStatementWidth$$, $input$$.titleWidth)) : ($row$$.type == Blockly.INPUT_VALUE ? $hasValue$$ = !0 : $row$$.type == Blockly.DUMMY_INPUT && ($hasDummy$$ = !0), $titleValueWidth$$ = Math.max($titleValueWidth$$, $input$$.titleWidth)))
-    }
-  }
-  for($iconWidth_y$$ = 0;$row$$ = $inputRows$$[$iconWidth_y$$];$iconWidth_y$$++) {
-    if($row$$.thicker = !1, $row$$.type == Blockly.BlockSvg.INLINE) {
-      for($inputList_z$$ = 0;$input$$ = $row$$[$inputList_z$$];$inputList_z$$++) {
-        if($input$$.type == Blockly.INPUT_VALUE) {
-          $row$$.height += 2 * Blockly.BlockSvg.INLINE_PADDING_Y;
-          $row$$.thicker = !0;
-          break
-        }
-      }
-    }
-  }
-  $inputRows$$.statementEdge = 2 * Blockly.BlockSvg.SEP_SPACE_X + $titleStatementWidth$$;
-  $hasStatement$$ && ($inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, $inputRows$$.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH));
-  $hasValue$$ ? $inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, $titleValueWidth$$ + 2 * Blockly.BlockSvg.SEP_SPACE_X + Blockly.BlockSvg.TAB_WIDTH) : $hasDummy$$ && ($inputRows$$.rightEdge = Math.max($inputRows$$.rightEdge, $titleValueWidth$$ + 2 * Blockly.BlockSvg.SEP_SPACE_X));
-  $inputRows$$.hasValue = $hasValue$$;
-  $inputRows$$.hasStatement = $hasStatement$$;
-  $inputRows$$.hasDummy = $hasDummy$$;
-  return $inputRows$$
-};
-Blockly.BlockSvg.prototype.renderDraw_ = function $Blockly$BlockSvg$$renderDraw_$($iconWidth$$, $inputRows$$) {
-  if(this.block_.outputConnection) {
-    this.squareBottomLeftCorner_ = this.squareTopLeftCorner_ = !0
-  }else {
-    this.squareBottomLeftCorner_ = this.squareTopLeftCorner_ = !1;
-    if(this.block_.previousConnection) {
-      var $highlightSteps_nextBlock$$ = this.block_.previousConnection.targetBlock();
-      $highlightSteps_nextBlock$$ && $highlightSteps_nextBlock$$.nextConnection && $highlightSteps_nextBlock$$.nextConnection.targetConnection == this.block_.previousConnection && (this.squareTopLeftCorner_ = !0)
-    }
-    this.block_.nextConnection && ($highlightSteps_nextBlock$$ = this.block_.nextConnection.targetBlock()) && $highlightSteps_nextBlock$$.previousConnection && $highlightSteps_nextBlock$$.previousConnection.targetConnection == this.block_.nextConnection && (this.squareBottomLeftCorner_ = !0)
-  }
-  var $connectionsXY_pathString$$ = this.block_.getRelativeToSurfaceXY(), $steps$$ = [], $inlineSteps$$ = [], $highlightSteps_nextBlock$$ = [], $highlightInlineSteps$$ = [];
-  this.renderDrawTop_($steps$$, $highlightSteps_nextBlock$$, $connectionsXY_pathString$$, $inputRows$$.rightEdge);
-  var $cursorY$$ = this.renderDrawRight_($steps$$, $highlightSteps_nextBlock$$, $inlineSteps$$, $highlightInlineSteps$$, $connectionsXY_pathString$$, $inputRows$$, $iconWidth$$);
-  this.renderDrawBottom_($steps$$, $highlightSteps_nextBlock$$, $connectionsXY_pathString$$, $cursorY$$);
-  this.renderDrawLeft_($steps$$, $highlightSteps_nextBlock$$, $connectionsXY_pathString$$, $cursorY$$);
-  $connectionsXY_pathString$$ = $steps$$.join(" ") + "\n" + $inlineSteps$$.join(" ");
-  this.svgPath_.setAttribute("d", $connectionsXY_pathString$$);
-  this.svgPathDark_.setAttribute("d", $connectionsXY_pathString$$);
-  $connectionsXY_pathString$$ = $highlightSteps_nextBlock$$.join(" ") + "\n" + $highlightInlineSteps$$.join(" ");
-  this.svgPathLight_.setAttribute("d", $connectionsXY_pathString$$);
-  Blockly.RTL && (this.svgPath_.setAttribute("transform", "scale(-1 1)"), this.svgPathLight_.setAttribute("transform", "scale(-1 1)"), this.svgPathDark_.setAttribute("transform", "translate(1,1) scale(-1 1)"))
-};
-Blockly.BlockSvg.prototype.renderDrawTop_ = function $Blockly$BlockSvg$$renderDrawTop_$($steps$$, $highlightSteps$$, $connectionsXY$$, $rightEdge$$) {
-  this.squareTopLeftCorner_ ? ($steps$$.push("m 0,0"), $highlightSteps$$.push("m 1,1")) : ($steps$$.push(Blockly.BlockSvg.TOP_LEFT_CORNER_START), $highlightSteps$$.push(Blockly.RTL ? Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_RTL : Blockly.BlockSvg.TOP_LEFT_CORNER_START_HIGHLIGHT_LTR), $steps$$.push(Blockly.BlockSvg.TOP_LEFT_CORNER), $highlightSteps$$.push(Blockly.BlockSvg.TOP_LEFT_CORNER_HIGHLIGHT));
-  Blockly.BROKEN_CONTROL_POINTS && $steps$$.push("c 0,5 0,-5 0,0");
-  this.block_.previousConnection && ($steps$$.push("H", Blockly.BlockSvg.NOTCH_WIDTH - 15), $highlightSteps$$.push("H", Blockly.BlockSvg.NOTCH_WIDTH - 15), $steps$$.push(Blockly.BlockSvg.NOTCH_PATH_LEFT), $highlightSteps$$.push(Blockly.BlockSvg.NOTCH_PATH_LEFT_HIGHLIGHT), this.block_.previousConnection.moveTo($connectionsXY$$.x + (Blockly.RTL ? -Blockly.BlockSvg.NOTCH_WIDTH : Blockly.BlockSvg.NOTCH_WIDTH), $connectionsXY$$.y));
-  $steps$$.push("H", $rightEdge$$);
-  $highlightSteps$$.push("H", $rightEdge$$ + (Blockly.RTL ? -1 : 0))
-};
-Blockly.BlockSvg.prototype.renderDrawRight_ = function $Blockly$BlockSvg$$renderDrawRight_$($steps$$, $highlightSteps$$, $inlineSteps$$, $highlightInlineSteps$$, $connectionsXY$$, $inputRows$$, $iconWidth$$) {
-  for(var $cursorX$$, $cursorY$$ = 0, $connectionX$$, $connectionY$$, $y$$ = 0, $row$$;$row$$ = $inputRows$$[$y$$];$y$$++) {
-    $cursorX$$ = Blockly.BlockSvg.SEP_SPACE_X;
-    0 == $y$$ && ($cursorX$$ += Blockly.RTL ? -$iconWidth$$ : $iconWidth$$);
-    $highlightSteps$$.push("M", $inputRows$$.rightEdge - 1 + "," + ($cursorY$$ + 1));
-    if(this.block_.isCollapsed()) {
-      var $input$$ = $row$$[0];
-      $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT;
-      this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$);
-      $steps$$.push(Blockly.BlockSvg.JAGGED_TEETH);
-      Blockly.RTL ? $highlightSteps$$.push("l 8,0 0,3.8 7,3.2 m -14.5,9 l 8,4") : $highlightSteps$$.push("h 8");
-      $input$$ = $row$$.height - Blockly.BlockSvg.JAGGED_TEETH_HEIGHT;
-      $steps$$.push("v", $input$$);
-      Blockly.RTL && $highlightSteps$$.push("v", $input$$ - 2)
-    }else {
-      if($row$$.type == Blockly.BlockSvg.INLINE) {
-        for(var $titleRightX_x$$ = 0;$input$$ = $row$$[$titleRightX_x$$];$titleRightX_x$$++) {
-          $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $row$$.thicker && ($connectionX$$ += Blockly.BlockSvg.INLINE_PADDING_Y), $cursorX$$ = this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$), $input$$.type != Blockly.DUMMY_INPUT && ($cursorX$$ += $input$$.renderWidth + Blockly.BlockSvg.SEP_SPACE_X), $input$$.type == Blockly.INPUT_VALUE && ($inlineSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.SEP_SPACE_X + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y)), $inlineSteps$$.push("h", 
-          Blockly.BlockSvg.TAB_WIDTH - $input$$.renderWidth), $inlineSteps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN), $inlineSteps$$.push("v", $input$$.renderHeight - Blockly.BlockSvg.TAB_HEIGHT), $inlineSteps$$.push("h", $input$$.renderWidth - Blockly.BlockSvg.TAB_WIDTH), $inlineSteps$$.push("z"), Blockly.RTL ? ($highlightInlineSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.SEP_SPACE_X + Blockly.BlockSvg.TAB_WIDTH - $input$$.renderWidth - 1 + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y + 
-          1)), $highlightInlineSteps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL), $highlightInlineSteps$$.push("v", $input$$.renderHeight - Blockly.BlockSvg.TAB_HEIGHT + 2), $highlightInlineSteps$$.push("h", $input$$.renderWidth - Blockly.BlockSvg.TAB_WIDTH)) : ($highlightInlineSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.SEP_SPACE_X + 1 + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y + 1)), $highlightInlineSteps$$.push("v", $input$$.renderHeight), $highlightInlineSteps$$.push("h", 
-          Blockly.BlockSvg.TAB_WIDTH - $input$$.renderWidth), $highlightInlineSteps$$.push("M", $cursorX$$ - $input$$.renderWidth - Blockly.BlockSvg.SEP_SPACE_X + 3.8 + "," + ($cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y + Blockly.BlockSvg.TAB_HEIGHT - 0.4)), $highlightInlineSteps$$.push("l", 0.42 * Blockly.BlockSvg.TAB_WIDTH + ",-1.8")), $connectionX$$ = Blockly.RTL ? $connectionsXY$$.x - $cursorX$$ - Blockly.BlockSvg.TAB_WIDTH + Blockly.BlockSvg.SEP_SPACE_X + $input$$.renderWidth - 1 : $connectionsXY$$.x + 
-          $cursorX$$ + Blockly.BlockSvg.TAB_WIDTH - Blockly.BlockSvg.SEP_SPACE_X - $input$$.renderWidth + 1, $connectionY$$ = $connectionsXY$$.y + $cursorY$$ + Blockly.BlockSvg.INLINE_PADDING_Y, $input$$.connection.moveTo($connectionX$$, $connectionY$$), $input$$.connection.targetConnection && $input$$.connection.tighten_())
-        }
-        $cursorX$$ = Math.max($cursorX$$, $inputRows$$.rightEdge);
-        $steps$$.push("H", $cursorX$$);
-        $highlightSteps$$.push("H", $cursorX$$ + (Blockly.RTL ? -1 : 0));
-        $steps$$.push("v", $row$$.height);
-        Blockly.RTL && $highlightSteps$$.push("v", $row$$.height - 2)
-      }else {
-        $row$$.type == Blockly.INPUT_VALUE ? ($input$$ = $row$$[0], $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $input$$.align != Blockly.ALIGN_LEFT && ($titleRightX_x$$ = $inputRows$$.rightEdge - $input$$.titleWidth - Blockly.BlockSvg.TAB_WIDTH - 2 * Blockly.BlockSvg.SEP_SPACE_X, $input$$.align == Blockly.ALIGN_RIGHT ? $cursorX$$ += $titleRightX_x$$ : $input$$.align == Blockly.ALIGN_CENTRE && ($cursorX$$ += ($titleRightX_x$$ + $cursorX$$) / 2)), this.renderTitles_($input$$.titleRow, 
-        $cursorX$$, $connectionX$$), $steps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN), $steps$$.push("v", $row$$.height - Blockly.BlockSvg.TAB_HEIGHT), Blockly.RTL ? ($highlightSteps$$.push(Blockly.BlockSvg.TAB_PATH_DOWN_HIGHLIGHT_RTL), $highlightSteps$$.push("v", $row$$.height - Blockly.BlockSvg.TAB_HEIGHT)) : ($highlightSteps$$.push("M", $inputRows$$.rightEdge - 4.2 + "," + ($cursorY$$ + Blockly.BlockSvg.TAB_HEIGHT - 0.4)), $highlightSteps$$.push("l", 0.42 * Blockly.BlockSvg.TAB_WIDTH + ",-1.8")), 
-        $connectionX$$ = $connectionsXY$$.x + (Blockly.RTL ? -$inputRows$$.rightEdge - 1 : $inputRows$$.rightEdge + 1), $connectionY$$ = $connectionsXY$$.y + $cursorY$$, $input$$.connection.moveTo($connectionX$$, $connectionY$$), $input$$.connection.targetConnection && $input$$.connection.tighten_()) : $row$$.type == Blockly.DUMMY_INPUT ? ($input$$ = $row$$[0], $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $input$$.align != Blockly.ALIGN_LEFT && ($titleRightX_x$$ = $inputRows$$.rightEdge - 
-        $input$$.titleWidth - 2 * Blockly.BlockSvg.SEP_SPACE_X, $inputRows$$.hasValue && ($titleRightX_x$$ -= Blockly.BlockSvg.TAB_WIDTH), $input$$.align == Blockly.ALIGN_RIGHT ? $cursorX$$ += $titleRightX_x$$ : $input$$.align == Blockly.ALIGN_CENTRE && ($cursorX$$ += ($titleRightX_x$$ + $cursorX$$) / 2)), this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$), $steps$$.push("v", $row$$.height), Blockly.RTL && $highlightSteps$$.push("v", $row$$.height - 2)) : $row$$.type == Blockly.NEXT_STATEMENT && 
-        ($input$$ = $row$$[0], 0 == $y$$ && ($steps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y), Blockly.RTL && $highlightSteps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y - 1), $cursorY$$ += Blockly.BlockSvg.SEP_SPACE_Y), $connectionX$$ = $cursorY$$ + Blockly.BlockSvg.TITLE_HEIGHT, $input$$.align != Blockly.ALIGN_LEFT && ($titleRightX_x$$ = $inputRows$$.statementEdge - $input$$.titleWidth - 2 * Blockly.BlockSvg.SEP_SPACE_X, $input$$.align == Blockly.ALIGN_RIGHT ? $cursorX$$ += $titleRightX_x$$ : $input$$.align == 
-        Blockly.ALIGN_CENTRE && ($cursorX$$ += ($titleRightX_x$$ + $cursorX$$) / 2)), this.renderTitles_($input$$.titleRow, $cursorX$$, $connectionX$$), $cursorX$$ = $inputRows$$.statementEdge + Blockly.BlockSvg.NOTCH_WIDTH, $steps$$.push("H", $cursorX$$), $steps$$.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER), $steps$$.push("v", $row$$.height - 2 * Blockly.BlockSvg.CORNER_RADIUS), $steps$$.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER), $steps$$.push("H", $inputRows$$.rightEdge), Blockly.RTL ? ($highlightSteps$$.push("M", 
-        $cursorX$$ - Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.DISTANCE_45_OUTSIDE + "," + ($cursorY$$ + Blockly.BlockSvg.DISTANCE_45_OUTSIDE)), $highlightSteps$$.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER_HIGHLIGHT_RTL), $highlightSteps$$.push("v", $row$$.height - 2 * Blockly.BlockSvg.CORNER_RADIUS), $highlightSteps$$.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_RTL), $highlightSteps$$.push("H", $inputRows$$.rightEdge - 1)) : ($highlightSteps$$.push("M", $cursorX$$ - Blockly.BlockSvg.NOTCH_WIDTH + 
-        Blockly.BlockSvg.DISTANCE_45_OUTSIDE + "," + ($cursorY$$ + $row$$.height - Blockly.BlockSvg.DISTANCE_45_OUTSIDE)), $highlightSteps$$.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER_HIGHLIGHT_LTR), $highlightSteps$$.push("H", $inputRows$$.rightEdge)), $connectionX$$ = $connectionsXY$$.x + (Blockly.RTL ? -$cursorX$$ : $cursorX$$), $connectionY$$ = $connectionsXY$$.y + $cursorY$$ + 1, $input$$.connection.moveTo($connectionX$$, $connectionY$$), $input$$.connection.targetConnection && $input$$.connection.tighten_(), 
-        $y$$ == $inputRows$$.length - 1 || $inputRows$$[$y$$ + 1].type == Blockly.NEXT_STATEMENT) && ($steps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y), Blockly.RTL && $highlightSteps$$.push("v", Blockly.BlockSvg.SEP_SPACE_Y - 1), $cursorY$$ += Blockly.BlockSvg.SEP_SPACE_Y)
-      }
-    }
-    $cursorY$$ += $row$$.height
-  }
-  $inputRows$$.length || ($cursorY$$ = Blockly.BlockSvg.MIN_BLOCK_Y, $steps$$.push("V", $cursorY$$), Blockly.RTL && $highlightSteps$$.push("V", $cursorY$$ - 1));
-  return $cursorY$$
-};
-Blockly.BlockSvg.prototype.renderDrawBottom_ = function $Blockly$BlockSvg$$renderDrawBottom_$($steps$$, $highlightSteps$$, $connectionsXY$$, $cursorY$$) {
-  this.block_.nextConnection && ($steps$$.push("H", Blockly.BlockSvg.NOTCH_WIDTH + " " + Blockly.BlockSvg.NOTCH_PATH_RIGHT), this.block_.nextConnection.moveTo(Blockly.RTL ? $connectionsXY$$.x - Blockly.BlockSvg.NOTCH_WIDTH : $connectionsXY$$.x + Blockly.BlockSvg.NOTCH_WIDTH, $connectionsXY$$.y + $cursorY$$ + 1), this.block_.nextConnection.targetConnection && this.block_.nextConnection.tighten_());
-  Blockly.BROKEN_CONTROL_POINTS && $steps$$.push("c 0,5 0,-5 0,0");
-  this.squareBottomLeftCorner_ ? ($steps$$.push("H 0"), Blockly.RTL || $highlightSteps$$.push("M", "1," + $cursorY$$)) : ($steps$$.push("H", Blockly.BlockSvg.CORNER_RADIUS), $steps$$.push("a", Blockly.BlockSvg.CORNER_RADIUS + "," + Blockly.BlockSvg.CORNER_RADIUS + " 0 0,1 -" + Blockly.BlockSvg.CORNER_RADIUS + ",-" + Blockly.BlockSvg.CORNER_RADIUS), Blockly.RTL || ($highlightSteps$$.push("M", Blockly.BlockSvg.DISTANCE_45_INSIDE + "," + ($cursorY$$ - Blockly.BlockSvg.DISTANCE_45_INSIDE)), $highlightSteps$$.push("A", 
-  Blockly.BlockSvg.CORNER_RADIUS - 1 + "," + (Blockly.BlockSvg.CORNER_RADIUS - 1) + " 0 0,1 1," + ($cursorY$$ - Blockly.BlockSvg.CORNER_RADIUS))))
-};
-Blockly.BlockSvg.prototype.renderDrawLeft_ = function $Blockly$BlockSvg$$renderDrawLeft_$($steps$$, $highlightSteps$$, $connectionsXY$$, $cursorY$$) {
-  this.block_.outputConnection ? (this.block_.outputConnection.moveTo($connectionsXY$$.x, $connectionsXY$$.y), $steps$$.push("V", Blockly.BlockSvg.TAB_HEIGHT), $steps$$.push("c 0,-10 -" + Blockly.BlockSvg.TAB_WIDTH + ",8 -" + Blockly.BlockSvg.TAB_WIDTH + ",-7.5 s " + Blockly.BlockSvg.TAB_WIDTH + ",2.5 " + Blockly.BlockSvg.TAB_WIDTH + ",-7.5"), Blockly.RTL ? ($highlightSteps$$.push("M", -0.3 * Blockly.BlockSvg.TAB_WIDTH + ",8.9"), $highlightSteps$$.push("l", -0.45 * Blockly.BlockSvg.TAB_WIDTH + ",-2.1")) : 
-  ($highlightSteps$$.push("V", Blockly.BlockSvg.TAB_HEIGHT - 1), $highlightSteps$$.push("m", -0.92 * Blockly.BlockSvg.TAB_WIDTH + ",-1 q " + -0.19 * Blockly.BlockSvg.TAB_WIDTH + ",-5.5 0,-11"), $highlightSteps$$.push("m", 0.92 * Blockly.BlockSvg.TAB_WIDTH + ",1 V 1 H 2"))) : Blockly.RTL || (this.squareTopLeftCorner_ ? $highlightSteps$$.push("V", 1) : $highlightSteps$$.push("V", Blockly.BlockSvg.CORNER_RADIUS));
-  $steps$$.push("z")
-};
-Blockly.Field = function $Blockly$Field$($text$$) {
-  this.sourceBlock_ = null;
-  this.fieldGroup_ = Blockly.createSvgElement("g", {}, null);
-  this.borderRect_ = Blockly.createSvgElement("rect", {rx:4, ry:4, x:-Blockly.BlockSvg.SEP_SPACE_X / 2, y:-12, height:16}, this.fieldGroup_);
-  this.textElement_ = Blockly.createSvgElement("text", {"class":"blocklyText"}, this.fieldGroup_);
-  this.size_ = {height:25, width:0};
-  this.setText($text$$);
-  this.visible_ = !0
-};
-Blockly.Field.NBSP = "\u00a0";
-Blockly.Field.prototype.EDITABLE = !0;
-Blockly.Field.prototype.init = function $Blockly$Field$$init$($block$$) {
-  if(this.sourceBlock_) {
-    throw"Field has already been initialized once.";
-  }
-  this.sourceBlock_ = $block$$;
-  this.updateEditable();
-  $block$$.getSvgRoot().appendChild(this.fieldGroup_);
-  this.mouseUpWrapper_ = Blockly.bindEvent_(this.fieldGroup_, "mouseup", this, this.onMouseUp_);
-  this.setText(null)
-};
-Blockly.Field.prototype.dispose = function $Blockly$Field$$dispose$() {
-  this.mouseUpWrapper_ && (Blockly.unbindEvent_(this.mouseUpWrapper_), this.mouseUpWrapper_ = null);
-  this.sourceBlock_ = null;
-  goog.dom.removeNode(this.fieldGroup_);
-  this.borderRect_ = this.textElement_ = this.fieldGroup_ = null
-};
-Blockly.Field.prototype.updateEditable = function $Blockly$Field$$updateEditable$() {
-  this.EDITABLE && (this.sourceBlock_.isEditable() ? (Blockly.addClass_(this.fieldGroup_, "blocklyEditableText"), Blockly.removeClass_(this.fieldGroup_, "blocklyNoNEditableText"), this.fieldGroup_.style.cursor = this.CURSOR) : (Blockly.addClass_(this.fieldGroup_, "blocklyNonEditableText"), Blockly.removeClass_(this.fieldGroup_, "blocklyEditableText"), this.fieldGroup_.style.cursor = ""))
-};
-Blockly.Field.prototype.isVisible = function $Blockly$Field$$isVisible$() {
-  return this.visible_
-};
-Blockly.Field.prototype.setVisible = function $Blockly$Field$$setVisible$($visible$$) {
-  this.visible_ = $visible$$;
-  this.getRootElement().style.display = $visible$$ ? "block" : "none"
-};
-Blockly.Field.prototype.getRootElement = function $Blockly$Field$$getRootElement$() {
-  return this.fieldGroup_
-};
-Blockly.Field.prototype.render_ = function $Blockly$Field$$render_$() {
-  var $width$$ = this.textElement_.getComputedTextLength();
-  this.borderRect_ && this.borderRect_.setAttribute("width", $width$$ + Blockly.BlockSvg.SEP_SPACE_X);
-  this.size_.width = $width$$
-};
-Blockly.Field.prototype.getSize = function $Blockly$Field$$getSize$() {
-  this.size_.width || this.render_();
-  return this.size_
-};
-Blockly.Field.prototype.getText = function $Blockly$Field$$getText$() {
-  return this.text_
-};
-Blockly.Field.prototype.setText = function $Blockly$Field$$setText$($text$$) {
-  null !== $text$$ && $text$$ !== this.text_ && (this.text_ = $text$$, goog.dom.removeChildren(this.textElement_), $text$$ = $text$$.replace(/\s/g, Blockly.Field.NBSP), $text$$ || ($text$$ = Blockly.Field.NBSP), $text$$ = document.createTextNode($text$$), this.textElement_.appendChild($text$$), this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
-};
-Blockly.Field.prototype.getValue = function $Blockly$Field$$getValue$() {
-  return this.getText()
-};
-Blockly.Field.prototype.setValue = function $Blockly$Field$$setValue$($text$$) {
-  this.setText($text$$)
-};
-Blockly.Field.prototype.onMouseUp_ = function $Blockly$Field$$onMouseUp_$($e$$) {
-  Blockly.isRightButton($e$$) || 2 != Blockly.Block.dragMode_ && this.sourceBlock_.isEditable() && this.showEditor_()
-};
-Blockly.Field.prototype.setTooltip = function $Blockly$Field$$setTooltip$($newTip$$) {
-};
-Blockly.FieldDropdown = function $Blockly$FieldDropdown$($menuGenerator$$, $opt_changeHandler$$) {
-  this.menuGenerator_ = $menuGenerator$$;
-  this.changeHandler_ = $opt_changeHandler$$;
-  this.trimOptions_();
-  var $firstTuple$$ = this.getOptions_()[0];
-  this.value_ = $firstTuple$$[1];
-  this.arrow_ = Blockly.createSvgElement("tspan", {}, null);
-  this.arrow_.appendChild(document.createTextNode(Blockly.RTL ? "\u25be " : " \u25be"));
-  Blockly.FieldDropdown.superClass_.constructor.call(this, $firstTuple$$[0])
-};
-goog.inherits(Blockly.FieldDropdown, Blockly.Field);
-Blockly.FieldDropdown.createDom = function $Blockly$FieldDropdown$createDom$() {
-  var $svgGroup$$ = Blockly.createSvgElement("g", {"class":"blocklyHidden blocklyFieldDropdown"}, null);
-  Blockly.FieldDropdown.svgGroup_ = $svgGroup$$;
-  Blockly.FieldDropdown.svgShadow_ = Blockly.createSvgElement("rect", {"class":"blocklyDropdownMenuShadow", x:0, y:1, rx:2, ry:2}, $svgGroup$$);
-  Blockly.FieldDropdown.svgBackground_ = Blockly.createSvgElement("rect", {x:-2, y:-1, rx:2, ry:2, filter:"url(#blocklyEmboss)"}, $svgGroup$$);
-  Blockly.FieldDropdown.svgOptions_ = Blockly.createSvgElement("g", {"class":"blocklyDropdownMenuOptions"}, $svgGroup$$);
-  return $svgGroup$$
-};
-Blockly.FieldDropdown.prototype.dispose = function $Blockly$FieldDropdown$$dispose$() {
-  Blockly.FieldDropdown.openDropdown_ == this && Blockly.FieldDropdown.hide();
-  Blockly.Field.prototype.dispose.call(this)
-};
-Blockly.FieldDropdown.CORNER_RADIUS = 2;
-Blockly.FieldDropdown.prototype.CURSOR = "default";
-Blockly.FieldDropdown.openDropdown_ = null;
-Blockly.FieldDropdown.prototype.showEditor_ = function $Blockly$FieldDropdown$$showEditor_$() {
-  function $callbackFactory$$($value$$) {
-    return function($e$$) {
-      if(this.changeHandler_) {
-        var $override$$ = this.changeHandler_($value$$);
-        void 0 !== $override$$ && ($value$$ = $override$$)
-      }
-      null !== $value$$ && this.setValue($value$$);
-      $e$$.stopPropagation()
-    }
-  }
-  var $svgGroup$$ = Blockly.FieldDropdown.svgGroup_, $svgOptions$$ = Blockly.FieldDropdown.svgOptions_, $svgBackground_xy$$ = Blockly.FieldDropdown.svgBackground_, $borderBBox_hexColour$$ = Blockly.FieldDropdown.svgShadow_;
-  goog.dom.removeChildren($svgOptions$$);
-  Blockly.removeClass_($svgGroup$$, "blocklyHidden");
-  Blockly.FieldDropdown.openDropdown_ = this;
-  for(var $maxWidth$$ = 0, $resizeList$$ = [], $checkElement$$ = null, $height$$11_options$$ = this.getOptions_(), $width$$15_x$$ = 0;$width$$15_x$$ < $height$$11_options$$.length;$width$$15_x$$++) {
-    var $value$$0$$ = $height$$11_options$$[$width$$15_x$$][1], $gElement$$ = Blockly.ContextMenu.optionToDom($height$$11_options$$[$width$$15_x$$][0]), $rectElement$$ = $gElement$$.firstChild, $textElement$$ = $gElement$$.lastChild;
-    $svgOptions$$.appendChild($gElement$$);
-    $checkElement$$ || $value$$0$$ != this.value_ || ($checkElement$$ = Blockly.createSvgElement("text", {"class":"blocklyMenuText", y:15}, null), $gElement$$.insertBefore($checkElement$$, $textElement$$), $checkElement$$.appendChild(document.createTextNode("\u2713")));
-    $gElement$$.setAttribute("transform", "translate(0, " + $width$$15_x$$ * Blockly.ContextMenu.Y_HEIGHT + ")");
-    $resizeList$$.push($rectElement$$);
-    Blockly.bindEvent_($gElement$$, "mousedown", null, Blockly.noEvent);
-    Blockly.bindEvent_($gElement$$, "mouseup", this, $callbackFactory$$($value$$0$$));
-    Blockly.bindEvent_($gElement$$, "mouseup", null, Blockly.FieldDropdown.hide);
-    $maxWidth$$ = Math.max($maxWidth$$, $textElement$$.getComputedTextLength())
-  }
-  $maxWidth$$ += 2 * Blockly.ContextMenu.X_PADDING;
-  for($width$$15_x$$ = 0;$width$$15_x$$ < $resizeList$$.length;$width$$15_x$$++) {
-    $resizeList$$[$width$$15_x$$].setAttribute("width", $maxWidth$$)
-  }
-  if(Blockly.RTL) {
-    for($width$$15_x$$ = 0;$gElement$$ = $svgOptions$$.childNodes[$width$$15_x$$];$width$$15_x$$++) {
-      $textElement$$ = $gElement$$.lastChild, $textElement$$.setAttribute("text-anchor", "end"), $textElement$$.setAttribute("x", $maxWidth$$ - Blockly.ContextMenu.X_PADDING)
-    }
-  }
-  $checkElement$$ && (Blockly.RTL ? ($checkElement$$.setAttribute("text-anchor", "end"), $checkElement$$.setAttribute("x", $maxWidth$$ - 5)) : $checkElement$$.setAttribute("x", 5));
-  $width$$15_x$$ = $maxWidth$$ + 2 * Blockly.FieldDropdown.CORNER_RADIUS;
-  $height$$11_options$$ = $height$$11_options$$.length * Blockly.ContextMenu.Y_HEIGHT + Blockly.FieldDropdown.CORNER_RADIUS + 1;
-  $borderBBox_hexColour$$.setAttribute("width", $width$$15_x$$);
-  $borderBBox_hexColour$$.setAttribute("height", $height$$11_options$$);
-  $svgBackground_xy$$.setAttribute("width", $width$$15_x$$);
-  $svgBackground_xy$$.setAttribute("height", $height$$11_options$$);
-  $borderBBox_hexColour$$ = Blockly.makeColour(this.sourceBlock_.getColour());
-  $svgBackground_xy$$.setAttribute("fill", $borderBBox_hexColour$$);
-  $svgBackground_xy$$ = Blockly.getSvgXY_(this.borderRect_);
-  $borderBBox_hexColour$$ = this.borderRect_.getBBox();
-  $width$$15_x$$ = Blockly.RTL ? $svgBackground_xy$$.x - $maxWidth$$ + Blockly.ContextMenu.X_PADDING + $borderBBox_hexColour$$.width - Blockly.BlockSvg.SEP_SPACE_X / 2 : $svgBackground_xy$$.x - Blockly.ContextMenu.X_PADDING + Blockly.BlockSvg.SEP_SPACE_X / 2;
-  $svgGroup$$.setAttribute("transform", "translate(" + $width$$15_x$$ + ", " + ($svgBackground_xy$$.y + $borderBBox_hexColour$$.height) + ")")
-};
-Blockly.FieldDropdown.prototype.trimOptions_ = function $Blockly$FieldDropdown$$trimOptions_$() {
-  this.suffixTitle = this.prefixTitle = null;
-  var $options$$ = this.menuGenerator_;
-  if(goog.isArray($options$$) && !(2 > $options$$.length)) {
-    var $newOptions_strings$$ = $options$$.map(function($t$$) {
-      return $t$$[0]
-    }), $shortest_x$$ = Blockly.shortestStringLength($newOptions_strings$$), $prefixLength$$ = Blockly.commonWordPrefix($newOptions_strings$$, $shortest_x$$), $suffixLength$$ = Blockly.commonWordSuffix($newOptions_strings$$, $shortest_x$$);
-    if(($prefixLength$$ || $suffixLength$$) && !($shortest_x$$ <= $prefixLength$$ + $suffixLength$$)) {
-      $prefixLength$$ && (this.prefixTitle = $newOptions_strings$$[0].substring(0, $prefixLength$$ - 1));
-      $suffixLength$$ && (this.suffixTitle = $newOptions_strings$$[0].substr(1 - $suffixLength$$));
-      $newOptions_strings$$ = [];
-      for($shortest_x$$ = 0;$shortest_x$$ < $options$$.length;$shortest_x$$++) {
-        var $text$$ = $options$$[$shortest_x$$][0], $value$$ = $options$$[$shortest_x$$][1], $text$$ = $text$$.substring($prefixLength$$, $text$$.length - $suffixLength$$);
-        $newOptions_strings$$[$shortest_x$$] = [$text$$, $value$$]
-      }
-      this.menuGenerator_ = $newOptions_strings$$
-    }
-  }
-};
-Blockly.FieldDropdown.prototype.getOptions_ = function $Blockly$FieldDropdown$$getOptions_$() {
-  return goog.isFunction(this.menuGenerator_) ? this.menuGenerator_.call(this) : this.menuGenerator_
-};
-Blockly.FieldDropdown.prototype.getValue = function $Blockly$FieldDropdown$$getValue$() {
-  return this.value_
-};
-Blockly.FieldDropdown.prototype.setValue = function $Blockly$FieldDropdown$$setValue$($newValue$$) {
-  this.value_ = $newValue$$;
-  for(var $options$$ = this.getOptions_(), $x$$ = 0;$x$$ < $options$$.length;$x$$++) {
-    if($options$$[$x$$][1] == $newValue$$) {
-      this.setText($options$$[$x$$][0]);
-      return
-    }
-  }
-  this.setText($newValue$$)
-};
-Blockly.FieldDropdown.prototype.setText = function $Blockly$FieldDropdown$$setText$($text$$14_textNode$$) {
-  this.sourceBlock_ && (this.arrow_.style.fill = Blockly.makeColour(this.sourceBlock_.getColour()));
-  null !== $text$$14_textNode$$ && (this.text_ = $text$$14_textNode$$, goog.dom.removeChildren(this.textElement_), $text$$14_textNode$$ = $text$$14_textNode$$.replace(/\s/g, Blockly.Field.NBSP), $text$$14_textNode$$ || ($text$$14_textNode$$ = Blockly.Field.NBSP), $text$$14_textNode$$ = document.createTextNode($text$$14_textNode$$), this.textElement_.appendChild($text$$14_textNode$$), Blockly.RTL ? this.textElement_.insertBefore(this.arrow_, this.textElement_.firstChild) : this.textElement_.appendChild(this.arrow_), 
-  this.size_.width = 0, this.sourceBlock_ && this.sourceBlock_.rendered && (this.sourceBlock_.render(), this.sourceBlock_.bumpNeighbours_(), this.sourceBlock_.workspace.fireChangeEvent()))
-};
-Blockly.FieldDropdown.hide = function $Blockly$FieldDropdown$hide$() {
-  var $svgGroup$$ = Blockly.FieldDropdown.svgGroup_;
-  $svgGroup$$ && Blockly.addClass_($svgGroup$$, "blocklyHidden");
-  Blockly.FieldDropdown.openDropdown_ = null
-};
-Blockly.Msg = {};
-goog.string.StringBuffer = function $goog$string$StringBuffer$($opt_a1$$, $var_args$$) {
-  null != $opt_a1$$ && this.append.apply(this, arguments)
-};
-goog.string.StringBuffer.prototype.buffer_ = "";
-goog.string.StringBuffer.prototype.set = function $goog$string$StringBuffer$$set$($s$$) {
-  this.buffer_ = "" + $s$$
-};
-goog.string.StringBuffer.prototype.append = function $goog$string$StringBuffer$$append$($a1$$, $opt_a2$$, $var_args$$) {
-  this.buffer_ += $a1$$;
-  if(null != $opt_a2$$) {
-    for(var $i$$ = 1;$i$$ < arguments.length;$i$$++) {
-      this.buffer_ += arguments[$i$$]
-    }
-  }
-  return this
-};
-goog.string.StringBuffer.prototype.clear = function $goog$string$StringBuffer$$clear$() {
-  this.buffer_ = ""
-};
-goog.string.StringBuffer.prototype.getLength = function $goog$string$StringBuffer$$getLength$() {
-  return this.buffer_.length
-};
-goog.string.StringBuffer.prototype.toString = function $goog$string$StringBuffer$$toString$() {
-  return this.buffer_
 };
 goog.math = {};
 goog.math.randomInt = function $goog$math$randomInt$($a$$) {
@@ -4375,22 +3518,22 @@ goog.dom.findCommonAncestor = function $goog$dom$findCommonAncestor$($var_args$$
   }
   var $paths$$ = [], $minLength$$ = Infinity;
   for($i$$ = 0;$i$$ < $count$$;$i$$++) {
-    for(var $ancestors$$ = [], $first$$2_node$$ = arguments[$i$$];$first$$2_node$$;) {
-      $ancestors$$.unshift($first$$2_node$$), $first$$2_node$$ = $first$$2_node$$.parentNode
+    for(var $ancestors_output$$ = [], $first$$2_node$$ = arguments[$i$$];$first$$2_node$$;) {
+      $ancestors_output$$.unshift($first$$2_node$$), $first$$2_node$$ = $first$$2_node$$.parentNode
     }
-    $paths$$.push($ancestors$$);
-    $minLength$$ = Math.min($minLength$$, $ancestors$$.length)
+    $paths$$.push($ancestors_output$$);
+    $minLength$$ = Math.min($minLength$$, $ancestors_output$$.length)
   }
-  $ancestors$$ = null;
+  $ancestors_output$$ = null;
   for($i$$ = 0;$i$$ < $minLength$$;$i$$++) {
     for(var $first$$2_node$$ = $paths$$[0][$i$$], $j$$ = 1;$j$$ < $count$$;$j$$++) {
       if($first$$2_node$$ != $paths$$[$j$$][$i$$]) {
-        return $ancestors$$
+        return $ancestors_output$$
       }
     }
-    $ancestors$$ = $first$$2_node$$
+    $ancestors_output$$ = $first$$2_node$$
   }
-  return $ancestors$$
+  return $ancestors_output$$
 };
 goog.dom.getOwnerDocument = function $goog$dom$getOwnerDocument$($node$$) {
   return $node$$.nodeType == goog.dom.NodeType.DOCUMENT ? $node$$ : $node$$.ownerDocument || $node$$.document
@@ -4505,13 +3648,13 @@ goog.dom.getNodeAtOffset = function $goog$dom$getNodeAtOffset$($parent$$, $offse
   for(var $pos$$ = 0, $cur$$ = null;0 < $parent$$.length && $pos$$ < $offset$$;) {
     if($cur$$ = $parent$$.pop(), !($cur$$.nodeName in goog.dom.TAGS_TO_IGNORE_)) {
       if($cur$$.nodeType == goog.dom.NodeType.TEXT) {
-        var $i$$81_text$$ = $cur$$.nodeValue.replace(/(\r\n|\r|\n)/g, "").replace(/ +/g, " "), $pos$$ = $pos$$ + $i$$81_text$$.length
+        var $i$$61_text$$ = $cur$$.nodeValue.replace(/(\r\n|\r|\n)/g, "").replace(/ +/g, " "), $pos$$ = $pos$$ + $i$$61_text$$.length
       }else {
         if($cur$$.nodeName in goog.dom.PREDEFINED_TAG_VALUES_) {
           $pos$$ += goog.dom.PREDEFINED_TAG_VALUES_[$cur$$.nodeName].length
         }else {
-          for($i$$81_text$$ = $cur$$.childNodes.length - 1;0 <= $i$$81_text$$;$i$$81_text$$--) {
-            $parent$$.push($cur$$.childNodes[$i$$81_text$$])
+          for($i$$61_text$$ = $cur$$.childNodes.length - 1;0 <= $i$$61_text$$;$i$$61_text$$--) {
+            $parent$$.push($cur$$.childNodes[$i$$61_text$$])
           }
         }
       }
@@ -5202,6 +4345,640 @@ goog.style.getCssTranslation = function $goog$style$getCssTranslation$($element$
   $transform$$ || ($transform$$ = goog.style.getStyle_($element$$, "transform"));
   return $transform$$ ? ($element$$ = $transform$$.match(goog.style.MATRIX_TRANSLATION_REGEX_)) ? new goog.math.Coordinate(parseFloat($element$$[1]), parseFloat($element$$[2])) : new goog.math.Coordinate(0, 0) : new goog.math.Coordinate(0, 0)
 };
+goog.debug.errorHandlerWeakDep = {protectEntryPoint:function $goog$debug$errorHandlerWeakDep$protectEntryPoint$($fn$$, $opt_tracers$$) {
+  return $fn$$
+}};
+goog.disposable = {};
+goog.disposable.IDisposable = function $goog$disposable$IDisposable$() {
+};
+goog.Disposable = function $goog$Disposable$() {
+  goog.Disposable.MONITORING_MODE != goog.Disposable.MonitoringMode.OFF && (this.creationStack = Error().stack, goog.Disposable.instances_[goog.getUid(this)] = this)
+};
+goog.Disposable.MonitoringMode = {OFF:0, PERMANENT:1, INTERACTIVE:2};
+goog.Disposable.MONITORING_MODE = 0;
+goog.Disposable.instances_ = {};
+goog.Disposable.getUndisposedObjects = function $goog$Disposable$getUndisposedObjects$() {
+  var $ret$$ = [], $id$$;
+  for($id$$ in goog.Disposable.instances_) {
+    goog.Disposable.instances_.hasOwnProperty($id$$) && $ret$$.push(goog.Disposable.instances_[Number($id$$)])
+  }
+  return $ret$$
+};
+goog.Disposable.clearUndisposedObjects = function $goog$Disposable$clearUndisposedObjects$() {
+  goog.Disposable.instances_ = {}
+};
+goog.Disposable.prototype.disposed_ = !1;
+goog.Disposable.prototype.isDisposed = function $goog$Disposable$$isDisposed$() {
+  return this.disposed_
+};
+goog.Disposable.prototype.getDisposed = goog.Disposable.prototype.isDisposed;
+goog.Disposable.prototype.dispose = function $goog$Disposable$$dispose$() {
+  if(!this.disposed_ && (this.disposed_ = !0, this.disposeInternal(), goog.Disposable.MONITORING_MODE != goog.Disposable.MonitoringMode.OFF)) {
+    var $uid$$ = goog.getUid(this);
+    if(goog.Disposable.MONITORING_MODE == goog.Disposable.MonitoringMode.PERMANENT && !goog.Disposable.instances_.hasOwnProperty($uid$$)) {
+      throw Error(this + " did not call the goog.Disposable base constructor or was disposed of after a clearUndisposedObjects call");
+    }
+    delete goog.Disposable.instances_[$uid$$]
+  }
+};
+goog.Disposable.prototype.registerDisposable = function $goog$Disposable$$registerDisposable$($disposable$$) {
+  this.addOnDisposeCallback(goog.partial(goog.dispose, $disposable$$))
+};
+goog.Disposable.prototype.addOnDisposeCallback = function $goog$Disposable$$addOnDisposeCallback$($callback$$, $opt_scope$$) {
+  this.onDisposeCallbacks_ || (this.onDisposeCallbacks_ = []);
+  this.onDisposeCallbacks_.push(goog.bind($callback$$, $opt_scope$$))
+};
+goog.Disposable.prototype.disposeInternal = function $goog$Disposable$$disposeInternal$() {
+  if(this.onDisposeCallbacks_) {
+    for(;this.onDisposeCallbacks_.length;) {
+      this.onDisposeCallbacks_.shift()()
+    }
+  }
+};
+goog.Disposable.isDisposed = function $goog$Disposable$isDisposed$($obj$$) {
+  return $obj$$ && "function" == typeof $obj$$.isDisposed ? $obj$$.isDisposed() : !1
+};
+goog.dispose = function $goog$dispose$($obj$$) {
+  $obj$$ && "function" == typeof $obj$$.dispose && $obj$$.dispose()
+};
+goog.disposeAll = function $goog$disposeAll$($var_args$$) {
+  for(var $i$$ = 0, $len$$ = arguments.length;$i$$ < $len$$;++$i$$) {
+    var $disposable$$ = arguments[$i$$];
+    goog.isArrayLike($disposable$$) ? goog.disposeAll.apply(null, $disposable$$) : goog.dispose($disposable$$)
+  }
+};
+goog.events = {};
+goog.events.Event = function $goog$events$Event$($type$$, $opt_target$$) {
+  this.type = $type$$;
+  this.currentTarget = this.target = $opt_target$$
+};
+goog.events.Event.prototype.disposeInternal = function $goog$events$Event$$disposeInternal$() {
+};
+goog.events.Event.prototype.dispose = function $goog$events$Event$$dispose$() {
+};
+goog.events.Event.prototype.propagationStopped_ = !1;
+goog.events.Event.prototype.defaultPrevented = !1;
+goog.events.Event.prototype.returnValue_ = !0;
+goog.events.Event.prototype.stopPropagation = function $goog$events$Event$$stopPropagation$() {
+  this.propagationStopped_ = !0
+};
+goog.events.Event.prototype.preventDefault = function $goog$events$Event$$preventDefault$() {
+  this.defaultPrevented = !0;
+  this.returnValue_ = !1
+};
+goog.events.Event.stopPropagation = function $goog$events$Event$stopPropagation$($e$$) {
+  $e$$.stopPropagation()
+};
+goog.events.Event.preventDefault = function $goog$events$Event$preventDefault$($e$$) {
+  $e$$.preventDefault()
+};
+goog.events.Listenable = function $goog$events$Listenable$() {
+};
+goog.events.Listenable.USE_LISTENABLE_INTERFACE = !1;
+goog.events.Listenable.IMPLEMENTED_BY_PROP_ = "__closure_listenable";
+goog.events.Listenable.addImplementation = function $goog$events$Listenable$addImplementation$($cls$$) {
+  $cls$$.prototype[goog.events.Listenable.IMPLEMENTED_BY_PROP_] = !0
+};
+goog.events.Listenable.isImplementedBy = function $goog$events$Listenable$isImplementedBy$($obj$$) {
+  return!(!$obj$$ || !$obj$$[goog.events.Listenable.IMPLEMENTED_BY_PROP_])
+};
+goog.events.ListenableKey = function $goog$events$ListenableKey$() {
+};
+goog.events.ListenableKey.counter_ = 0;
+goog.events.ListenableKey.reserveKey = function $goog$events$ListenableKey$reserveKey$() {
+  return++goog.events.ListenableKey.counter_
+};
+goog.events.Listener = function $goog$events$Listener$() {
+  goog.events.Listener.ENABLE_MONITORING && (this.creationStack = Error().stack)
+};
+goog.events.Listener.ENABLE_MONITORING = !1;
+goog.events.Listener.prototype.key = 0;
+goog.events.Listener.prototype.removed = !1;
+goog.events.Listener.prototype.callOnce = !1;
+goog.events.Listener.prototype.init = function $goog$events$Listener$$init$($listener$$, $proxy$$, $src$$, $type$$, $capture$$, $opt_handler$$) {
+  if(goog.isFunction($listener$$)) {
+    this.isFunctionListener_ = !0
+  }else {
+    if($listener$$ && $listener$$.handleEvent && goog.isFunction($listener$$.handleEvent)) {
+      this.isFunctionListener_ = !1
+    }else {
+      throw Error("Invalid listener argument");
+    }
+  }
+  this.listener = $listener$$;
+  this.proxy = $proxy$$;
+  this.src = $src$$;
+  this.type = $type$$;
+  this.capture = !!$capture$$;
+  this.handler = $opt_handler$$;
+  this.callOnce = !1;
+  this.key = goog.events.ListenableKey.reserveKey();
+  this.removed = !1
+};
+goog.events.Listener.prototype.handleEvent = function $goog$events$Listener$$handleEvent$($eventObject$$) {
+  return this.isFunctionListener_ ? this.listener.call(this.handler || this.src, $eventObject$$) : this.listener.handleEvent.call(this.listener, $eventObject$$)
+};
+goog.events.BrowserFeature = {HAS_W3C_BUTTON:!goog.userAgent.IE || goog.userAgent.isDocumentMode(9), HAS_W3C_EVENT_SUPPORT:!goog.userAgent.IE || goog.userAgent.isDocumentMode(9), SET_KEY_CODE_TO_PREVENT_DEFAULT:goog.userAgent.IE && !goog.userAgent.isVersion("9"), HAS_NAVIGATOR_ONLINE_PROPERTY:!goog.userAgent.WEBKIT || goog.userAgent.isVersion("528"), HAS_HTML5_NETWORK_EVENT_SUPPORT:goog.userAgent.GECKO && goog.userAgent.isVersion("1.9b") || goog.userAgent.IE && goog.userAgent.isVersion("8") || goog.userAgent.OPERA && 
+goog.userAgent.isVersion("9.5") || goog.userAgent.WEBKIT && goog.userAgent.isVersion("528"), HTML5_NETWORK_EVENTS_FIRE_ON_BODY:goog.userAgent.GECKO && !goog.userAgent.isVersion("8") || goog.userAgent.IE && !goog.userAgent.isVersion("9"), TOUCH_ENABLED:"ontouchstart" in goog.global || !!(goog.global.document && document.documentElement && "ontouchstart" in document.documentElement) || !(!goog.global.navigator || !goog.global.navigator.msMaxTouchPoints)};
+goog.debug.entryPointRegistry = {};
+goog.debug.EntryPointMonitor = function $goog$debug$EntryPointMonitor$() {
+};
+goog.debug.entryPointRegistry.refList_ = [];
+goog.debug.entryPointRegistry.monitors_ = [];
+goog.debug.entryPointRegistry.monitorsMayExist_ = !1;
+goog.debug.entryPointRegistry.register = function $goog$debug$entryPointRegistry$register$($callback$$) {
+  goog.debug.entryPointRegistry.refList_[goog.debug.entryPointRegistry.refList_.length] = $callback$$;
+  if(goog.debug.entryPointRegistry.monitorsMayExist_) {
+    for(var $monitors$$ = goog.debug.entryPointRegistry.monitors_, $i$$ = 0;$i$$ < $monitors$$.length;$i$$++) {
+      $callback$$(goog.bind($monitors$$[$i$$].wrap, $monitors$$[$i$$]))
+    }
+  }
+};
+goog.debug.entryPointRegistry.monitorAll = function $goog$debug$entryPointRegistry$monitorAll$($monitor$$) {
+  goog.debug.entryPointRegistry.monitorsMayExist_ = !0;
+  for(var $transformer$$ = goog.bind($monitor$$.wrap, $monitor$$), $i$$ = 0;$i$$ < goog.debug.entryPointRegistry.refList_.length;$i$$++) {
+    goog.debug.entryPointRegistry.refList_[$i$$]($transformer$$)
+  }
+  goog.debug.entryPointRegistry.monitors_.push($monitor$$)
+};
+goog.debug.entryPointRegistry.unmonitorAllIfPossible = function $goog$debug$entryPointRegistry$unmonitorAllIfPossible$($monitor$$1_transformer$$) {
+  var $monitors$$ = goog.debug.entryPointRegistry.monitors_;
+  goog.asserts.assert($monitor$$1_transformer$$ == $monitors$$[$monitors$$.length - 1], "Only the most recent monitor can be unwrapped.");
+  $monitor$$1_transformer$$ = goog.bind($monitor$$1_transformer$$.unwrap, $monitor$$1_transformer$$);
+  for(var $i$$ = 0;$i$$ < goog.debug.entryPointRegistry.refList_.length;$i$$++) {
+    goog.debug.entryPointRegistry.refList_[$i$$]($monitor$$1_transformer$$)
+  }
+  $monitors$$.length--
+};
+goog.events.EventWrapper = function $goog$events$EventWrapper$() {
+};
+goog.events.EventWrapper.prototype.listen = function $goog$events$EventWrapper$$listen$($src$$, $listener$$, $opt_capt$$, $opt_scope$$, $opt_eventHandler$$) {
+};
+goog.events.EventWrapper.prototype.unlisten = function $goog$events$EventWrapper$$unlisten$($src$$, $listener$$, $opt_capt$$, $opt_scope$$, $opt_eventHandler$$) {
+};
+goog.events.EventType = {CLICK:"click", DBLCLICK:"dblclick", MOUSEDOWN:"mousedown", MOUSEUP:"mouseup", MOUSEOVER:"mouseover", MOUSEOUT:"mouseout", MOUSEMOVE:"mousemove", SELECTSTART:"selectstart", KEYPRESS:"keypress", KEYDOWN:"keydown", KEYUP:"keyup", BLUR:"blur", FOCUS:"focus", DEACTIVATE:"deactivate", FOCUSIN:goog.userAgent.IE ? "focusin" : "DOMFocusIn", FOCUSOUT:goog.userAgent.IE ? "focusout" : "DOMFocusOut", CHANGE:"change", SELECT:"select", SUBMIT:"submit", INPUT:"input", PROPERTYCHANGE:"propertychange", 
+DRAGSTART:"dragstart", DRAG:"drag", DRAGENTER:"dragenter", DRAGOVER:"dragover", DRAGLEAVE:"dragleave", DROP:"drop", DRAGEND:"dragend", TOUCHSTART:"touchstart", TOUCHMOVE:"touchmove", TOUCHEND:"touchend", TOUCHCANCEL:"touchcancel", BEFOREUNLOAD:"beforeunload", CONTEXTMENU:"contextmenu", ERROR:"error", HELP:"help", LOAD:"load", LOSECAPTURE:"losecapture", READYSTATECHANGE:"readystatechange", RESIZE:"resize", SCROLL:"scroll", UNLOAD:"unload", HASHCHANGE:"hashchange", PAGEHIDE:"pagehide", PAGESHOW:"pageshow", 
+POPSTATE:"popstate", COPY:"copy", PASTE:"paste", CUT:"cut", BEFORECOPY:"beforecopy", BEFORECUT:"beforecut", BEFOREPASTE:"beforepaste", ONLINE:"online", OFFLINE:"offline", MESSAGE:"message", CONNECT:"connect", TRANSITIONEND:goog.userAgent.WEBKIT ? "webkitTransitionEnd" : goog.userAgent.OPERA ? "oTransitionEnd" : "transitionend", MSGESTURECHANGE:"MSGestureChange", MSGESTUREEND:"MSGestureEnd", MSGESTUREHOLD:"MSGestureHold", MSGESTURESTART:"MSGestureStart", MSGESTURETAP:"MSGestureTap", MSGOTPOINTERCAPTURE:"MSGotPointerCapture", 
+MSINERTIASTART:"MSInertiaStart", MSLOSTPOINTERCAPTURE:"MSLostPointerCapture", MSPOINTERCANCEL:"MSPointerCancel", MSPOINTERDOWN:"MSPointerDown", MSPOINTERMOVE:"MSPointerMove", MSPOINTEROVER:"MSPointerOver", MSPOINTEROUT:"MSPointerOut", MSPOINTERUP:"MSPointerUp", TEXTINPUT:"textinput", COMPOSITIONSTART:"compositionstart", COMPOSITIONUPDATE:"compositionupdate", COMPOSITIONEND:"compositionend"};
+goog.reflect = {};
+goog.reflect.object = function $goog$reflect$object$($type$$, $object$$) {
+  return $object$$
+};
+goog.reflect.sinkValue = function $goog$reflect$sinkValue$($x$$) {
+  goog.reflect.sinkValue[" "]($x$$);
+  return $x$$
+};
+goog.reflect.sinkValue[" "] = goog.nullFunction;
+goog.reflect.canAccessProperty = function $goog$reflect$canAccessProperty$($obj$$, $prop$$) {
+  try {
+    return goog.reflect.sinkValue($obj$$[$prop$$]), !0
+  }catch($e$$) {
+  }
+  return!1
+};
+goog.events.BrowserEvent = function $goog$events$BrowserEvent$($opt_e$$, $opt_currentTarget$$) {
+  $opt_e$$ && this.init($opt_e$$, $opt_currentTarget$$)
+};
+goog.inherits(goog.events.BrowserEvent, goog.events.Event);
+goog.events.BrowserEvent.MouseButton = {LEFT:0, MIDDLE:1, RIGHT:2};
+goog.events.BrowserEvent.IEButtonMap = [1, 4, 2];
+goog.events.BrowserEvent.prototype.target = null;
+goog.events.BrowserEvent.prototype.relatedTarget = null;
+goog.events.BrowserEvent.prototype.offsetX = 0;
+goog.events.BrowserEvent.prototype.offsetY = 0;
+goog.events.BrowserEvent.prototype.clientX = 0;
+goog.events.BrowserEvent.prototype.clientY = 0;
+goog.events.BrowserEvent.prototype.screenX = 0;
+goog.events.BrowserEvent.prototype.screenY = 0;
+goog.events.BrowserEvent.prototype.button = 0;
+goog.events.BrowserEvent.prototype.keyCode = 0;
+goog.events.BrowserEvent.prototype.charCode = 0;
+goog.events.BrowserEvent.prototype.ctrlKey = !1;
+goog.events.BrowserEvent.prototype.altKey = !1;
+goog.events.BrowserEvent.prototype.shiftKey = !1;
+goog.events.BrowserEvent.prototype.metaKey = !1;
+goog.events.BrowserEvent.prototype.platformModifierKey = !1;
+goog.events.BrowserEvent.prototype.event_ = null;
+goog.events.BrowserEvent.prototype.init = function $goog$events$BrowserEvent$$init$($e$$, $opt_currentTarget$$) {
+  var $type$$ = this.type = $e$$.type;
+  goog.events.Event.call(this, $type$$);
+  this.target = $e$$.target || $e$$.srcElement;
+  this.currentTarget = $opt_currentTarget$$;
+  var $relatedTarget$$ = $e$$.relatedTarget;
+  $relatedTarget$$ ? goog.userAgent.GECKO && (goog.reflect.canAccessProperty($relatedTarget$$, "nodeName") || ($relatedTarget$$ = null)) : $type$$ == goog.events.EventType.MOUSEOVER ? $relatedTarget$$ = $e$$.fromElement : $type$$ == goog.events.EventType.MOUSEOUT && ($relatedTarget$$ = $e$$.toElement);
+  this.relatedTarget = $relatedTarget$$;
+  this.offsetX = goog.userAgent.WEBKIT || void 0 !== $e$$.offsetX ? $e$$.offsetX : $e$$.layerX;
+  this.offsetY = goog.userAgent.WEBKIT || void 0 !== $e$$.offsetY ? $e$$.offsetY : $e$$.layerY;
+  this.clientX = void 0 !== $e$$.clientX ? $e$$.clientX : $e$$.pageX;
+  this.clientY = void 0 !== $e$$.clientY ? $e$$.clientY : $e$$.pageY;
+  this.screenX = $e$$.screenX || 0;
+  this.screenY = $e$$.screenY || 0;
+  this.button = $e$$.button;
+  this.keyCode = $e$$.keyCode || 0;
+  this.charCode = $e$$.charCode || ("keypress" == $type$$ ? $e$$.keyCode : 0);
+  this.ctrlKey = $e$$.ctrlKey;
+  this.altKey = $e$$.altKey;
+  this.shiftKey = $e$$.shiftKey;
+  this.metaKey = $e$$.metaKey;
+  this.platformModifierKey = goog.userAgent.MAC ? $e$$.metaKey : $e$$.ctrlKey;
+  this.state = $e$$.state;
+  this.event_ = $e$$;
+  $e$$.defaultPrevented && this.preventDefault();
+  delete this.propagationStopped_
+};
+goog.events.BrowserEvent.prototype.isButton = function $goog$events$BrowserEvent$$isButton$($button$$) {
+  return goog.events.BrowserFeature.HAS_W3C_BUTTON ? this.event_.button == $button$$ : "click" == this.type ? $button$$ == goog.events.BrowserEvent.MouseButton.LEFT : !!(this.event_.button & goog.events.BrowserEvent.IEButtonMap[$button$$])
+};
+goog.events.BrowserEvent.prototype.isMouseActionButton = function $goog$events$BrowserEvent$$isMouseActionButton$() {
+  return this.isButton(goog.events.BrowserEvent.MouseButton.LEFT) && !(goog.userAgent.WEBKIT && goog.userAgent.MAC && this.ctrlKey)
+};
+goog.events.BrowserEvent.prototype.stopPropagation = function $goog$events$BrowserEvent$$stopPropagation$() {
+  goog.events.BrowserEvent.superClass_.stopPropagation.call(this);
+  this.event_.stopPropagation ? this.event_.stopPropagation() : this.event_.cancelBubble = !0
+};
+goog.events.BrowserEvent.prototype.preventDefault = function $goog$events$BrowserEvent$$preventDefault$() {
+  goog.events.BrowserEvent.superClass_.preventDefault.call(this);
+  var $be$$ = this.event_;
+  if($be$$.preventDefault) {
+    $be$$.preventDefault()
+  }else {
+    if($be$$.returnValue = !1, goog.events.BrowserFeature.SET_KEY_CODE_TO_PREVENT_DEFAULT) {
+      try {
+        if($be$$.ctrlKey || 112 <= $be$$.keyCode && 123 >= $be$$.keyCode) {
+          $be$$.keyCode = -1
+        }
+      }catch($ex$$) {
+      }
+    }
+  }
+};
+goog.events.BrowserEvent.prototype.getBrowserEvent = function $goog$events$BrowserEvent$$getBrowserEvent$() {
+  return this.event_
+};
+goog.events.BrowserEvent.prototype.disposeInternal = function $goog$events$BrowserEvent$$disposeInternal$() {
+};
+goog.events.listeners_ = {};
+goog.events.listenerTree_ = {};
+goog.events.sources_ = {};
+goog.events.onString_ = "on";
+goog.events.onStringMap_ = {};
+goog.events.keySeparator_ = "_";
+goog.events.listen = function $goog$events$listen$($listenableKey_src$$, $key$$45_type$$, $listener$$, $opt_capt$$, $opt_handler$$) {
+  if(goog.isArray($key$$45_type$$)) {
+    for(var $i$$ = 0;$i$$ < $key$$45_type$$.length;$i$$++) {
+      goog.events.listen($listenableKey_src$$, $key$$45_type$$[$i$$], $listener$$, $opt_capt$$, $opt_handler$$)
+    }
+    return null
+  }
+  $listenableKey_src$$ = goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenableKey_src$$) ? $listenableKey_src$$.listen($key$$45_type$$, goog.events.wrapListener_($listener$$), $opt_capt$$, $opt_handler$$) : goog.events.listen_($listenableKey_src$$, $key$$45_type$$, $listener$$, !1, $opt_capt$$, $opt_handler$$);
+  $key$$45_type$$ = $listenableKey_src$$.key;
+  goog.events.listeners_[$key$$45_type$$] = $listenableKey_src$$;
+  return $key$$45_type$$
+};
+goog.events.listen_ = function $goog$events$listen_$($src$$, $type$$, $listener$$, $callOnce$$, $capture$$1_opt_capt$$, $opt_handler$$) {
+  if(!$type$$) {
+    throw Error("Invalid event type");
+  }
+  $capture$$1_opt_capt$$ = !!$capture$$1_opt_capt$$;
+  var $listenerObj_map$$ = goog.events.listenerTree_;
+  $type$$ in $listenerObj_map$$ || ($listenerObj_map$$[$type$$] = {count_:0, remaining_:0});
+  $listenerObj_map$$ = $listenerObj_map$$[$type$$];
+  $capture$$1_opt_capt$$ in $listenerObj_map$$ || ($listenerObj_map$$[$capture$$1_opt_capt$$] = {count_:0, remaining_:0}, $listenerObj_map$$.count_++);
+  var $listenerObj_map$$ = $listenerObj_map$$[$capture$$1_opt_capt$$], $srcUid$$ = goog.getUid($src$$), $listenerArray$$;
+  $listenerObj_map$$.remaining_++;
+  if($listenerObj_map$$[$srcUid$$]) {
+    $listenerArray$$ = $listenerObj_map$$[$srcUid$$];
+    for(var $i$$68_proxy$$ = 0;$i$$68_proxy$$ < $listenerArray$$.length;$i$$68_proxy$$++) {
+      if($listenerObj_map$$ = $listenerArray$$[$i$$68_proxy$$], $listenerObj_map$$.listener == $listener$$ && $listenerObj_map$$.handler == $opt_handler$$) {
+        if($listenerObj_map$$.removed) {
+          break
+        }
+        $callOnce$$ || ($listenerArray$$[$i$$68_proxy$$].callOnce = !1);
+        return $listenerArray$$[$i$$68_proxy$$]
+      }
+    }
+  }else {
+    $listenerArray$$ = $listenerObj_map$$[$srcUid$$] = [], $listenerObj_map$$.count_++
+  }
+  $i$$68_proxy$$ = goog.events.getProxy();
+  $listenerObj_map$$ = new goog.events.Listener;
+  $listenerObj_map$$.init($listener$$, $i$$68_proxy$$, $src$$, $type$$, $capture$$1_opt_capt$$, $opt_handler$$);
+  $listenerObj_map$$.callOnce = $callOnce$$;
+  $i$$68_proxy$$.src = $src$$;
+  $i$$68_proxy$$.listener = $listenerObj_map$$;
+  $listenerArray$$.push($listenerObj_map$$);
+  goog.events.sources_[$srcUid$$] || (goog.events.sources_[$srcUid$$] = []);
+  goog.events.sources_[$srcUid$$].push($listenerObj_map$$);
+  $src$$.addEventListener ? $src$$ != goog.global && $src$$.customEvent_ || $src$$.addEventListener($type$$, $i$$68_proxy$$, $capture$$1_opt_capt$$) : $src$$.attachEvent(goog.events.getOnString_($type$$), $i$$68_proxy$$);
+  return $listenerObj_map$$
+};
+goog.events.getProxy = function $goog$events$getProxy$() {
+  var $proxyCallbackFunction$$ = goog.events.handleBrowserEvent_, $f$$ = goog.events.BrowserFeature.HAS_W3C_EVENT_SUPPORT ? function($eventObject$$) {
+    return $proxyCallbackFunction$$.call($f$$.src, $f$$.listener, $eventObject$$)
+  } : function($eventObject$$) {
+    $eventObject$$ = $proxyCallbackFunction$$.call($f$$.src, $f$$.listener, $eventObject$$);
+    if(!$eventObject$$) {
+      return $eventObject$$
+    }
+  };
+  return $f$$
+};
+goog.events.listenOnce = function $goog$events$listenOnce$($listenableKey$$1_src$$, $key$$46_type$$, $listener$$, $opt_capt$$, $opt_handler$$) {
+  if(goog.isArray($key$$46_type$$)) {
+    for(var $i$$ = 0;$i$$ < $key$$46_type$$.length;$i$$++) {
+      goog.events.listenOnce($listenableKey$$1_src$$, $key$$46_type$$[$i$$], $listener$$, $opt_capt$$, $opt_handler$$)
+    }
+    return null
+  }
+  $listenableKey$$1_src$$ = goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenableKey$$1_src$$) ? $listenableKey$$1_src$$.listenOnce($key$$46_type$$, goog.events.wrapListener_($listener$$), $opt_capt$$, $opt_handler$$) : goog.events.listen_($listenableKey$$1_src$$, $key$$46_type$$, $listener$$, !0, $opt_capt$$, $opt_handler$$);
+  $key$$46_type$$ = $listenableKey$$1_src$$.key;
+  goog.events.listeners_[$key$$46_type$$] = $listenableKey$$1_src$$;
+  return $key$$46_type$$
+};
+goog.events.listenWithWrapper = function $goog$events$listenWithWrapper$($src$$, $wrapper$$, $listener$$, $opt_capt$$, $opt_handler$$) {
+  $wrapper$$.listen($src$$, $listener$$, $opt_capt$$, $opt_handler$$)
+};
+goog.events.unlisten = function $goog$events$unlisten$($listenerArray$$1_src$$, $type$$, $listener$$, $capture$$2_opt_capt$$, $opt_handler$$) {
+  if(goog.isArray($type$$)) {
+    for(var $i$$ = 0;$i$$ < $type$$.length;$i$$++) {
+      goog.events.unlisten($listenerArray$$1_src$$, $type$$[$i$$], $listener$$, $capture$$2_opt_capt$$, $opt_handler$$)
+    }
+    return null
+  }
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenerArray$$1_src$$)) {
+    return $listenerArray$$1_src$$.unlisten($type$$, goog.events.wrapListener_($listener$$), $capture$$2_opt_capt$$, $opt_handler$$)
+  }
+  $capture$$2_opt_capt$$ = !!$capture$$2_opt_capt$$;
+  $listenerArray$$1_src$$ = goog.events.getListeners_($listenerArray$$1_src$$, $type$$, $capture$$2_opt_capt$$);
+  if(!$listenerArray$$1_src$$) {
+    return!1
+  }
+  for($i$$ = 0;$i$$ < $listenerArray$$1_src$$.length;$i$$++) {
+    if($listenerArray$$1_src$$[$i$$].listener == $listener$$ && $listenerArray$$1_src$$[$i$$].capture == $capture$$2_opt_capt$$ && $listenerArray$$1_src$$[$i$$].handler == $opt_handler$$) {
+      return goog.events.unlistenByKey($listenerArray$$1_src$$[$i$$].key)
+    }
+  }
+  return!1
+};
+goog.events.unlistenByKey = function $goog$events$unlistenByKey$($key$$) {
+  var $listener$$40_listenerArray$$ = goog.events.listeners_[$key$$];
+  if(!$listener$$40_listenerArray$$ || $listener$$40_listenerArray$$.removed) {
+    return!1
+  }
+  var $src$$13_srcUid$$ = $listener$$40_listenerArray$$.src;
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($src$$13_srcUid$$)) {
+    return $src$$13_srcUid$$.unlistenByKey($listener$$40_listenerArray$$)
+  }
+  var $type$$ = $listener$$40_listenerArray$$.type, $proxy$$ = $listener$$40_listenerArray$$.proxy, $capture$$ = $listener$$40_listenerArray$$.capture;
+  $src$$13_srcUid$$.removeEventListener ? $src$$13_srcUid$$ != goog.global && $src$$13_srcUid$$.customEvent_ || $src$$13_srcUid$$.removeEventListener($type$$, $proxy$$, $capture$$) : $src$$13_srcUid$$.detachEvent && $src$$13_srcUid$$.detachEvent(goog.events.getOnString_($type$$), $proxy$$);
+  $src$$13_srcUid$$ = goog.getUid($src$$13_srcUid$$);
+  goog.events.sources_[$src$$13_srcUid$$] && ($proxy$$ = goog.events.sources_[$src$$13_srcUid$$], goog.array.remove($proxy$$, $listener$$40_listenerArray$$), 0 == $proxy$$.length && delete goog.events.sources_[$src$$13_srcUid$$]);
+  $listener$$40_listenerArray$$.removed = !0;
+  if($listener$$40_listenerArray$$ = goog.events.listenerTree_[$type$$][$capture$$][$src$$13_srcUid$$]) {
+    $listener$$40_listenerArray$$.needsCleanup_ = !0, goog.events.cleanUp_($type$$, $capture$$, $src$$13_srcUid$$, $listener$$40_listenerArray$$)
+  }
+  delete goog.events.listeners_[$key$$];
+  return!0
+};
+goog.events.unlistenWithWrapper = function $goog$events$unlistenWithWrapper$($src$$, $wrapper$$, $listener$$, $opt_capt$$, $opt_handler$$) {
+  $wrapper$$.unlisten($src$$, $listener$$, $opt_capt$$, $opt_handler$$)
+};
+goog.events.cleanUp = function $goog$events$cleanUp$($listenableKey$$) {
+  delete goog.events.listeners_[$listenableKey$$.key]
+};
+goog.events.cleanUp_ = function $goog$events$cleanUp_$($type$$, $capture$$, $srcUid$$, $listenerArray$$) {
+  if(!$listenerArray$$.locked_ && $listenerArray$$.needsCleanup_) {
+    for(var $oldIndex$$ = 0, $newIndex$$ = 0;$oldIndex$$ < $listenerArray$$.length;$oldIndex$$++) {
+      $listenerArray$$[$oldIndex$$].removed ? $listenerArray$$[$oldIndex$$].proxy.src = null : ($oldIndex$$ != $newIndex$$ && ($listenerArray$$[$newIndex$$] = $listenerArray$$[$oldIndex$$]), $newIndex$$++)
+    }
+    $listenerArray$$.length = $newIndex$$;
+    $listenerArray$$.needsCleanup_ = !1;
+    0 == $newIndex$$ && (delete goog.events.listenerTree_[$type$$][$capture$$][$srcUid$$], goog.events.listenerTree_[$type$$][$capture$$].count_--, 0 == goog.events.listenerTree_[$type$$][$capture$$].count_ && (delete goog.events.listenerTree_[$type$$][$capture$$], goog.events.listenerTree_[$type$$].count_--), 0 == goog.events.listenerTree_[$type$$].count_ && delete goog.events.listenerTree_[$type$$])
+  }
+};
+goog.events.removeAll = function $goog$events$removeAll$($opt_obj$$, $opt_type$$) {
+  var $count$$ = 0, $noType$$ = null == $opt_type$$;
+  if(null != $opt_obj$$) {
+    if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && $opt_obj$$ && goog.events.Listenable.isImplementedBy($opt_obj$$)) {
+      return $opt_obj$$.removeAllListeners($opt_type$$)
+    }
+    var $sourcesArray$$1_srcUid$$ = goog.getUid($opt_obj$$);
+    if(goog.events.sources_[$sourcesArray$$1_srcUid$$]) {
+      for(var $sourcesArray$$1_srcUid$$ = goog.events.sources_[$sourcesArray$$1_srcUid$$], $i$$ = $sourcesArray$$1_srcUid$$.length - 1;0 <= $i$$;$i$$--) {
+        var $listener$$0$$ = $sourcesArray$$1_srcUid$$[$i$$];
+        if($noType$$ || $opt_type$$ == $listener$$0$$.type) {
+          goog.events.unlistenByKey($listener$$0$$.key), $count$$++
+        }
+      }
+    }
+  }else {
+    goog.object.forEach(goog.events.listeners_, function($listener$$, $key$$) {
+      goog.events.unlistenByKey($key$$);
+      $count$$++
+    })
+  }
+  return $count$$
+};
+goog.events.getListeners = function $goog$events$getListeners$($obj$$, $type$$, $capture$$) {
+  return goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($obj$$) ? $obj$$.getListeners($type$$, $capture$$) : goog.events.getListeners_($obj$$, $type$$, $capture$$) || []
+};
+goog.events.getListeners_ = function $goog$events$getListeners_$($obj$$, $type$$, $capture$$) {
+  var $map$$ = goog.events.listenerTree_;
+  return $type$$ in $map$$ && ($map$$ = $map$$[$type$$], $capture$$ in $map$$ && ($map$$ = $map$$[$capture$$], $obj$$ = goog.getUid($obj$$), $map$$[$obj$$])) ? $map$$[$obj$$] : null
+};
+goog.events.getListener = function $goog$events$getListener$($listenerArray$$4_src$$, $i$$72_type$$, $listener$$, $capture$$7_opt_capt$$, $opt_handler$$) {
+  $capture$$7_opt_capt$$ = !!$capture$$7_opt_capt$$;
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($listenerArray$$4_src$$)) {
+    return $listenerArray$$4_src$$.getListener($i$$72_type$$, goog.events.wrapListener_($listener$$), $capture$$7_opt_capt$$, $opt_handler$$)
+  }
+  if($listenerArray$$4_src$$ = goog.events.getListeners_($listenerArray$$4_src$$, $i$$72_type$$, $capture$$7_opt_capt$$)) {
+    for($i$$72_type$$ = 0;$i$$72_type$$ < $listenerArray$$4_src$$.length;$i$$72_type$$++) {
+      if(!$listenerArray$$4_src$$[$i$$72_type$$].removed && $listenerArray$$4_src$$[$i$$72_type$$].listener == $listener$$ && $listenerArray$$4_src$$[$i$$72_type$$].capture == $capture$$7_opt_capt$$ && $listenerArray$$4_src$$[$i$$72_type$$].handler == $opt_handler$$) {
+        return $listenerArray$$4_src$$[$i$$72_type$$]
+      }
+    }
+  }
+  return null
+};
+goog.events.hasListener = function $goog$events$hasListener$($obj$$71_objUid$$, $opt_type$$, $opt_capture$$) {
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($obj$$71_objUid$$)) {
+    return $obj$$71_objUid$$.hasListener($opt_type$$, $opt_capture$$)
+  }
+  $obj$$71_objUid$$ = goog.getUid($obj$$71_objUid$$);
+  var $listeners_map$$ = goog.events.sources_[$obj$$71_objUid$$];
+  if($listeners_map$$) {
+    var $hasType$$ = goog.isDef($opt_type$$), $hasCapture$$ = goog.isDef($opt_capture$$);
+    return $hasType$$ && $hasCapture$$ ? ($listeners_map$$ = goog.events.listenerTree_[$opt_type$$], !!$listeners_map$$ && !!$listeners_map$$[$opt_capture$$] && $obj$$71_objUid$$ in $listeners_map$$[$opt_capture$$]) : $hasType$$ || $hasCapture$$ ? goog.array.some($listeners_map$$, function($listener$$) {
+      return $hasType$$ && $listener$$.type == $opt_type$$ || $hasCapture$$ && $listener$$.capture == $opt_capture$$
+    }) : !0
+  }
+  return!1
+};
+goog.events.expose = function $goog$events$expose$($e$$) {
+  var $str$$ = [], $key$$;
+  for($key$$ in $e$$) {
+    $e$$[$key$$] && $e$$[$key$$].id ? $str$$.push($key$$ + " = " + $e$$[$key$$] + " (" + $e$$[$key$$].id + ")") : $str$$.push($key$$ + " = " + $e$$[$key$$])
+  }
+  return $str$$.join("\n")
+};
+goog.events.getOnString_ = function $goog$events$getOnString_$($type$$) {
+  return $type$$ in goog.events.onStringMap_ ? goog.events.onStringMap_[$type$$] : goog.events.onStringMap_[$type$$] = goog.events.onString_ + $type$$
+};
+goog.events.fireListeners = function $goog$events$fireListeners$($obj$$, $type$$, $capture$$, $eventObject$$) {
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.isImplementedBy($obj$$)) {
+    return $obj$$.fireListeners($type$$, $capture$$, $eventObject$$)
+  }
+  var $map$$ = goog.events.listenerTree_;
+  return $type$$ in $map$$ && ($map$$ = $map$$[$type$$], $capture$$ in $map$$) ? goog.events.fireListeners_($map$$[$capture$$], $obj$$, $type$$, $capture$$, $eventObject$$) : !0
+};
+goog.events.fireListeners_ = function $goog$events$fireListeners_$($map$$, $obj$$73_objUid$$, $type$$, $capture$$, $eventObject$$) {
+  var $retval$$ = 1;
+  $obj$$73_objUid$$ = goog.getUid($obj$$73_objUid$$);
+  if($map$$[$obj$$73_objUid$$]) {
+    var $remaining$$ = --$map$$.remaining_, $listenerArray$$ = $map$$[$obj$$73_objUid$$];
+    $listenerArray$$.locked_ ? $listenerArray$$.locked_++ : $listenerArray$$.locked_ = 1;
+    try {
+      for(var $length$$ = $listenerArray$$.length, $i$$ = 0;$i$$ < $length$$;$i$$++) {
+        var $listener$$ = $listenerArray$$[$i$$];
+        $listener$$ && !$listener$$.removed && ($retval$$ &= !1 !== goog.events.fireListener($listener$$, $eventObject$$))
+      }
+    }finally {
+      $map$$.remaining_ = Math.max($remaining$$, $map$$.remaining_), $listenerArray$$.locked_--, goog.events.cleanUp_($type$$, $capture$$, $obj$$73_objUid$$, $listenerArray$$)
+    }
+  }
+  return Boolean($retval$$)
+};
+goog.events.fireListener = function $goog$events$fireListener$($listener$$, $eventObject$$) {
+  $listener$$.callOnce && goog.events.unlistenByKey($listener$$.key);
+  return $listener$$.handleEvent($eventObject$$)
+};
+goog.events.getTotalListenerCount = function $goog$events$getTotalListenerCount$() {
+  return goog.object.getCount(goog.events.listeners_)
+};
+goog.events.dispatchEvent = function $goog$events$dispatchEvent$($src$$, $e$$) {
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE) {
+    return $src$$.dispatchEvent($e$$)
+  }
+  var $hasCapture$$1_type$$ = $e$$.type || $e$$, $current$$1_map$$ = goog.events.listenerTree_;
+  if(!($hasCapture$$1_type$$ in $current$$1_map$$)) {
+    return!0
+  }
+  if(goog.isString($e$$)) {
+    $e$$ = new goog.events.Event($e$$, $src$$)
+  }else {
+    if($e$$ instanceof goog.events.Event) {
+      $e$$.target = $e$$.target || $src$$
+    }else {
+      var $oldEvent_rv$$ = $e$$;
+      $e$$ = new goog.events.Event($hasCapture$$1_type$$, $src$$);
+      goog.object.extend($e$$, $oldEvent_rv$$)
+    }
+  }
+  var $oldEvent_rv$$ = 1, $ancestors$$, $current$$1_map$$ = $current$$1_map$$[$hasCapture$$1_type$$], $hasCapture$$1_type$$ = !0 in $current$$1_map$$, $parent$$;
+  if($hasCapture$$1_type$$) {
+    $ancestors$$ = [];
+    for($parent$$ = $src$$;$parent$$;$parent$$ = $parent$$.getParentEventTarget()) {
+      $ancestors$$.push($parent$$)
+    }
+    $parent$$ = $current$$1_map$$[!0];
+    $parent$$.remaining_ = $parent$$.count_;
+    for(var $i$$ = $ancestors$$.length - 1;!$e$$.propagationStopped_ && 0 <= $i$$ && $parent$$.remaining_;$i$$--) {
+      $e$$.currentTarget = $ancestors$$[$i$$], $oldEvent_rv$$ &= goog.events.fireListeners_($parent$$, $ancestors$$[$i$$], $e$$.type, !0, $e$$) && !1 != $e$$.returnValue_
+    }
+  }
+  if(!1 in $current$$1_map$$) {
+    if($parent$$ = $current$$1_map$$[!1], $parent$$.remaining_ = $parent$$.count_, $hasCapture$$1_type$$) {
+      for($i$$ = 0;!$e$$.propagationStopped_ && $i$$ < $ancestors$$.length && $parent$$.remaining_;$i$$++) {
+        $e$$.currentTarget = $ancestors$$[$i$$], $oldEvent_rv$$ &= goog.events.fireListeners_($parent$$, $ancestors$$[$i$$], $e$$.type, !1, $e$$) && !1 != $e$$.returnValue_
+      }
+    }else {
+      for($current$$1_map$$ = $src$$;!$e$$.propagationStopped_ && $current$$1_map$$ && $parent$$.remaining_;$current$$1_map$$ = $current$$1_map$$.getParentEventTarget()) {
+        $e$$.currentTarget = $current$$1_map$$, $oldEvent_rv$$ &= goog.events.fireListeners_($parent$$, $current$$1_map$$, $e$$.type, !1, $e$$) && !1 != $e$$.returnValue_
+      }
+    }
+  }
+  return Boolean($oldEvent_rv$$)
+};
+goog.events.protectBrowserEventEntryPoint = function $goog$events$protectBrowserEventEntryPoint$($errorHandler$$) {
+  goog.events.handleBrowserEvent_ = $errorHandler$$.protectEntryPoint(goog.events.handleBrowserEvent_)
+};
+goog.events.handleBrowserEvent_ = function $goog$events$handleBrowserEvent_$($listener$$, $opt_evt$$) {
+  if($listener$$.removed) {
+    return!0
+  }
+  var $be$$1_type$$ = $listener$$.type, $map$$ = goog.events.listenerTree_;
+  if(!($be$$1_type$$ in $map$$)) {
+    return!0
+  }
+  var $map$$ = $map$$[$be$$1_type$$], $ieEvent_retval$$, $targetsMap$$;
+  if(!goog.events.BrowserFeature.HAS_W3C_EVENT_SUPPORT) {
+    $ieEvent_retval$$ = $opt_evt$$ || goog.getObjectByName("window.event");
+    var $hasCapture$$ = !0 in $map$$, $hasBubble$$ = !1 in $map$$;
+    if($hasCapture$$) {
+      if(goog.events.isMarkedIeEvent_($ieEvent_retval$$)) {
+        return!0
+      }
+      goog.events.markIeEvent_($ieEvent_retval$$)
+    }
+    var $evt$$ = new goog.events.BrowserEvent;
+    $evt$$.init($ieEvent_retval$$, this);
+    $ieEvent_retval$$ = !0;
+    try {
+      if($hasCapture$$) {
+        for(var $ancestors$$ = [], $parent$$ = $evt$$.currentTarget;$parent$$;$parent$$ = $parent$$.parentNode) {
+          $ancestors$$.push($parent$$)
+        }
+        $targetsMap$$ = $map$$[!0];
+        $targetsMap$$.remaining_ = $targetsMap$$.count_;
+        for(var $i$$ = $ancestors$$.length - 1;!$evt$$.propagationStopped_ && 0 <= $i$$ && $targetsMap$$.remaining_;$i$$--) {
+          $evt$$.currentTarget = $ancestors$$[$i$$], $ieEvent_retval$$ &= goog.events.fireListeners_($targetsMap$$, $ancestors$$[$i$$], $be$$1_type$$, !0, $evt$$)
+        }
+        if($hasBubble$$) {
+          for($targetsMap$$ = $map$$[!1], $targetsMap$$.remaining_ = $targetsMap$$.count_, $i$$ = 0;!$evt$$.propagationStopped_ && $i$$ < $ancestors$$.length && $targetsMap$$.remaining_;$i$$++) {
+            $evt$$.currentTarget = $ancestors$$[$i$$], $ieEvent_retval$$ &= goog.events.fireListeners_($targetsMap$$, $ancestors$$[$i$$], $be$$1_type$$, !1, $evt$$)
+          }
+        }
+      }else {
+        $ieEvent_retval$$ = goog.events.fireListener($listener$$, $evt$$)
+      }
+    }finally {
+      $ancestors$$ && ($ancestors$$.length = 0)
+    }
+    return $ieEvent_retval$$
+  }
+  $be$$1_type$$ = new goog.events.BrowserEvent($opt_evt$$, this);
+  return $ieEvent_retval$$ = goog.events.fireListener($listener$$, $be$$1_type$$)
+};
+goog.events.markIeEvent_ = function $goog$events$markIeEvent_$($e$$) {
+  var $useReturnValue$$ = !1;
+  if(0 == $e$$.keyCode) {
+    try {
+      $e$$.keyCode = -1;
+      return
+    }catch($ex$$) {
+      $useReturnValue$$ = !0
+    }
+  }
+  if($useReturnValue$$ || void 0 == $e$$.returnValue) {
+    $e$$.returnValue = !0
+  }
+};
+goog.events.isMarkedIeEvent_ = function $goog$events$isMarkedIeEvent_$($e$$) {
+  return 0 > $e$$.keyCode || void 0 != $e$$.returnValue
+};
+goog.events.uniqueIdCounter_ = 0;
+goog.events.getUniqueId = function $goog$events$getUniqueId$($identifier$$) {
+  return $identifier$$ + "_" + goog.events.uniqueIdCounter_++
+};
+goog.events.LISTENER_WRAPPER_PROP_ = "__closure_events_fn_" + (1E9 * Math.random() >>> 0);
+goog.events.wrapListener_ = function $goog$events$wrapListener_$($listener$$) {
+  return goog.isFunction($listener$$) ? $listener$$ : $listener$$[goog.events.LISTENER_WRAPPER_PROP_] || ($listener$$[goog.events.LISTENER_WRAPPER_PROP_] = function $$listener$$$goog$events$LISTENER_WRAPPER_PROP_$($e$$) {
+    return $listener$$.handleEvent($e$$)
+  })
+};
+goog.debug.entryPointRegistry.register(function($transformer$$) {
+  goog.events.handleBrowserEvent_ = $transformer$$(goog.events.handleBrowserEvent_)
+});
 goog.events.EventHandler = function $goog$events$EventHandler$($opt_handler$$) {
   goog.Disposable.call(this);
   this.handler_ = $opt_handler$$;
@@ -5217,13 +4994,13 @@ goog.events.EventHandler.prototype.listen = function $goog$events$EventHandler$$
   }
   return this
 };
-goog.events.EventHandler.prototype.listenOnce = function $goog$events$EventHandler$$listenOnce$($key$$52_src$$, $type$$, $opt_fn$$, $opt_capture$$, $opt_handler$$) {
+goog.events.EventHandler.prototype.listenOnce = function $goog$events$EventHandler$$listenOnce$($key$$51_src$$, $type$$, $opt_fn$$, $opt_capture$$, $opt_handler$$) {
   if(goog.isArray($type$$)) {
     for(var $i$$ = 0;$i$$ < $type$$.length;$i$$++) {
-      this.listenOnce($key$$52_src$$, $type$$[$i$$], $opt_fn$$, $opt_capture$$, $opt_handler$$)
+      this.listenOnce($key$$51_src$$, $type$$[$i$$], $opt_fn$$, $opt_capture$$, $opt_handler$$)
     }
   }else {
-    $key$$52_src$$ = goog.events.listenOnce($key$$52_src$$, $type$$, $opt_fn$$ || this, $opt_capture$$, $opt_handler$$ || this.handler_ || this), this.keys_.push($key$$52_src$$)
+    $key$$51_src$$ = goog.events.listenOnce($key$$51_src$$, $type$$, $opt_fn$$ || this, $opt_capture$$, $opt_handler$$ || this.handler_ || this), this.keys_.push($key$$51_src$$)
   }
   return this
 };
@@ -5234,14 +5011,14 @@ goog.events.EventHandler.prototype.listenWithWrapper = function $goog$events$Eve
 goog.events.EventHandler.prototype.getListenerCount = function $goog$events$EventHandler$$getListenerCount$() {
   return this.keys_.length
 };
-goog.events.EventHandler.prototype.unlisten = function $goog$events$EventHandler$$unlisten$($key$$53_listener$$59_src$$, $type$$, $opt_fn$$, $opt_capture$$, $opt_handler$$) {
+goog.events.EventHandler.prototype.unlisten = function $goog$events$EventHandler$$unlisten$($key$$52_listener$$51_src$$, $type$$, $opt_fn$$, $opt_capture$$, $opt_handler$$) {
   if(goog.isArray($type$$)) {
     for(var $i$$ = 0;$i$$ < $type$$.length;$i$$++) {
-      this.unlisten($key$$53_listener$$59_src$$, $type$$[$i$$], $opt_fn$$, $opt_capture$$, $opt_handler$$)
+      this.unlisten($key$$52_listener$$51_src$$, $type$$[$i$$], $opt_fn$$, $opt_capture$$, $opt_handler$$)
     }
   }else {
-    if($key$$53_listener$$59_src$$ = goog.events.getListener($key$$53_listener$$59_src$$, $type$$, $opt_fn$$ || this, $opt_capture$$, $opt_handler$$ || this.handler_ || this)) {
-      $key$$53_listener$$59_src$$ = $key$$53_listener$$59_src$$.key, goog.events.unlistenByKey($key$$53_listener$$59_src$$), goog.array.remove(this.keys_, $key$$53_listener$$59_src$$)
+    if($key$$52_listener$$51_src$$ = goog.events.getListener($key$$52_listener$$51_src$$, $type$$, $opt_fn$$ || this, $opt_capture$$, $opt_handler$$ || this.handler_ || this)) {
+      $key$$52_listener$$51_src$$ = $key$$52_listener$$51_src$$.key, goog.events.unlistenByKey($key$$52_listener$$51_src$$), goog.array.remove(this.keys_, $key$$52_listener$$51_src$$)
     }
   }
   return this
@@ -5270,6 +5047,162 @@ goog.ui.IdGenerator.prototype.getNextUniqueId = function $goog$ui$IdGenerator$$g
   return":" + (this.nextId_++).toString(36)
 };
 goog.ui.IdGenerator.instance = goog.ui.IdGenerator.getInstance();
+goog.events.EventTarget = function $goog$events$EventTarget$() {
+  goog.Disposable.call(this);
+  goog.events.Listenable.USE_LISTENABLE_INTERFACE && (this.eventTargetListeners_ = {}, this.reallyDisposed_ = !1, this.actualEventTarget_ = this)
+};
+goog.inherits(goog.events.EventTarget, goog.Disposable);
+goog.events.Listenable.USE_LISTENABLE_INTERFACE && goog.events.Listenable.addImplementation(goog.events.EventTarget);
+goog.events.EventTarget.prototype.customEvent_ = !0;
+goog.events.EventTarget.prototype.parentEventTarget_ = null;
+goog.events.EventTarget.prototype.getParentEventTarget = function $goog$events$EventTarget$$getParentEventTarget$() {
+  return this.parentEventTarget_
+};
+goog.events.EventTarget.prototype.setParentEventTarget = function $goog$events$EventTarget$$setParentEventTarget$($parent$$) {
+  this.parentEventTarget_ = $parent$$
+};
+goog.events.EventTarget.prototype.addEventListener = function $goog$events$EventTarget$$addEventListener$($type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$) {
+  goog.events.listen(this, $type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$)
+};
+goog.events.EventTarget.prototype.removeEventListener = function $goog$events$EventTarget$$removeEventListener$($type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$) {
+  goog.events.unlisten(this, $type$$, $handler$$, $opt_capture$$, $opt_handlerScope$$)
+};
+goog.events.EventTarget.prototype.dispatchEvent = function $goog$events$EventTarget$$dispatchEvent$($e$$) {
+  if(goog.events.Listenable.USE_LISTENABLE_INTERFACE) {
+    if(this.reallyDisposed_) {
+      return!0
+    }
+    var $ancestorsTree$$, $ancestor$$ = this.getParentEventTarget();
+    if($ancestor$$) {
+      for($ancestorsTree$$ = [];$ancestor$$;$ancestor$$ = $ancestor$$.getParentEventTarget()) {
+        $ancestorsTree$$.push($ancestor$$)
+      }
+    }
+    return goog.events.EventTarget.dispatchEventInternal_(this.actualEventTarget_, $e$$, $ancestorsTree$$)
+  }
+  return goog.events.dispatchEvent(this, $e$$)
+};
+goog.events.EventTarget.prototype.disposeInternal = function $goog$events$EventTarget$$disposeInternal$() {
+  goog.events.EventTarget.superClass_.disposeInternal.call(this);
+  goog.events.Listenable.USE_LISTENABLE_INTERFACE ? (this.removeAllListeners(), this.reallyDisposed_ = !0) : goog.events.removeAll(this);
+  this.parentEventTarget_ = null
+};
+goog.events.Listenable.USE_LISTENABLE_INTERFACE && (goog.events.EventTarget.prototype.listen = function $goog$events$EventTarget$$listen$($type$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$) {
+  return this.listenInternal_($type$$, $listener$$, !1, $opt_useCapture$$, $opt_listenerScope$$)
+}, goog.events.EventTarget.prototype.listenOnce = function $goog$events$EventTarget$$listenOnce$($type$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$) {
+  return this.listenInternal_($type$$, $listener$$, !0, $opt_useCapture$$, $opt_listenerScope$$)
+}, goog.events.EventTarget.prototype.listenInternal_ = function $goog$events$EventTarget$$listenInternal_$($type$$, $listener$$, $callOnce$$, $opt_useCapture$$, $opt_listenerScope$$) {
+  goog.asserts.assert(!this.reallyDisposed_, "Can not listen on disposed object.");
+  var $listenerArray$$ = this.eventTargetListeners_[$type$$] || (this.eventTargetListeners_[$type$$] = []), $index$$56_listenerObj$$;
+  $index$$56_listenerObj$$ = goog.events.EventTarget.findListenerIndex_($listenerArray$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$);
+  if(-1 < $index$$56_listenerObj$$) {
+    return $index$$56_listenerObj$$ = $listenerArray$$[$index$$56_listenerObj$$], $callOnce$$ || ($index$$56_listenerObj$$.callOnce = !1), $index$$56_listenerObj$$
+  }
+  $index$$56_listenerObj$$ = new goog.events.Listener;
+  $index$$56_listenerObj$$.init($listener$$, null, this, $type$$, !!$opt_useCapture$$, $opt_listenerScope$$);
+  $index$$56_listenerObj$$.callOnce = $callOnce$$;
+  $listenerArray$$.push($index$$56_listenerObj$$);
+  return $index$$56_listenerObj$$
+}, goog.events.EventTarget.prototype.unlisten = function $goog$events$EventTarget$$unlisten$($listenerArray$$7_type$$, $index$$57_listener$$, $listenerObj$$2_opt_useCapture$$, $opt_listenerScope$$) {
+  if(!($listenerArray$$7_type$$ in this.eventTargetListeners_)) {
+    return!1
+  }
+  $listenerArray$$7_type$$ = this.eventTargetListeners_[$listenerArray$$7_type$$];
+  $index$$57_listener$$ = goog.events.EventTarget.findListenerIndex_($listenerArray$$7_type$$, $index$$57_listener$$, $listenerObj$$2_opt_useCapture$$, $opt_listenerScope$$);
+  return-1 < $index$$57_listener$$ ? ($listenerObj$$2_opt_useCapture$$ = $listenerArray$$7_type$$[$index$$57_listener$$], goog.events.cleanUp($listenerObj$$2_opt_useCapture$$), $listenerObj$$2_opt_useCapture$$.removed = !0, goog.array.removeAt($listenerArray$$7_type$$, $index$$57_listener$$)) : !1
+}, goog.events.EventTarget.prototype.unlistenByKey = function $goog$events$EventTarget$$unlistenByKey$($key$$) {
+  var $removed$$1_type$$ = $key$$.type;
+  if(!($removed$$1_type$$ in this.eventTargetListeners_)) {
+    return!1
+  }
+  if($removed$$1_type$$ = goog.array.remove(this.eventTargetListeners_[$removed$$1_type$$], $key$$)) {
+    goog.events.cleanUp($key$$), $key$$.removed = !0
+  }
+  return $removed$$1_type$$
+}, goog.events.EventTarget.prototype.removeAllListeners = function $goog$events$EventTarget$$removeAllListeners$($opt_type$$, $opt_capture$$) {
+  var $count$$ = 0, $type$$;
+  for($type$$ in this.eventTargetListeners_) {
+    if(!$opt_type$$ || $type$$ == $opt_type$$) {
+      for(var $listenerArray$$ = this.eventTargetListeners_[$type$$], $i$$ = 0;$i$$ < $listenerArray$$.length;$i$$++) {
+        ++$count$$, goog.events.cleanUp($listenerArray$$[$i$$]), $listenerArray$$[$i$$].removed = !0
+      }
+      $listenerArray$$.length = 0
+    }
+  }
+  return $count$$
+}, goog.events.EventTarget.prototype.fireListeners = function $goog$events$EventTarget$$fireListeners$($listenerArray$$9_type$$, $capture$$, $eventObject$$) {
+  goog.asserts.assert(!this.reallyDisposed_, "Can not fire listeners after dispose() completed.");
+  if(!($listenerArray$$9_type$$ in this.eventTargetListeners_)) {
+    return!0
+  }
+  var $rv$$ = !0;
+  $listenerArray$$9_type$$ = goog.array.clone(this.eventTargetListeners_[$listenerArray$$9_type$$]);
+  for(var $i$$ = 0;$i$$ < $listenerArray$$9_type$$.length;++$i$$) {
+    var $listener$$ = $listenerArray$$9_type$$[$i$$];
+    $listener$$ && !$listener$$.removed && $listener$$.capture == $capture$$ && ($listener$$.callOnce && this.unlistenByKey($listener$$), $rv$$ = !1 !== $listener$$.handleEvent($eventObject$$) && $rv$$)
+  }
+  return $rv$$ && !1 != $eventObject$$.returnValue_
+}, goog.events.EventTarget.prototype.getListeners = function $goog$events$EventTarget$$getListeners$($type$$, $capture$$) {
+  var $listenerArray$$ = this.eventTargetListeners_[$type$$], $rv$$ = [];
+  if($listenerArray$$) {
+    for(var $i$$ = 0;$i$$ < $listenerArray$$.length;++$i$$) {
+      var $listenerObj$$ = $listenerArray$$[$i$$];
+      $listenerObj$$.capture == $capture$$ && $rv$$.push($listenerObj$$)
+    }
+  }
+  return $rv$$
+}, goog.events.EventTarget.prototype.getListener = function $goog$events$EventTarget$$getListener$($listenerArray$$11_type$$, $listener$$, $capture$$, $opt_listenerScope$$) {
+  $listenerArray$$11_type$$ = this.eventTargetListeners_[$listenerArray$$11_type$$];
+  var $i$$ = -1;
+  $listenerArray$$11_type$$ && ($i$$ = goog.events.EventTarget.findListenerIndex_($listenerArray$$11_type$$, $listener$$, $capture$$, $opt_listenerScope$$));
+  return-1 < $i$$ ? $listenerArray$$11_type$$[$i$$] : null
+}, goog.events.EventTarget.prototype.hasListener = function $goog$events$EventTarget$$hasListener$($opt_type$$, $opt_capture$$) {
+  var $hasType$$ = goog.isDef($opt_type$$), $hasCapture$$ = goog.isDef($opt_capture$$);
+  return goog.object.some(this.eventTargetListeners_, function($listenersArray$$, $type$$) {
+    for(var $i$$ = 0;$i$$ < $listenersArray$$.length;++$i$$) {
+      if(!($hasType$$ && $listenersArray$$[$i$$].type != $opt_type$$ || $hasCapture$$ && $listenersArray$$[$i$$].capture != $opt_capture$$)) {
+        return!0
+      }
+    }
+    return!1
+  })
+}, goog.events.EventTarget.prototype.setTargetForTesting = function $goog$events$EventTarget$$setTargetForTesting$($target$$) {
+  this.actualEventTarget_ = $target$$
+}, goog.events.EventTarget.dispatchEventInternal_ = function $goog$events$EventTarget$dispatchEventInternal_$($target$$, $e$$, $opt_ancestorsTree$$) {
+  var $type$$ = $e$$.type || $e$$;
+  if(goog.isString($e$$)) {
+    $e$$ = new goog.events.Event($e$$, $target$$)
+  }else {
+    if($e$$ instanceof goog.events.Event) {
+      $e$$.target = $e$$.target || $target$$
+    }else {
+      var $oldEvent$$1_rv$$ = $e$$;
+      $e$$ = new goog.events.Event($type$$, $target$$);
+      goog.object.extend($e$$, $oldEvent$$1_rv$$)
+    }
+  }
+  var $oldEvent$$1_rv$$ = !0, $currentTarget$$;
+  if($opt_ancestorsTree$$) {
+    for(var $i$$ = $opt_ancestorsTree$$.length - 1;!$e$$.propagationStopped_ && 0 <= $i$$;$i$$--) {
+      $currentTarget$$ = $e$$.currentTarget = $opt_ancestorsTree$$[$i$$], $oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !0, $e$$) && $oldEvent$$1_rv$$
+    }
+  }
+  $e$$.propagationStopped_ || ($currentTarget$$ = $e$$.currentTarget = $target$$, $oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !0, $e$$) && $oldEvent$$1_rv$$, $e$$.propagationStopped_ || ($oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !1, $e$$) && $oldEvent$$1_rv$$));
+  if($opt_ancestorsTree$$) {
+    for($i$$ = 0;!$e$$.propagationStopped_ && $i$$ < $opt_ancestorsTree$$.length;$i$$++) {
+      $currentTarget$$ = $e$$.currentTarget = $opt_ancestorsTree$$[$i$$], $oldEvent$$1_rv$$ = $currentTarget$$.fireListeners($type$$, !1, $e$$) && $oldEvent$$1_rv$$
+    }
+  }
+  return $oldEvent$$1_rv$$
+}, goog.events.EventTarget.findListenerIndex_ = function $goog$events$EventTarget$findListenerIndex_$($listenerArray$$, $listener$$, $opt_useCapture$$, $opt_listenerScope$$) {
+  for(var $i$$ = 0;$i$$ < $listenerArray$$.length;++$i$$) {
+    var $listenerObj$$ = $listenerArray$$[$i$$];
+    if($listenerObj$$.listener == $listener$$ && $listenerObj$$.capture == !!$opt_useCapture$$ && $listenerObj$$.handler == $opt_listenerScope$$) {
+      return $i$$
+    }
+  }
+  return-1
+});
 goog.ui.Component = function $goog$ui$Component$($opt_domHelper$$) {
   goog.events.EventTarget.call(this);
   this.dom_ = $opt_domHelper$$ || goog.dom.getDomHelper();
@@ -5522,6 +5455,64 @@ goog.ui.Component.prototype.removeChildren = function $goog$ui$Component$$remove
     $removedChildren$$.push(this.removeChildAt(0, $opt_unrender$$))
   }
   return $removedChildren$$
+};
+goog.Timer = function $goog$Timer$($opt_interval$$, $opt_timerObject$$) {
+  goog.events.EventTarget.call(this);
+  this.interval_ = $opt_interval$$ || 1;
+  this.timerObject_ = $opt_timerObject$$ || goog.Timer.defaultTimerObject;
+  this.boundTick_ = goog.bind(this.tick_, this);
+  this.last_ = goog.now()
+};
+goog.inherits(goog.Timer, goog.events.EventTarget);
+goog.Timer.MAX_TIMEOUT_ = 2147483647;
+goog.Timer.prototype.enabled = !1;
+goog.Timer.defaultTimerObject = goog.global;
+goog.Timer.intervalScale = 0.8;
+goog.Timer.prototype.timer_ = null;
+goog.Timer.prototype.getInterval = function $goog$Timer$$getInterval$() {
+  return this.interval_
+};
+goog.Timer.prototype.setInterval = function $goog$Timer$$setInterval$($interval$$) {
+  this.interval_ = $interval$$;
+  this.timer_ && this.enabled ? (this.stop(), this.start()) : this.timer_ && this.stop()
+};
+goog.Timer.prototype.tick_ = function $goog$Timer$$tick_$() {
+  if(this.enabled) {
+    var $elapsed$$ = goog.now() - this.last_;
+    0 < $elapsed$$ && $elapsed$$ < this.interval_ * goog.Timer.intervalScale ? this.timer_ = this.timerObject_.setTimeout(this.boundTick_, this.interval_ - $elapsed$$) : (this.dispatchTick(), this.enabled && (this.timer_ = this.timerObject_.setTimeout(this.boundTick_, this.interval_), this.last_ = goog.now()))
+  }
+};
+goog.Timer.prototype.dispatchTick = function $goog$Timer$$dispatchTick$() {
+  this.dispatchEvent(goog.Timer.TICK)
+};
+goog.Timer.prototype.start = function $goog$Timer$$start$() {
+  this.enabled = !0;
+  this.timer_ || (this.timer_ = this.timerObject_.setTimeout(this.boundTick_, this.interval_), this.last_ = goog.now())
+};
+goog.Timer.prototype.stop = function $goog$Timer$$stop$() {
+  this.enabled = !1;
+  this.timer_ && (this.timerObject_.clearTimeout(this.timer_), this.timer_ = null)
+};
+goog.Timer.prototype.disposeInternal = function $goog$Timer$$disposeInternal$() {
+  goog.Timer.superClass_.disposeInternal.call(this);
+  this.stop();
+  delete this.timerObject_
+};
+goog.Timer.TICK = "tick";
+goog.Timer.callOnce = function $goog$Timer$callOnce$($listener$$, $opt_delay$$, $opt_handler$$) {
+  if(goog.isFunction($listener$$)) {
+    $opt_handler$$ && ($listener$$ = goog.bind($listener$$, $opt_handler$$))
+  }else {
+    if($listener$$ && "function" == typeof $listener$$.handleEvent) {
+      $listener$$ = goog.bind($listener$$.handleEvent, $listener$$)
+    }else {
+      throw Error("Invalid listener argument");
+    }
+  }
+  return $opt_delay$$ > goog.Timer.MAX_TIMEOUT_ ? -1 : goog.Timer.defaultTimerObject.setTimeout($listener$$, $opt_delay$$ || 0)
+};
+goog.Timer.clear = function $goog$Timer$clear$($timerId$$) {
+  goog.Timer.defaultTimerObject.clearTimeout($timerId$$)
 };
 goog.a11y = {};
 goog.a11y.aria = {};
@@ -6298,7 +6289,7 @@ Blockly.ContextMenu.show = function $Blockly$ContextMenu$show$($xy$$, $options$$
     Blockly.ContextMenu.svgShadow.setAttribute("height", $options$$.length * Blockly.ContextMenu.Y_HEIGHT + 10);
     $anchorX_maxWidth$$ = $xy$$.x;
     $anchorY_resizeList$$ = $xy$$.y;
-    $bBox$$1_x$$ = Blockly.ContextMenu.svgGroup.getBBox();
+    0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (Blockly.ContextMenu.svgGroup.style.display = "inline", $bBox$$1_x$$ = {x:Blockly.ContextMenu.svgGroup.getBBox().x, y:Blockly.ContextMenu.svgGroup.getBBox().y, width:Blockly.ContextMenu.svgGroup.scrollWidth, height:Blockly.ContextMenu.svgGroup.scrollHeight}) : $bBox$$1_x$$ = Blockly.ContextMenu.svgGroup.getBBox();
     $option_svgSize$$ = Blockly.svgSize();
     $anchorY_resizeList$$ + $bBox$$1_x$$.height > $option_svgSize$$.height && ($anchorY_resizeList$$ -= $bBox$$1_x$$.height - 10);
     Blockly.RTL ? 0 >= $anchorX_maxWidth$$ - $bBox$$1_x$$.width ? $anchorX_maxWidth$$++ : $anchorX_maxWidth$$ -= $bBox$$1_x$$.width : $anchorX_maxWidth$$ + $bBox$$1_x$$.width > $option_svgSize$$.width ? $anchorX_maxWidth$$ -= $bBox$$1_x$$.width : $anchorX_maxWidth$$++;
@@ -6337,7 +6328,8 @@ Blockly.Bubble = function $Blockly$Bubble$($bBox$$2_workspace$$, $content$$, $sh
   this.shape_ = $shape$$;
   $bBox$$2_workspace$$.getBubbleCanvas().appendChild(this.createDom_($content$$, !(!$bubbleWidth$$ || !$bubbleHeight$$)));
   this.setAnchorLocation($anchorX$$, $anchorY$$);
-  $bubbleWidth$$ && $bubbleHeight$$ || ($bBox$$2_workspace$$ = this.content_.getBBox(), $bubbleWidth$$ = $bBox$$2_workspace$$.width + 2 * Blockly.Bubble.BORDER_WIDTH, $bubbleHeight$$ = $bBox$$2_workspace$$.height + 2 * Blockly.Bubble.BORDER_WIDTH);
+  $bubbleWidth$$ && $bubbleHeight$$ || (0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (this.content_.style.display = "inline", $bBox$$2_workspace$$ = {x:this.content_.getBBox().x, y:this.content_.getBBox().y, width:this.content_.scrollWidth, height:this.content_.scrollHeight}) : $bBox$$2_workspace$$ = this.content_.getBBox(), $bubbleWidth$$ = $bBox$$2_workspace$$.width + 2 * Blockly.Bubble.BORDER_WIDTH, $bubbleHeight$$ = $bBox$$2_workspace$$.height + 2 * 
+  Blockly.Bubble.BORDER_WIDTH);
   this.setBubbleSize($bubbleWidth$$, $bubbleHeight$$);
   this.positionBubble_();
   this.renderArrow_();
@@ -6408,14 +6400,14 @@ Blockly.Bubble.prototype.setAnchorLocation = function $Blockly$Bubble$$setAnchor
   this.rendered_ && this.positionBubble_()
 };
 Blockly.Bubble.prototype.layoutBubble_ = function $Blockly$Bubble$$layoutBubble_$() {
-  var $relativeLeft$$ = -this.width_ / 4, $relativeTop$$ = -this.height_ - Blockly.BlockSvg.MIN_BLOCK_Y;
+  var $relativeLeft$$ = -this.width_ / 4, $bBox$$ = -this.height_ - Blockly.BlockSvg.MIN_BLOCK_Y;
   if(this.workspace_.scrollbar) {
     var $metrics$$ = this.workspace_.getMetrics();
     this.anchorX_ + $relativeLeft$$ < Blockly.BlockSvg.SEP_SPACE_X + $metrics$$.viewLeft ? $relativeLeft$$ = Blockly.BlockSvg.SEP_SPACE_X + $metrics$$.viewLeft - this.anchorX_ : $metrics$$.viewLeft + $metrics$$.viewWidth < this.anchorX_ + $relativeLeft$$ + this.width_ + Blockly.BlockSvg.SEP_SPACE_X + Blockly.Scrollbar.scrollbarThickness && ($relativeLeft$$ = $metrics$$.viewLeft + $metrics$$.viewWidth - this.anchorX_ - this.width_ - Blockly.BlockSvg.SEP_SPACE_X - Blockly.Scrollbar.scrollbarThickness);
-    this.anchorY_ + $relativeTop$$ < Blockly.BlockSvg.SEP_SPACE_Y + $metrics$$.viewTop && ($relativeTop$$ = this.shape_.getBBox().height)
+    this.anchorY_ + $bBox$$ < Blockly.BlockSvg.SEP_SPACE_Y + $metrics$$.viewTop && (0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (this.shape_.style.display = "inline", $bBox$$ = {x:this.shape_.getBBox().x, y:this.shape_.getBBox().y, width:this.shape_.scrollWidth, height:this.shape_.scrollHeight}) : $bBox$$ = this.shape_.getBBox(), $bBox$$ = $bBox$$.height)
   }
   this.relativeLeft_ = $relativeLeft$$;
-  this.relativeTop_ = $relativeTop$$
+  this.relativeTop_ = $bBox$$
 };
 Blockly.Bubble.prototype.positionBubble_ = function $Blockly$Bubble$$positionBubble_$() {
   this.bubbleGroup_.setAttribute("transform", "translate(" + (Blockly.RTL ? this.anchorX_ - this.relativeLeft_ - this.width_ : this.anchorX_ + this.relativeLeft_) + ", " + (this.relativeTop_ + this.anchorY_) + ")")
@@ -6558,7 +6550,14 @@ Blockly.Mutator.prototype.createEditor_ = function $Blockly$Mutator$$createEdito
   return this.svgDialog_
 };
 Blockly.Mutator.prototype.resizeBubble_ = function $Blockly$Mutator$$resizeBubble_$() {
-  var $doubleBorderWidth$$ = 2 * Blockly.Bubble.BORDER_WIDTH, $height$$ = this.workspace_.getCanvas().getBBox(), $flyoutMetrics$$ = this.flyout_.getMetrics_(), $width$$;
+  var $doubleBorderWidth$$ = 2 * Blockly.Bubble.BORDER_WIDTH;
+  if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+    this.workspace_.getCanvas().style.display = "inline";
+    var $height$$ = {x:this.workspace_.getCanvas().getBBox().x, y:this.workspace_.getCanvas().getBBox().y, width:this.workspace_.getCanvas().scrollWidth, height:this.workspace_.getCanvas().scrollHeight}
+  }else {
+    $height$$ = this.workspace_.getCanvas().getBBox()
+  }
+  var $flyoutMetrics$$ = this.flyout_.getMetrics_(), $width$$;
   $width$$ = Blockly.RTL ? -$height$$.x : $height$$.width + $height$$.x;
   $height$$ = Math.max($height$$.height + 3 * $doubleBorderWidth$$, $flyoutMetrics$$.contentHeight + 20);
   $width$$ += 3 * $doubleBorderWidth$$;
@@ -7081,7 +7080,7 @@ Blockly.Tooltip.show_ = function $Blockly$Tooltip$show_$() {
     }
     Blockly.Tooltip.visible = !0;
     Blockly.Tooltip.svgGroup_.style.display = "block";
-    $bBox$$4_lines$$ = Blockly.Tooltip.svgText_.getBBox();
+    0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident") ? (Blockly.Tooltip.svgText_.style.display = "inline", $bBox$$4_lines$$ = {x:Blockly.Tooltip.svgText_.getBBox().x, y:Blockly.Tooltip.svgText_.getBBox().y, width:Blockly.Tooltip.svgText_.scrollWidth, height:Blockly.Tooltip.svgText_.scrollHeight}) : $bBox$$4_lines$$ = Blockly.Tooltip.svgText_.getBBox();
     $anchorY$$2_i$$88_width$$ = 2 * Blockly.Tooltip.MARGINS + $bBox$$4_lines$$.width;
     $anchorX$$2_height$$20_maxWidth$$ = $bBox$$4_lines$$.height;
     Blockly.Tooltip.svgBackground_.setAttribute("width", $anchorY$$2_i$$88_width$$);
@@ -7216,7 +7215,13 @@ Blockly.Warning.prototype.setVisible = function $Blockly$Warning$$setVisible$($p
       $paragraph$$1_size$$17_visible$$ = this.textToDom_(this.text_);
       this.bubble_ = new Blockly.Bubble(this.block_.workspace, $paragraph$$1_size$$17_visible$$, this.block_.svg_.svgGroup_, this.iconX_, this.iconY_, null, null);
       if(Blockly.RTL) {
-        for(var $maxWidth$$ = $paragraph$$1_size$$17_visible$$.getBBox().width, $x$$ = 0, $textElement$$;$textElement$$ = $paragraph$$1_size$$17_visible$$.childNodes[$x$$];$x$$++) {
+        if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+          $paragraph$$1_size$$17_visible$$.style.display = "inline";
+          var $maxWidth$$ = {x:$paragraph$$1_size$$17_visible$$.getBBox().x, y:$paragraph$$1_size$$17_visible$$.getBBox().y, width:$paragraph$$1_size$$17_visible$$.scrollWidth, height:$paragraph$$1_size$$17_visible$$.scrollHeight}.width
+        }else {
+          $maxWidth$$ = $paragraph$$1_size$$17_visible$$.getBBox().width
+        }
+        for(var $x$$ = 0, $textElement$$;$textElement$$ = $paragraph$$1_size$$17_visible$$.childNodes[$x$$];$x$$++) {
           $textElement$$.setAttribute("text-anchor", "end"), $textElement$$.setAttribute("x", $maxWidth$$ + Blockly.Bubble.BORDER_WIDTH)
         }
       }
@@ -7240,8 +7245,9 @@ Blockly.Warning.prototype.dispose = function $Blockly$Warning$$dispose$() {
   Blockly.Icon.prototype.dispose.call(this)
 };
 Blockly.uidCounter_ = 0;
-Blockly.Block = function $Blockly$Block$($workspace$$, $prototypeName$$) {
+Blockly.Block = function $Blockly$Block$($workspace$$, $prototypeName$$, $htmlId_prototype$$) {
   this.id = ++Blockly.uidCounter_;
+  this.htmlId = $htmlId_prototype$$;
   this.previousConnection = this.nextConnection = this.outputConnection = null;
   this.inputList = [];
   this.disabled = this.rendered = this.inputsInline = !1;
@@ -7253,14 +7259,16 @@ Blockly.Block = function $Blockly$Block$($workspace$$, $prototypeName$$) {
   this.collapsed_ = !1;
   this.workspace = $workspace$$;
   this.isInFlyout = $workspace$$.isFlyout;
+  this.colourSaturation_ = 0.45;
+  this.colourValue_ = 0.65;
   $workspace$$.addTopBlock(this);
   if($prototypeName$$) {
     this.type = $prototypeName$$;
-    var $prototype$$ = Blockly.Blocks[$prototypeName$$];
-    if(!$prototype$$) {
+    $htmlId_prototype$$ = Blockly.Blocks[$prototypeName$$];
+    if(!$htmlId_prototype$$) {
       throw'Error: "' + $prototypeName$$ + '" is an unknown language block.';
     }
-    goog.mixin(this, $prototype$$)
+    goog.mixin(this, $htmlId_prototype$$)
   }
   goog.isFunction(this.init) && this.init();
   goog.isFunction(this.onchange) && Blockly.bindEvent_($workspace$$.getCanvas(), "blocklyWorkspaceChange", this, this.onchange)
@@ -7378,7 +7386,12 @@ Blockly.Block.prototype.moveBy = function $Blockly$Block$$moveBy$($dx$$, $dy$$) 
 };
 Blockly.Block.prototype.getHeightWidth = function $Blockly$Block$$getHeightWidth$() {
   try {
-    var $bBox$$ = this.getSvgRoot().getBBox()
+    if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+      this.getSvgRoot().style.display = "inline";
+      var $bBox$$ = {x:this.getSvgRoot().getBBox().x, y:this.getSvgRoot().getBBox().y, width:this.getSvgRoot().scrollWidth, height:this.getSvgRoot().scrollHeight}
+    }else {
+      $bBox$$ = this.getSvgRoot().getBBox()
+    }
   }catch($e$$) {
     return{height:0, width:0}
   }
@@ -7649,6 +7662,12 @@ Blockly.Block.prototype.setHelpUrl = function $Blockly$Block$$setHelpUrl$($url$$
 Blockly.Block.prototype.getColour = function $Blockly$Block$$getColour$() {
   return this.colourHue_
 };
+Blockly.Block.prototype.getSaturation = function $Blockly$Block$$getSaturation$() {
+  return this.colourSaturation_
+};
+Blockly.Block.prototype.getValue = function $Blockly$Block$$getValue$() {
+  return this.colourValue_
+};
 Blockly.Block.prototype.setColour = function $Blockly$Block$$setColour$($colourHue_x$$) {
   this.colourHue_ = $colourHue_x$$;
   this.svg_ && this.svg_.updateColour();
@@ -7659,6 +7678,25 @@ Blockly.Block.prototype.setColour = function $Blockly$Block$$setColour$($colourH
   if(this.rendered) {
     for($colourHue_x$$ = 0;$icons$$8_input$$ = this.inputList[$colourHue_x$$];$colourHue_x$$++) {
       for(var $y$$ = 0, $title$$;$title$$ = $icons$$8_input$$.titleRow[$y$$];$y$$++) {
+        $title$$.setText(null)
+      }
+    }
+    this.render()
+  }
+};
+Blockly.Block.prototype.setHSV = function $Blockly$Block$$setHSV$($colourHue$$1_x$$, $colourSaturation_icons$$9_input$$, $colourValue_y$$) {
+  this.colourHue_ = $colourHue$$1_x$$;
+  this.colourSaturation_ = $colourSaturation_icons$$9_input$$;
+  this.colourValue_ = $colourValue_y$$;
+  this.svg_ && this.svg_.updateColour();
+  $colourSaturation_icons$$9_input$$ = this.getIcons();
+  for($colourHue$$1_x$$ = 0;$colourHue$$1_x$$ < $colourSaturation_icons$$9_input$$.length;$colourHue$$1_x$$++) {
+    $colourSaturation_icons$$9_input$$[$colourHue$$1_x$$].updateColour()
+  }
+  if(this.rendered) {
+    for($colourHue$$1_x$$ = 0;$colourSaturation_icons$$9_input$$ = this.inputList[$colourHue$$1_x$$];$colourHue$$1_x$$++) {
+      $colourValue_y$$ = 0;
+      for(var $title$$;$title$$ = $colourSaturation_icons$$9_input$$.titleRow[$colourValue_y$$];$colourValue_y$$++) {
         $title$$.setText(null)
       }
     }
@@ -7858,8 +7896,8 @@ Blockly.Block.prototype.getInput = function $Blockly$Block$$getInput$($name$$) {
   }
   return null
 };
-Blockly.Block.prototype.getInputTargetBlock = function $Blockly$Block$$getInputTargetBlock$($input$$16_name$$) {
-  return($input$$16_name$$ = this.getInput($input$$16_name$$)) && $input$$16_name$$.connection && $input$$16_name$$.connection.targetBlock()
+Blockly.Block.prototype.getInputTargetBlock = function $Blockly$Block$$getInputTargetBlock$($input$$17_name$$) {
+  return($input$$17_name$$ = this.getInput($input$$17_name$$)) && $input$$17_name$$.connection && $input$$17_name$$.connection.targetBlock()
 };
 Blockly.Block.prototype.setMutator = function $Blockly$Block$$setMutator$($mutator$$) {
   this.mutator && this.mutator !== $mutator$$ && this.mutator.dispose();
@@ -7928,7 +7966,12 @@ Blockly.Flyout.prototype.getMetrics_ = function $Blockly$Flyout$$getMetrics_$() 
   }
   var $viewHeight$$ = this.height_ - 2 * this.CORNER_RADIUS, $viewWidth$$ = this.width_;
   try {
-    var $optionBox$$ = this.workspace_.getCanvas().getBBox()
+    if(Blockly.isMsie() || Blockly.isTrident()) {
+      this.workspace_.getCanvas().style.display = "inline";
+      var $optionBox$$ = {x:this.workspace_.getCanvas().getBBox().x, y:this.workspace_.getCanvas().getBBox().y, width:this.workspace_.getCanvas().scrollWidth, height:this.workspace_.getCanvas().scrollHeight}
+    }else {
+      $optionBox$$ = this.workspace_.getCanvas().getBBox()
+    }
   }catch($e$$) {
     $optionBox$$ = {height:0, y:0}
   }
@@ -9764,6 +9807,7 @@ Blockly.Toolbox.createDom = function $Blockly$Toolbox$createDom$($svg$$, $contai
   Blockly.Toolbox.flyout_ = new Blockly.Flyout;
   $svg$$.appendChild(Blockly.Toolbox.flyout_.createDom());
   Blockly.bindEvent_(Blockly.Toolbox.HtmlDiv, "mousedown", null, function($e$$) {
+    Blockly.fireUiEvent(window, "resize");
     Blockly.isRightButton($e$$) || $e$$.target == Blockly.Toolbox.HtmlDiv ? Blockly.hideChaff(!1) : Blockly.hideChaff(!0)
   })
 };
@@ -11329,10 +11373,10 @@ Blockly.noEvent = function $Blockly$noEvent$($e$$) {
   $e$$.stopPropagation()
 };
 Blockly.getRelativeXY_ = function $Blockly$getRelativeXY_$($element$$123_r$$9_transform$$) {
-  var $xy$$ = {x:0, y:0}, $x$$131_y$$ = $element$$123_r$$9_transform$$.getAttribute("x");
-  $x$$131_y$$ && ($xy$$.x = parseInt($x$$131_y$$, 10));
-  if($x$$131_y$$ = $element$$123_r$$9_transform$$.getAttribute("y")) {
-    $xy$$.y = parseInt($x$$131_y$$, 10)
+  var $xy$$ = {x:0, y:0}, $x$$132_y$$ = $element$$123_r$$9_transform$$.getAttribute("x");
+  $x$$132_y$$ && ($xy$$.x = parseInt($x$$132_y$$, 10));
+  if($x$$132_y$$ = $element$$123_r$$9_transform$$.getAttribute("y")) {
+    $xy$$.y = parseInt($x$$132_y$$, 10)
   }
   if($element$$123_r$$9_transform$$ = ($element$$123_r$$9_transform$$ = $element$$123_r$$9_transform$$.getAttribute("transform")) && $element$$123_r$$9_transform$$.match(/translate\(\s*([-\d.]+)([ ,]\s*([-\d.]+)\s*\))?/)) {
     $xy$$.x += parseInt($element$$123_r$$9_transform$$[1], 10), $element$$123_r$$9_transform$$[3] && ($xy$$.y += parseInt($element$$123_r$$9_transform$$[3], 10))
@@ -11364,18 +11408,18 @@ Blockly.isRightButton = function $Blockly$isRightButton$($e$$) {
   return 2 == $e$$.button || $e$$.ctrlKey
 };
 Blockly.convertCoordinates = function $Blockly$convertCoordinates$($matrix_x$$, $y$$, $toSvg$$) {
-  $toSvg$$ && ($matrix_x$$ -= window.scrollX, $y$$ -= window.scrollY);
+  $toSvg$$ && ($matrix_x$$ -= window.pageXOffset, $y$$ -= window.pageYOffset);
   var $svgPoint_xy$$ = Blockly.svg.createSVGPoint();
   $svgPoint_xy$$.x = $matrix_x$$;
   $svgPoint_xy$$.y = $y$$;
   $matrix_x$$ = Blockly.svg.getScreenCTM();
   $toSvg$$ && ($matrix_x$$ = $matrix_x$$.inverse());
   $svgPoint_xy$$ = $svgPoint_xy$$.matrixTransform($matrix_x$$);
-  $toSvg$$ || ($svgPoint_xy$$.x += window.scrollX, $svgPoint_xy$$.y += window.scrollY);
+  $toSvg$$ || ($svgPoint_xy$$.x += window.pageXOffset, $svgPoint_xy$$.y += window.pageYOffset);
   return $svgPoint_xy$$
 };
 Blockly.mouseToSvg = function $Blockly$mouseToSvg$($e$$) {
-  return Blockly.convertCoordinates($e$$.clientX + window.scrollX, $e$$.clientY + window.scrollY, !0)
+  return Blockly.convertCoordinates($e$$.clientX + window.pageXOffset, $e$$.clientY + window.pageYOffset, !0)
 };
 Blockly.shortestStringLength = function $Blockly$shortestStringLength$($array$$) {
   if(!$array$$.length) {
@@ -11433,6 +11477,12 @@ Blockly.commonWordSuffix = function $Blockly$commonWordSuffix$($array$$, $opt_sh
 Blockly.isNumber = function $Blockly$isNumber$($str$$) {
   return!!$str$$.match(/^\s*-?\d+(\.\d+)?\s*$/)
 };
+Blockly.isMsie = function $Blockly$isMsie$() {
+  return 0 <= navigator.userAgent.indexOf("MSIE")
+};
+Blockly.isTrident = function $Blockly$isTrident$() {
+  return 0 <= navigator.userAgent.indexOf("Trident")
+};
 Blockly.FieldColour = function $Blockly$FieldColour$($colour$$, $opt_changeHandler$$) {
   Blockly.FieldColour.superClass_.constructor.call(this, "\u00a0\u00a0\u00a0");
   this.changeHandler_ = $opt_changeHandler$$;
@@ -11462,7 +11512,13 @@ Blockly.FieldColour.prototype.showEditor_ = function $Blockly$FieldColour$$showE
   $picker$$.setColors(Blockly.FieldColour.COLOURS);
   $picker$$.render($div$$);
   $picker$$.setSelectedColor(this.getValue());
-  var $xy$$ = Blockly.getAbsoluteXY_(this.borderRect_), $borderBBox$$ = this.borderRect_.getBBox();
+  var $xy$$ = Blockly.getAbsoluteXY_(this.borderRect_);
+  if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+    this.borderRect_.style.display = "inline";
+    var $borderBBox$$ = {x:this.borderRect_.getBBox().x, y:this.borderRect_.getBBox().y, width:this.borderRect_.scrollWidth, height:this.borderRect_.scrollHeight}
+  }else {
+    $borderBBox$$ = this.borderRect_.getBBox()
+  }
   Blockly.RTL && ($xy$$.x += $borderBBox$$.width);
   $xy$$.y += $borderBBox$$.height - 1;
   Blockly.RTL && ($xy$$.x -= $div$$.offsetWidth);
@@ -11526,18 +11582,29 @@ Blockly.FieldTextInput.prototype.validate_ = function $Blockly$FieldTextInput$$v
   null === $valid$$ ? Blockly.addClass_($htmlInput$$, "blocklyInvalidInput") : Blockly.removeClass_($htmlInput$$, "blocklyInvalidInput")
 };
 Blockly.FieldTextInput.prototype.resizeEditor_ = function $Blockly$FieldTextInput$$resizeEditor_$() {
-  var $div$$ = Blockly.WidgetDiv.DIV, $bBox$$6_xy$$ = this.fieldGroup_.getBBox();
-  $div$$.style.width = $bBox$$6_xy$$.width + "px";
-  $bBox$$6_xy$$ = Blockly.getAbsoluteXY_(this.borderRect_);
-  if(Blockly.RTL) {
-    var $borderBBox$$ = this.borderRect_.getBBox();
-    $bBox$$6_xy$$.x += $borderBBox$$.width;
-    $bBox$$6_xy$$.x -= $div$$.offsetWidth
+  var $div$$ = Blockly.WidgetDiv.DIV;
+  if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+    this.fieldGroup_.style.display = "inline";
+    var $bBox$$7_xy$$ = {x:this.fieldGroup_.getBBox().x, y:this.fieldGroup_.getBBox().y, width:this.fieldGroup_.scrollWidth, height:this.fieldGroup_.scrollHeight}
+  }else {
+    $bBox$$7_xy$$ = this.fieldGroup_.getBBox()
   }
-  $bBox$$6_xy$$.y += 1;
-  goog.userAgent.WEBKIT && ($bBox$$6_xy$$.y -= 3);
-  $div$$.style.left = $bBox$$6_xy$$.x + "px";
-  $div$$.style.top = $bBox$$6_xy$$.y + "px"
+  $div$$.style.width = $bBox$$7_xy$$.width + "px";
+  $bBox$$7_xy$$ = Blockly.getAbsoluteXY_(this.borderRect_);
+  if(Blockly.RTL) {
+    if(0 <= navigator.userAgent.indexOf("MSIE") || 0 <= navigator.userAgent.indexOf("Trident")) {
+      this.borderRect_.style.display = "inline";
+      var $borderBBox$$ = {x:this.borderRect_.getBBox().x, y:this.borderRect_.getBBox().y, width:this.borderRect_.scrollWidth, height:this.borderRect_.scrollHeight}
+    }else {
+      $borderBBox$$ = this.borderRect_.getBBox()
+    }
+    $bBox$$7_xy$$.x += $borderBBox$$.width;
+    $bBox$$7_xy$$.x -= $div$$.offsetWidth
+  }
+  $bBox$$7_xy$$.y += 1;
+  goog.userAgent.WEBKIT && ($bBox$$7_xy$$.y -= 3);
+  $div$$.style.left = $bBox$$7_xy$$.x + "px";
+  $div$$.style.top = $bBox$$7_xy$$.y + "px"
 };
 Blockly.FieldTextInput.prototype.dispose_ = function $Blockly$FieldTextInput$$dispose_$() {
   var $thisField$$ = this;
@@ -11871,7 +11938,8 @@ Blockly.createDom_ = function $Blockly$createDom_$($container$$) {
 Blockly.init_ = function $Blockly$init_$() {
   if(goog.userAgent.WEBKIT) {
     var $path$$8_translation$$ = Blockly.createSvgElement("path", {d:"m 0,0 c 0,-5 0,-5 0,0 H 50 V 50 z"}, Blockly.svg);
-    50 < $path$$8_translation$$.getBBox().height && (Blockly.BROKEN_CONTROL_POINTS = !0);
+    Blockly.isMsie() || Blockly.isTrident() ? ($path$$8_translation$$.style.display = "inline", $path$$8_translation$$.bBox_ = {x:$path$$8_translation$$.getBBox().x, y:$path$$8_translation$$.getBBox().y, width:$path$$8_translation$$.scrollWidth, height:$path$$8_translation$$.scrollHeight}) : $path$$8_translation$$.bBox_ = $path$$8_translation$$.getBBox();
+    50 < $path$$8_translation$$.bBox_.height && (Blockly.BROKEN_CONTROL_POINTS = !0);
     Blockly.svg.removeChild($path$$8_translation$$)
   }
   Blockly.bindEvent_(Blockly.svg, "mousedown", null, Blockly.onMouseDown_);
@@ -12043,8 +12111,8 @@ Blockly.SVG_NS = "http://www.w3.org/2000/svg";
 Blockly.HTML_NS = "http://www.w3.org/1999/xhtml";
 Blockly.HSV_SATURATION = 0.45;
 Blockly.HSV_VALUE = 0.65;
-Blockly.makeColour = function $Blockly$makeColour$($hue$$) {
-  return goog.color.hsvToHex($hue$$, Blockly.HSV_SATURATION, 256 * Blockly.HSV_VALUE)
+Blockly.makeColour = function $Blockly$makeColour$($hue$$, $saturation$$, $value$$) {
+  return goog.color.hsvToHex($hue$$, $saturation$$, 256 * $value$$)
 };
 Blockly.INPUT_VALUE = 1;
 Blockly.OUTPUT_VALUE = 2;
@@ -12074,10 +12142,22 @@ Blockly.svgSize = function $Blockly$svgSize$() {
   return{width:Blockly.svg.cachedWidth_, height:Blockly.svg.cachedHeight_}
 };
 Blockly.svgResize = function $Blockly$svgResize$() {
-  var $svg$$ = Blockly.svg, $div$$6_height$$ = $svg$$.parentNode, $width$$ = $div$$6_height$$.offsetWidth, $div$$6_height$$ = $div$$6_height$$.offsetHeight;
-  $svg$$.cachedWidth_ != $width$$ && ($svg$$.setAttribute("width", $width$$ + "px"), $svg$$.cachedWidth_ = $width$$);
-  $svg$$.cachedHeight_ != $div$$6_height$$ && ($svg$$.setAttribute("height", $div$$6_height$$ + "px"), $svg$$.cachedHeight_ = $div$$6_height$$);
+  var $svg$$ = Blockly.svg, $div$$6_height$$22_style$$ = window.getComputedStyle($svg$$), $borderWidth_width$$ = 0;
+  $div$$6_height$$22_style$$ && ($borderWidth_width$$ = parseInt($div$$6_height$$22_style$$.borderLeftWidth, 10) + parseInt($div$$6_height$$22_style$$.borderRightWidth, 10));
+  $div$$6_height$$22_style$$ = $svg$$.parentNode;
+  $borderWidth_width$$ = $div$$6_height$$22_style$$.offsetWidth - $borderWidth_width$$;
+  $div$$6_height$$22_style$$ = $div$$6_height$$22_style$$.offsetHeight;
+  $svg$$.cachedWidth_ != $borderWidth_width$$ && ($svg$$.setAttribute("width", $borderWidth_width$$ + "px"), $svg$$.cachedWidth_ = $borderWidth_width$$);
+  $svg$$.cachedHeight_ != $div$$6_height$$22_style$$ && ($svg$$.setAttribute("height", $div$$6_height$$22_style$$ + "px"), $svg$$.cachedHeight_ = $div$$6_height$$22_style$$);
   Blockly.mainWorkspace.scrollbar && Blockly.mainWorkspace.scrollbar.resize()
+};
+Blockly.getWorkspaceWidth = function $Blockly$getWorkspaceWidth$() {
+  var $metrics$$ = Blockly.mainWorkspace.getMetrics();
+  return $metrics$$ ? $metrics$$.viewWidth : 0
+};
+Blockly.getToolboxWidth = function $Blockly$getToolboxWidth$() {
+  var $metrics$$ = (Blockly.mainWorkspace.flyout_ || Blockly.Toolbox.flyout_).workspace_.getMetrics();
+  return $metrics$$ ? $metrics$$.viewWidth : 0
 };
 Blockly.onMouseDown_ = function $Blockly$onMouseDown_$($e$$) {
   Blockly.terminateDrag_();
@@ -12190,18 +12270,29 @@ Blockly.isTargetInput_ = function $Blockly$isTargetInput_$($e$$) {
 Blockly.loadAudio_ = function $Blockly$loadAudio_$($filenames$$, $name$$) {
   if(window.Audio && $filenames$$.length) {
     for(var $sound$$, $audioTest$$ = new window.Audio, $i$$ = 0;$i$$ < $filenames$$.length;$i$$++) {
-      var $filename$$ = $filenames$$[$i$$], $ext$$ = $filename$$.match(/\.(\w+)$/);
+      var $filename$$ = Blockly.pathToBlockly + $filenames$$[$i$$], $ext$$ = $filename$$.match(/\.(\w+)$/);
       if($ext$$ && $audioTest$$.canPlayType("audio/" + $ext$$[1])) {
-        $sound$$ = new window.Audio(Blockly.pathToBlockly + $filename$$);
+        $sound$$ = new window.Audio($filename$$);
         break
       }
     }
-    $sound$$ && $sound$$.play && ($sound$$.play(), $sound$$.volume = 0.01, Blockly.SOUNDS_[$name$$] = $sound$$)
+    $sound$$ && $sound$$.play && ($sound$$.play(), $sound$$.pause(), Blockly.SOUNDS_[$name$$] = $sound$$)
   }
 };
-Blockly.playAudio = function $Blockly$playAudio$($name$$, $opt_volume$$) {
-  var $mySound_sound$$ = Blockly.SOUNDS_[$name$$];
-  $mySound_sound$$ && ($mySound_sound$$ = goog.userAgent.DOCUMENT_MODE && 9 === goog.userAgent.DOCUMENT_MODE || goog.userAgent.IPAD || goog.userAgent.ANDROID ? $mySound_sound$$ : $mySound_sound$$.cloneNode(), $mySound_sound$$.volume = void 0 === $opt_volume$$ ? 1 : $opt_volume$$, $mySound_sound$$.play())
+Blockly.playAudio = function $Blockly$playAudio$($name$$, $options$$) {
+  var $sound$$ = Blockly.SOUNDS_[$name$$];
+  if($sound$$) {
+    var $mySound$$;
+    $mySound$$ = goog.userAgent.DOCUMENT_MODE && 9 === goog.userAgent.DOCUMENT_MODE || goog.userAgent.IPAD || goog.userAgent.ANDROID ? $sound$$ : $sound$$.cloneNode();
+    $sound$$.pause();
+    Blockly.SOUNDS_[$name$$] = $mySound$$;
+    $mySound$$.volume = $options$$ && void 0 === $options$$.volume ? $options$$.volume : 1;
+    $mySound$$.loop = $options$$ && $options$$.loop ? !0 : !1;
+    $mySound$$.play()
+  }
+};
+Blockly.stopLoopingAudio = function $Blockly$stopLoopingAudio$($name$$106_sound$$) {
+  ($name$$106_sound$$ = Blockly.SOUNDS_[$name$$106_sound$$]) && $name$$106_sound$$.pause()
 };
 Blockly.setCursorHand_ = function $Blockly$setCursorHand_$($closed$$) {
   if(!Blockly.readOnly) {
@@ -12216,7 +12307,12 @@ Blockly.getMainWorkspaceMetrics_ = function $Blockly$getMainWorkspaceMetrics_$()
   $svgSize$$.width -= Blockly.Toolbox.width;
   var $rightEdge$$1_viewWidth$$ = $svgSize$$.width - Blockly.Scrollbar.scrollbarThickness, $bottomEdge_viewHeight$$ = $svgSize$$.height - Blockly.Scrollbar.scrollbarThickness;
   try {
-    var $blockBox$$ = Blockly.mainWorkspace.getCanvas().getBBox()
+    if(Blockly.isMsie() || Blockly.isTrident()) {
+      Blockly.mainWorkspace.getCanvas().style.display = "inline";
+      var $blockBox$$ = {x:Blockly.mainWorkspace.getCanvas().getBBox().x, y:Blockly.mainWorkspace.getCanvas().getBBox().y, width:Blockly.mainWorkspace.getCanvas().scrollWidth, height:Blockly.mainWorkspace.getCanvas().scrollHeight}
+    }else {
+      $blockBox$$ = Blockly.mainWorkspace.getCanvas().getBBox()
+    }
   }catch($e$$) {
     return null
   }

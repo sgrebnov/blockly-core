@@ -562,9 +562,9 @@ Blockly.loadAudio_ = function(filenames, name) {
  * Play an audio file at specified value.  If volume is not specified,
  * use full volume (1).
  * @param {string} name Name of sound.
- * @param {?number} opt_volume Volume of sound (0-1).
+ * @param options A table of audio options.
  */
-Blockly.playAudio = function(name, opt_volume) {
+Blockly.playAudio = function(name, options) {
   var sound = Blockly.SOUNDS_[name];
   if (sound) {
     var mySound;
@@ -578,8 +578,28 @@ Blockly.playAudio = function(name, opt_volume) {
     } else {
       mySound = sound.cloneNode();
     }
-    mySound.volume = (opt_volume === undefined ? 1 : opt_volume);
+
+    // Update the sound hash with the looping sound, and stop the original sound
+    // This is to prevent when there are multiple sounds of the same name being
+    // played, which should not happen.
+    sound.pause();
+    Blockly.SOUNDS_[name] = mySound;
+
+    mySound.volume =
+        (options && options.volume !== undefined) ? options.volume : 1;
+    mySound.loop = (options && options.loop) ? true : false;
     mySound.play();
+  }
+};
+
+/**
+ * Stop looping the audio file.
+ * @param {string} name Name of sound.
+ */
+Blockly.stopLoopingAudio = function(name) {
+  var sound = Blockly.SOUNDS_[name];
+  if (sound) {
+    sound.pause();
   }
 };
 
