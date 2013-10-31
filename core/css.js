@@ -37,9 +37,10 @@ goog.require('goog.cssom');
  */
 Blockly.Css.inject = function() {
   var text = Blockly.Css.CONTENT.join('\n');
-  // Strip off any trailing slash (either Unix or Windows).
-  var path = Blockly.assetUrl('').replace(/[\\\/]$/, '');
-  text = text.replace(/<<<PATH>>>/g, path);
+  // Expand paths.
+  text = text.replace(
+      '%HAND_OPEN_PATH%',
+      Blockly.assetUrl('media/handopen.cur'));
   goog.cssom.addCssText(text);
 };
 
@@ -60,7 +61,7 @@ Blockly.Css.CONTENT = [
   '  /* Hotspot coordinates are baked into the CUR file, but they are still',
   '     required in the CSS due to a Chrome bug.',
   '     http://code.google.com/p/chromium/issues/detail?id=1446 */',
-  '  cursor: url(<<<PATH>>>/media/handopen.cur) 8 5, auto;',
+  '  cursor: url(%HAND_OPEN_PATH%) 8 5, auto;',
   '}',
   '.blocklyResizeSE {',
   '  fill: #aaa;',
