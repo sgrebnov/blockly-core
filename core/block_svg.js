@@ -444,13 +444,23 @@ Blockly.BlockSvg.prototype.updateDisabled = function() {
 };
 
 /**
- * Select this block.  Highlight it visually.
+ * Select this block.  Highlight it visually.  Move to top of the stack.
  */
 Blockly.BlockSvg.prototype.addSelect = function() {
   Blockly.addClass_(/** @type {!Element} */ (this.svgGroup_),
                     'blocklySelected');
   // Move the selected block to the top of the stack.
   this.svgGroup_.parentNode.appendChild(this.svgGroup_);
+};
+
+/**
+ * Select this block.  Highlight it visually.  Needed for toolbox scenarios
+ * because IE will lose mouseout events if addSelect() is called in the hover
+ * case.
+ */
+Blockly.BlockSvg.prototype.addSelectNoMove = function() {
+  Blockly.addClass_(/** @type {!Element} */ (this.svgGroup_),
+                    'blocklySelected');
 };
 
 /**

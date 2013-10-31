@@ -391,13 +391,13 @@ Blockly.Flyout.prototype.show = function(xmlList) {
           this.blockMouseDown_(block)));
     }
     this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
-        block.svg_.addSelect));
+        block.svg_.addSelectNoMove));
     this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
         block.svg_.removeSelect));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mousedown', null,
         this.createBlockFunc_(block)));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mouseover', block.svg_,
-        block.svg_.addSelect));
+        block.svg_.addSelectNoMove));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mouseout', block.svg_,
         block.svg_.removeSelect));
   }
