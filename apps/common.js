@@ -180,12 +180,13 @@ BlocklyApps.initReadonly = function() {
       {path: '../../',
        readOnly: true,
        rtl: rtl,
-       scrollbars: false});
-
-  // Add the blocks.
-  var xml = BlocklyApps.getStringParamFromUrl('xml', '');
-  xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
-  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+       scrollbars: false},
+      function() {
+        // Add the blocks.
+        var xml = BlocklyApps.getStringParamFromUrl('xml', '');
+        xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
+        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+      });
 };
 
 /**
