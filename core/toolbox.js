@@ -100,8 +100,7 @@ Blockly.Toolbox.createDom = function(svg, container) {
  * Initializes the toolbox.
  */
 Blockly.Toolbox.init = function() {
-  Blockly.Toolbox.CONFIG_['cleardotPath'] =
-      Blockly.pathToBlockly + 'media/1x1.gif';
+  Blockly.Toolbox.CONFIG_['cleardotPath'] = Blockly.assetUrl('media/1x1.gif');
   Blockly.Toolbox.CONFIG_['cssCollapsedFolderIcon'] =
       'blocklyTreeIconClosed' + (Blockly.RTL ? 'Rtl' : 'Ltr');
   var tree = new Blockly.Toolbox.TreeControl('root', Blockly.Toolbox.CONFIG_);

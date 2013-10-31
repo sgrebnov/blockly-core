@@ -56,10 +56,11 @@ goog.require('goog.userAgent');
 
 
 /**
- * Path to Blockly's directory.  Can be relative, absolute, or remote.
+ * Returns an absolute URL to an asset in Blockly's directory.
  * Used for loading additional resources.
+ * @param path Relative path to be resolved.
  */
-Blockly.pathToBlockly = './';
+Blockly.assetUrl = undefined;
 
 /**
  * Required name space for SVG elements.
@@ -541,7 +542,7 @@ Blockly.loadAudio_ = function(filenames, name) {
   var sound;
   var audioTest = new window.Audio();
   for (var i = 0; i < filenames.length; i++) {
-    var filename = Blockly.pathToBlockly + filenames[i];
+    var filename = Blockly.assetUrl(filenames[i]);
     var ext = filename.match(/\.(\w+)$/);
     if (ext && audioTest.canPlayType('audio/' + ext[1])) {
       // Found an audio format we can play.
@@ -617,7 +618,7 @@ Blockly.setCursorHand_ = function(closed) {
      http://code.google.com/p/chromium/issues/detail?id=1446 */
   var cursor = '';
   if (closed) {
-    cursor = 'url(' + Blockly.pathToBlockly + 'media/handclosed.cur) 7 3, auto';
+    cursor = 'url(' + Blockly.assetUrl('media/handclosed.cur') + ') 7 3, auto';
   }
   if (Blockly.selected) {
     Blockly.selected.getSvgRoot().style.cursor = cursor;
