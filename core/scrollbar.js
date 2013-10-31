@@ -370,7 +370,7 @@ Blockly.ScrollbarNative.prototype.createDom_ = function() {
   var outer = document.createElementNS(Blockly.HTML_NS, 'div');
   this.outerDiv_ = outer;
   var inner = document.createElementNS(Blockly.HTML_NS, 'img');
-  inner.setAttribute('src', Blockly.pathToBlockly + 'media/1x1.gif');
+  inner.setAttribute('src', Blockly.assetUrl('media/1x1.gif'));
   this.innerImg_ = inner;
 
   outer.appendChild(inner);

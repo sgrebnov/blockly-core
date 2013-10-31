@@ -1102,7 +1102,7 @@ Blockly.ScrollbarNative.prototype.createDom_ = function $Blockly$ScrollbarNative
   var $outer$$ = document.createElementNS(Blockly.HTML_NS, "div");
   this.outerDiv_ = $outer$$;
   var $inner$$ = document.createElementNS(Blockly.HTML_NS, "img");
-  $inner$$.setAttribute("src", Blockly.pathToBlockly + "media/1x1.gif");
+  $inner$$.setAttribute("src", Blockly.assetUrl("media/1x1.gif"));
   this.innerImg_ = $inner$$;
   $outer$$.appendChild($inner$$);
   $body$$.appendChild($outer$$);
@@ -1298,10 +1298,10 @@ Blockly.Trashcan.prototype.top_ = 0;
 Blockly.Trashcan.prototype.createDom = function $Blockly$Trashcan$$createDom$() {
   this.svgGroup_ = Blockly.createSvgElement("g", {filter:"url(#blocklyTrashcanShadowFilter)"}, null);
   this.svgClosedCan_ = Blockly.createSvgElement("image", {width:this.WIDTH_, height:this.HEIGHT_}, this.svgGroup_);
-  this.svgClosedCan_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.pathToBlockly + this.CLOSED_URL_);
+  this.svgClosedCan_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.assetUrl(this.CLOSED_URL_));
   this.svgOpenCan_ = Blockly.createSvgElement("image", {width:this.WIDTH_, height:this.HEIGHT_}, this.svgGroup_);
   this.svgOpenCan_.setAttribute("visibility", "hidden");
-  this.svgOpenCan_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.pathToBlockly + this.OPEN_URL_);
+  this.svgOpenCan_.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", Blockly.assetUrl(this.OPEN_URL_));
   return this.svgGroup_
 };
 Blockly.Trashcan.prototype.init = function $Blockly$Trashcan$$init$() {
@@ -1579,6 +1579,9 @@ Blockly.BlockSvg.prototype.updateDisabled = function $Blockly$BlockSvg$$updateDi
 Blockly.BlockSvg.prototype.addSelect = function $Blockly$BlockSvg$$addSelect$() {
   Blockly.addClass_(this.svgGroup_, "blocklySelected");
   this.svgGroup_.parentNode.appendChild(this.svgGroup_)
+};
+Blockly.BlockSvg.prototype.addSelectNoMove = function $Blockly$BlockSvg$$addSelectNoMove$() {
+  Blockly.addClass_(this.svgGroup_, "blocklySelected")
 };
 Blockly.BlockSvg.prototype.removeSelect = function $Blockly$BlockSvg$$removeSelect$() {
   Blockly.removeClass_(this.svgGroup_, "blocklySelected")
@@ -8065,10 +8068,10 @@ Blockly.Flyout.prototype.show = function $Blockly$Flyout$$show$($cursorY$$) {
     $block$$30_xml$$.flyoutRect_ = $blockHW$$1_j$$8_rect$$;
     this.buttons_[$i$$] = $blockHW$$1_j$$8_rect$$;
     this.autoClose ? this.listeners_.push(Blockly.bindEvent_($allBlocks$$1_root$$, "mousedown", null, this.createBlockFunc_($block$$30_xml$$))) : this.listeners_.push(Blockly.bindEvent_($allBlocks$$1_root$$, "mousedown", null, this.blockMouseDown_($block$$30_xml$$)));
-    this.listeners_.push(Blockly.bindEvent_($allBlocks$$1_root$$, "mouseover", $block$$30_xml$$.svg_, $block$$30_xml$$.svg_.addSelect));
+    this.listeners_.push(Blockly.bindEvent_($allBlocks$$1_root$$, "mouseover", $block$$30_xml$$.svg_, $block$$30_xml$$.svg_.addSelectNoMove));
     this.listeners_.push(Blockly.bindEvent_($allBlocks$$1_root$$, "mouseout", $block$$30_xml$$.svg_, $block$$30_xml$$.svg_.removeSelect));
     this.listeners_.push(Blockly.bindEvent_($blockHW$$1_j$$8_rect$$, "mousedown", null, this.createBlockFunc_($block$$30_xml$$)));
-    this.listeners_.push(Blockly.bindEvent_($blockHW$$1_j$$8_rect$$, "mouseover", $block$$30_xml$$.svg_, $block$$30_xml$$.svg_.addSelect));
+    this.listeners_.push(Blockly.bindEvent_($blockHW$$1_j$$8_rect$$, "mouseover", $block$$30_xml$$.svg_, $block$$30_xml$$.svg_.addSelectNoMove));
     this.listeners_.push(Blockly.bindEvent_($blockHW$$1_j$$8_rect$$, "mouseout", $block$$30_xml$$.svg_, $block$$30_xml$$.svg_.removeSelect))
   }
   this.width_ = 0;
@@ -9812,7 +9815,7 @@ Blockly.Toolbox.createDom = function $Blockly$Toolbox$createDom$($svg$$, $contai
   })
 };
 Blockly.Toolbox.init = function $Blockly$Toolbox$init$() {
-  Blockly.Toolbox.CONFIG_.cleardotPath = Blockly.pathToBlockly + "media/1x1.gif";
+  Blockly.Toolbox.CONFIG_.cleardotPath = Blockly.assetUrl("media/1x1.gif");
   Blockly.Toolbox.CONFIG_.cssCollapsedFolderIcon = "blocklyTreeIconClosed" + (Blockly.RTL ? "Rtl" : "Ltr");
   var $tree$$ = new Blockly.Toolbox.TreeControl("root", Blockly.Toolbox.CONFIG_);
   Blockly.Toolbox.tree_ = $tree$$;
@@ -11841,7 +11844,7 @@ goog.cssom.getAllCss_ = function $goog$cssom$getAllCss_$($styleSheet$$, $isTextO
 };
 Blockly.Css = {};
 Blockly.Css.inject = function $Blockly$Css$inject$() {
-  var $text$$ = Blockly.Css.CONTENT.join("\n"), $path$$ = Blockly.pathToBlockly.replace(/[\\\/]$/, ""), $text$$ = $text$$.replace(/<<<PATH>>>/g, $path$$);
+  var $text$$ = Blockly.Css.CONTENT.join("\n"), $path$$ = Blockly.assetUrl("").replace(/[\\\/]$/, ""), $text$$ = $text$$.replace(/<<<PATH>>>/g, $path$$);
   goog.cssom.addCssText($text$$)
 };
 Blockly.Css.CONTENT = [".blocklySvg {", "  background-color: #fff;", "  border: 1px solid #ddd;", "}", ".blocklyWidgetDiv {", "  position: absolute;", "  display: none;", "  z-index: 999;", "}", ".blocklyDraggable {", "  /* Hotspot coordinates are baked into the CUR file, but they are still", "     required in the CSS due to a Chrome bug.", "     http://code.google.com/p/chromium/issues/detail?id=1446 */", "  cursor: url(<<<PATH>>>/media/handopen.cur) 8 5, auto;", "}", ".blocklyResizeSE {", "  fill: #aaa;", 
@@ -11881,7 +11884,9 @@ Blockly.parseOptions_ = function $Blockly$parseOptions_$($options$$) {
   }else {
     $hasScrollbars$$ = $options$$.scrollbars, void 0 === $hasScrollbars$$ && ($hasScrollbars$$ = !0)
   }
-  return{RTL:!!$options$$.rtl, collapse:$hasCollapse$$, readOnly:$readOnly$$, maxBlocks:$options$$.maxBlocks || Infinity, pathToBlockly:$options$$.path || "./", hasCategories:$hasCategories$$, hasScrollbars:$hasScrollbars$$, hasTrashcan:$hasTrashcan$$, languageTree:$tree$$}
+  return{RTL:!!$options$$.rtl, collapse:$hasCollapse$$, readOnly:$readOnly$$, maxBlocks:$options$$.maxBlocks || Infinity, assetUrl:$options$$.assetUrl || function($path$$) {
+    return"./" + $path$$
+  }, hasCategories:$hasCategories$$, hasScrollbars:$hasScrollbars$$, hasTrashcan:$hasTrashcan$$, languageTree:$tree$$}
 };
 Blockly.createDom_ = function $Blockly$createDom_$($container$$) {
   $container$$.setAttribute("dir", "LTR");
@@ -11937,10 +11942,10 @@ Blockly.createDom_ = function $Blockly$createDom_$($container$$) {
 };
 Blockly.init_ = function $Blockly$init_$() {
   if(goog.userAgent.WEBKIT) {
-    var $path$$8_translation$$ = Blockly.createSvgElement("path", {d:"m 0,0 c 0,-5 0,-5 0,0 H 50 V 50 z"}, Blockly.svg);
-    Blockly.isMsie() || Blockly.isTrident() ? ($path$$8_translation$$.style.display = "inline", $path$$8_translation$$.bBox_ = {x:$path$$8_translation$$.getBBox().x, y:$path$$8_translation$$.getBBox().y, width:$path$$8_translation$$.scrollWidth, height:$path$$8_translation$$.scrollHeight}) : $path$$8_translation$$.bBox_ = $path$$8_translation$$.getBBox();
-    50 < $path$$8_translation$$.bBox_.height && (Blockly.BROKEN_CONTROL_POINTS = !0);
-    Blockly.svg.removeChild($path$$8_translation$$)
+    var $path$$9_translation$$ = Blockly.createSvgElement("path", {d:"m 0,0 c 0,-5 0,-5 0,0 H 50 V 50 z"}, Blockly.svg);
+    Blockly.isMsie() || Blockly.isTrident() ? ($path$$9_translation$$.style.display = "inline", $path$$9_translation$$.bBox_ = {x:$path$$9_translation$$.getBBox().x, y:$path$$9_translation$$.getBBox().y, width:$path$$9_translation$$.scrollWidth, height:$path$$9_translation$$.scrollHeight}) : $path$$9_translation$$.bBox_ = $path$$9_translation$$.getBBox();
+    50 < $path$$9_translation$$.bBox_.height && (Blockly.BROKEN_CONTROL_POINTS = !0);
+    Blockly.svg.removeChild($path$$9_translation$$)
   }
   Blockly.bindEvent_(Blockly.svg, "mousedown", null, Blockly.onMouseDown_);
   Blockly.bindEvent_(Blockly.svg, "mousemove", null, Blockly.onMouseMove_);
@@ -11948,12 +11953,12 @@ Blockly.init_ = function $Blockly$init_$() {
   Blockly.documentEventsBound_ || (Blockly.bindEvent_(window, "resize", document, Blockly.svgResize), Blockly.bindEvent_(document, "mouseup", null, Blockly.onMouseUp_), Blockly.bindEvent_(document, "keydown", null, Blockly.onKeyDown_), goog.userAgent.IPAD && Blockly.bindEvent_(window, "orientationchange", document, function() {
     Blockly.fireUiEvent(window, "resize")
   }, !1), Blockly.documentEventsBound_ = !0);
-  Blockly.languageTree && (Blockly.hasCategories ? Blockly.Toolbox.init() : (Blockly.mainWorkspace.flyout_.init(Blockly.mainWorkspace, !0), Blockly.mainWorkspace.flyout_.show(Blockly.languageTree.childNodes), Blockly.mainWorkspace.scrollX = Blockly.mainWorkspace.flyout_.width_, $path$$8_translation$$ = "translate(" + Blockly.mainWorkspace.scrollX + ", 0)", Blockly.mainWorkspace.getCanvas().setAttribute("transform", $path$$8_translation$$), Blockly.mainWorkspace.getBubbleCanvas().setAttribute("transform", 
-  $path$$8_translation$$)));
+  Blockly.languageTree && (Blockly.hasCategories ? Blockly.Toolbox.init() : (Blockly.mainWorkspace.flyout_.init(Blockly.mainWorkspace, !0), Blockly.mainWorkspace.flyout_.show(Blockly.languageTree.childNodes), Blockly.mainWorkspace.scrollX = Blockly.mainWorkspace.flyout_.width_, $path$$9_translation$$ = "translate(" + Blockly.mainWorkspace.scrollX + ", 0)", Blockly.mainWorkspace.getCanvas().setAttribute("transform", $path$$9_translation$$), Blockly.mainWorkspace.getBubbleCanvas().setAttribute("transform", 
+  $path$$9_translation$$)));
   Blockly.hasScrollbars && (Blockly.mainWorkspace.scrollbar = new Blockly.ScrollbarPair(Blockly.mainWorkspace), Blockly.mainWorkspace.scrollbar.resize());
   Blockly.mainWorkspace.addTrashcan();
-  Blockly.loadAudio_(["media/click.mp3", "media/click.wav", "media/click.ogg"], "click");
-  Blockly.loadAudio_(["media/delete.mp3", "media/delete.ogg", "media/delete.wav"], "delete")
+  Blockly.loadAudio_([Blockly.assetUrl("media/click.mp3"), Blockly.assetUrl("media/click.wav"), Blockly.assetUrl("media/click.ogg")], "click");
+  Blockly.loadAudio_([Blockly.assetUrl("media/delete.mp3"), Blockly.assetUrl("media/delete.ogg"), Blockly.assetUrl("media/delete.wav")], "delete")
 };
 Blockly.FieldCheckbox = function $Blockly$FieldCheckbox$($state$$, $opt_changeHandler$$) {
   Blockly.FieldCheckbox.superClass_.constructor.call(this, "");
@@ -12106,7 +12111,7 @@ Blockly.FieldAngle.angleValidator = function $Blockly$FieldAngle$angleValidator$
   null !== $n$$11_text$$ && ($n$$11_text$$ %= 360, 0 > $n$$11_text$$ && ($n$$11_text$$ += 360), $n$$11_text$$ = String($n$$11_text$$));
   return $n$$11_text$$
 };
-Blockly.pathToBlockly = "./";
+Blockly.assetUrl = void 0;
 Blockly.SVG_NS = "http://www.w3.org/2000/svg";
 Blockly.HTML_NS = "http://www.w3.org/1999/xhtml";
 Blockly.HSV_SATURATION = 0.45;
@@ -12270,7 +12275,7 @@ Blockly.isTargetInput_ = function $Blockly$isTargetInput_$($e$$) {
 Blockly.loadAudio_ = function $Blockly$loadAudio_$($filenames$$, $name$$) {
   if(window.Audio && $filenames$$.length) {
     for(var $sound$$, $audioTest$$ = new window.Audio, $i$$ = 0;$i$$ < $filenames$$.length;$i$$++) {
-      var $filename$$ = Blockly.pathToBlockly + $filenames$$[$i$$], $ext$$ = $filename$$.match(/\.(\w+)$/);
+      var $filename$$ = Blockly.assetUrl($filenames$$[$i$$]), $ext$$ = $filename$$.match(/\.(\w+)$/);
       if($ext$$ && $audioTest$$.canPlayType("audio/" + $ext$$[1])) {
         $sound$$ = new window.Audio($filename$$);
         break
@@ -12286,7 +12291,7 @@ Blockly.playAudio = function $Blockly$playAudio$($name$$, $options$$) {
     $mySound$$ = goog.userAgent.DOCUMENT_MODE && 9 === goog.userAgent.DOCUMENT_MODE || goog.userAgent.IPAD || goog.userAgent.ANDROID ? $sound$$ : $sound$$.cloneNode();
     $sound$$.pause();
     Blockly.SOUNDS_[$name$$] = $mySound$$;
-    $mySound$$.volume = $options$$ && void 0 === $options$$.volume ? $options$$.volume : 1;
+    $mySound$$.volume = $options$$ && void 0 !== $options$$.volume ? $options$$.volume : 1;
     $mySound$$.loop = $options$$ && $options$$.loop ? !0 : !1;
     $mySound$$.play()
   }
@@ -12297,7 +12302,7 @@ Blockly.stopLoopingAudio = function $Blockly$stopLoopingAudio$($name$$106_sound$
 Blockly.setCursorHand_ = function $Blockly$setCursorHand_$($closed$$) {
   if(!Blockly.readOnly) {
     var $cursor$$ = "";
-    $closed$$ && ($cursor$$ = "url(" + Blockly.pathToBlockly + "media/handclosed.cur) 7 3, auto");
+    $closed$$ && ($cursor$$ = "url(" + Blockly.assetUrl("media/handclosed.cur") + ") 7 3, auto");
     Blockly.selected && (Blockly.selected.getSvgRoot().style.cursor = $cursor$$);
     Blockly.svg.style.cursor = $cursor$$
   }

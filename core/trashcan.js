@@ -143,13 +143,13 @@ Blockly.Trashcan.prototype.createDom = function() {
       this.svgGroup_);
   this.svgClosedCan_.setAttributeNS(
       'http://www.w3.org/1999/xlink', 'xlink:href',
-      Blockly.pathToBlockly + this.CLOSED_URL_);
+      Blockly.assetUrl(this.CLOSED_URL_));
   this.svgOpenCan_ = Blockly.createSvgElement('image',
       {'width': this.WIDTH_, 'height': this.HEIGHT_},
       this.svgGroup_);
   this.svgOpenCan_.setAttribute('visibility', 'hidden');
   this.svgOpenCan_.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href',
-      Blockly.pathToBlockly + this.OPEN_URL_);
+      Blockly.assetUrl(this.OPEN_URL_));
   return this.svgGroup_;
 };
 

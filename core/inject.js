@@ -101,7 +101,9 @@ Blockly.parseOptions_ = function(options) {
     collapse: hasCollapse,
     readOnly: readOnly,
     maxBlocks: options['maxBlocks'] || Infinity,
-    pathToBlockly: options['path'] || './',
+    assetUrl: options['assetUrl'] || function(path) {
+      return './' + path;
+    },
     hasCategories: hasCategories,
     hasScrollbars: hasScrollbars,
     hasTrashcan: hasTrashcan,
@@ -400,7 +402,13 @@ Blockly.init_ = function() {
 
   // Load the sounds.
   Blockly.loadAudio_(
-      ['media/click.mp3', 'media/click.wav', 'media/click.ogg'], 'click');
+      [Blockly.assetUrl('media/click.mp3'),
+       Blockly.assetUrl('media/click.wav'),
+       Blockly.assetUrl('media/click.ogg')],
+       'click');
   Blockly.loadAudio_(
-      ['media/delete.mp3', 'media/delete.ogg', 'media/delete.wav'], 'delete');
+      [Blockly.assetUrl('media/delete.mp3'),
+       Blockly.assetUrl('media/delete.ogg'),
+       Blockly.assetUrl('media/delete.wav')],
+       'delete');
 };

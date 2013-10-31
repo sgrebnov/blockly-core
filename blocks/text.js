@@ -34,11 +34,11 @@ Blockly.Blocks.text = {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(160);
     this.appendDummyInput()
-        .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-        'media/quote0.png', 12, 12))
+        .appendTitle(new Blockly.FieldImage(
+              Blockly.assetUrl('media/quote0.png'), 12, 12))
         .appendTitle(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-        'media/quote1.png', 12, 12));
+        .appendTitle(new Blockly.FieldImage(
+              Blockly.assetUrl('media/quote1.png'), 12, 12));
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
   }
@@ -75,10 +75,10 @@ Blockly.Blocks.text_join = {
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote0.png', 12, 12))
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote1.png', 12, 12));
+          .appendTitle(new Blockly.FieldImage(
+                Blockly.assetUrl('media/quote0.png'), 12, 12))
+          .appendTitle(new Blockly.FieldImage(
+                Blockly.assetUrl('media/quote1.png'), 12, 12));
     }
   },
   decompose: function(workspace) {
@@ -121,10 +121,10 @@ Blockly.Blocks.text_join = {
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote0.png', 12, 12))
-          .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-          'media/quote1.png', 12, 12));
+          .appendTitle(new Blockly.FieldImage(
+                Blockly.assetUrl('media/quote0.png'), 12, 12))
+          .appendTitle(new Blockly.FieldImage(
+                Blockly.assetUrl('media/quote1.png'), 12, 12));
     }
   },
   saveConnections: function(containerBlock) {
@@ -441,11 +441,11 @@ Blockly.Blocks.text_prompt = {
     });
     this.appendDummyInput()
         .appendTitle(dropdown, 'TYPE')
-        .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-        'media/quote0.png', 12, 12))
+        .appendTitle(new Blockly.FieldImage(
+              Blockly.assetUrl('media/quote0.png'), 12, 12))
         .appendTitle(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendTitle(new Blockly.FieldImage(Blockly.pathToBlockly +
-        'media/quote1.png', 12, 12));
+        .appendTitle(new Blockly.FieldImage(
+              Blockly.assetUrl('media/quote1.png'), 12, 12));
     this.setOutput(true, 'String');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
