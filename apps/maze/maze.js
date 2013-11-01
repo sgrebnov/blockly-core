@@ -461,7 +461,7 @@ Maze.init = function() {
   // TODO: Detect if arrow is printed, or Unicode square is printed.
   var textElement = document.getElementById('arrowTest');
   var height = textElement.getBBox().height;
-  Maze.addArrows = height < Blockly.BlockSvg.MIN_BLOCK_Y;
+  Maze.addArrows = (height < Blockly.BlockSvg.MIN_BLOCK_Y) && (!window.svgweb);
   var svg = textElement.ownerSVGElement
   svg.parentNode.removeChild(svg);
 
