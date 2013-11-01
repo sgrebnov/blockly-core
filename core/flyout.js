@@ -390,13 +390,10 @@ Blockly.Flyout.prototype.show = function(xmlList) {
       this.listeners_.push(Blockly.bindEvent_(root, 'mousedown', null,
           this.blockMouseDown_(block)));
     }
-    if (!window.svgweb) {
-    	//@TODO Prevent blinking on svgweb
-	    this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
-	        block.svg_.addSelectNoMove));
-	    this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
-	        block.svg_.removeSelect));
-    }
+    this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
+        block.svg_.addSelectNoMove));
+    this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
+        block.svg_.removeSelect));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mousedown', null,
         this.createBlockFunc_(block)));
     this.listeners_.push(Blockly.bindEvent_(rect, 'mouseover', block.svg_,
