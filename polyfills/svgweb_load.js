@@ -2,7 +2,7 @@
 // (indicating the use of another browser).
 function getInternetExplorerVersion()
 {
-  var rv = -1; // Return value assumes failure.
+  var rv = 1000; // Return value assumes failure.
   if (navigator.appName == 'Microsoft Internet Explorer')
   {
     var ua = navigator.userAgent;
