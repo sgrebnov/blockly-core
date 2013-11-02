@@ -543,7 +543,7 @@ Blockly.loadAudio_ = function(filenames, name) {
   var audioTest = new window.Audio();
   for (var i = 0; i < filenames.length; i++) {
     var filename = filenames[i];
-    var ext = filename.match(/\.(\w+)$/);
+    var ext = filename.match(/\.(\w+)(\?.*)?$/);
     if (ext && audioTest.canPlayType('audio/' + ext[1])) {
       // Found an audio format we can play.
       sound = new window.Audio(filename);
