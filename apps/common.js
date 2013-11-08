@@ -176,17 +176,19 @@ BlocklyApps.init = function() {
  */
 BlocklyApps.initReadonly = function() {
   var rtl = BlocklyApps.LANGUAGES[BlocklyApps.LANG][1] == 'rtl';
+  var callback = function() {
+    // Add the blocks.
+    var xml = BlocklyApps.getStringParamFromUrl('xml', '');
+    xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
+    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+  };
   Blockly.inject(document.getElementById('blockly'),
       {path: '../../',
        readOnly: true,
        rtl: rtl,
-       scrollbars: false},
-      function() {
-        // Add the blocks.
-        var xml = BlocklyApps.getStringParamFromUrl('xml', '');
-        xml = Blockly.Xml.textToDom('<xml>' + xml + '</xml>');
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-      });
+       scrollbars: false,
+       onLoadCallback: callback}
+      );
 };
 
 /**

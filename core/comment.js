@@ -79,9 +79,9 @@ Blockly.Comment.prototype.createIcon_ = function() {
        'x': Blockly.Icon.RADIUS,
        'y': 2 * Blockly.Icon.RADIUS - 3}, this.iconGroup_);
   if (window.svgweb) {
-	  this.iconMark_.appendChild(document.createTextNode('?', true));
+    this.iconMark_.appendChild(document.createTextNode('?', true));
   } else {
-	  this.iconMark_.appendChild(document.createTextNode('?'));
+    this.iconMark_.appendChild(document.createTextNode('?'));
   }
 };
 

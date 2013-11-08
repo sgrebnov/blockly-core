@@ -142,14 +142,13 @@ Blockly.Tooltip.createDom = function() {
       Blockly.createSvgElement(
           'rect', {'class': 'blocklyTooltipBackground'}, svgGroup));
   if (window.svgweb) {
-	  Blockly.Tooltip.svgText_ = /** @type {!SVGTextElement} */ (
-		      Blockly.createSvgElement(
-		          'rect', {'class': 'blocklyTooltipText', 'y': '11'}, svgGroup));
-  }
-  else {
-	  Blockly.Tooltip.svgText_ = /** @type {!SVGTextElement} */ (
-			  Blockly.createSvgElement(
-		          'text', {'class': 'blocklyTooltipText'}, svgGroup));
+    Blockly.Tooltip.svgText_ = /** @type {!SVGTextElement} */ (
+          Blockly.createSvgElement(
+              'rect', {'class': 'blocklyTooltipText', 'y': '11'}, svgGroup));
+  } else {
+    Blockly.Tooltip.svgText_ = /** @type {!SVGTextElement} */ (
+        Blockly.createSvgElement(
+              'text', {'class': 'blocklyTooltipText'}, svgGroup));
   }
   return svgGroup;
 };
@@ -263,7 +262,7 @@ Blockly.Tooltip.show_ = function() {
   }
   // Erase all existing text.
   goog.dom.removeChildren(
-	      /** @type {!Element} */ (Blockly.Tooltip.svgText_));
+        /** @type {!Element} */ (Blockly.Tooltip.svgText_));
   // Create new text, line by line.
   var tip = Blockly.Tooltip.element_.tooltip;
   if (goog.isFunction(tip)) {

@@ -109,19 +109,18 @@ Blockly.Warning.prototype.setVisible = function(visible) {
     if (Blockly.RTL) {
       // Right-align the paragraph.
       // This cannot be done until the bubble is rendered on screen.
-        if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-            paragraph.style.display = "inline";   /* reqd for IE */
-            var bBox = {
-                x: paragraph.getBBox().x,
-                y: paragraph.getBBox().y,
-                width: paragraph.scrollWidth,
-                height: paragraph.scrollHeight
-            };
-            var maxWidth = bBox.width;
-        }
-        else {
-            var maxWidth = paragraph.getBBox().width;
-        }
+      if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
+        paragraph.style.display = "inline";   /* reqd for IE */
+        var bBox = {
+            x: paragraph.getBBox().x,
+            y: paragraph.getBBox().y,
+            width: paragraph.scrollWidth,
+            height: paragraph.scrollHeight
+        };
+        var maxWidth = bBox.width;
+      } else {
+        var maxWidth = paragraph.getBBox().width;
+      }
       for (var x = 0, textElement; textElement = paragraph.childNodes[x]; x++) {
         textElement.setAttribute('text-anchor', 'end');
         textElement.setAttribute('x', maxWidth + Blockly.Bubble.BORDER_WIDTH);

@@ -141,16 +141,15 @@ Blockly.ContextMenu.show = function(xy, options) {
 
   // Measure the menu's size and position it so that it does not go off-screen.
   if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-      Blockly.ContextMenu.svgGroup.style.display = "inline";   /* reqd for IE */
-      var bBox = {
-          x: Blockly.ContextMenu.svgGroup.getBBox().x,
-          y: Blockly.ContextMenu.svgGroup.getBBox().y,
-          width: Blockly.ContextMenu.svgGroup.scrollWidth,
-          height: Blockly.ContextMenu.svgGroup.scrollHeight
-      };
-  }
-  else {
-      var bBox = Blockly.ContextMenu.svgGroup.getBBox();
+    Blockly.ContextMenu.svgGroup.style.display = "inline";   /* reqd for IE */
+    var bBox = {
+      x: Blockly.ContextMenu.svgGroup.getBBox().x,
+      y: Blockly.ContextMenu.svgGroup.getBBox().y,
+      width: Blockly.ContextMenu.svgGroup.scrollWidth,
+      height: Blockly.ContextMenu.svgGroup.scrollHeight
+    };
+  } else {
+    var bBox = Blockly.ContextMenu.svgGroup.getBBox();
   }
   var svgSize = Blockly.svgSize();
   if (anchorY + bBox.height > svgSize.height) {

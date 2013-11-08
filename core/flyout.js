@@ -165,18 +165,21 @@ Blockly.Flyout.prototype.getMetrics_ = function() {
   var viewHeight = this.height_ - 2 * this.CORNER_RADIUS;
   var viewWidth = this.width_;
   try {
-      if (Blockly.isMsie() || Blockly.isTrident()) {
-          this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
-          var optionBox = {
-              x: this.workspace_.getCanvas().getBBox().x,
-              y: this.workspace_.getCanvas().getBBox().y,
-              width: (window.svgweb) ? this.workspace_.getCanvas().getBBox().width : this.workspace_.getCanvas().scrollWidth,
-              height: (window.svgweb) ? this.workspace_.getCanvas().getBBox().height : this.workspace_.getCanvas().scrollHeight
-          };
+    if (Blockly.isMsie() || Blockly.isTrident()) {
+      this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
+      if (!window.svgweb) {
+        var optionBox = {
+          x: this.workspace_.getCanvas().getBBox().x,
+          y: this.workspace_.getCanvas().getBBox().y,
+          width: this.workspace_.getCanvas().scrollWidth,
+          height: this.workspace_.getCanvas().scrollHeight
+        };
+      } else {
+        var optionBox = this.workspace_.getCanvas().getBBox();
       }
-      else {
-          var optionBox = this.workspace_.getCanvas().getBBox();
-      }
+    } else {
+      var optionBox = this.workspace_.getCanvas().getBBox();
+    }
   } catch (e) {
     // Firefox has trouble with hidden elements (Bug 528969).
     var optionBox = {height: 0, y: 0};

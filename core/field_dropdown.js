@@ -219,16 +219,15 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   // Position the dropdown to line up with the field.
   var xy = Blockly.getSvgXY_(/** @type {!Element} */ (this.borderRect_));
   if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-      this.borderRect_.style.display = "inline";   /* reqd for IE */
-      var borderBBox = {
-          x: this.borderRect_.getBBox().x,
-          y: this.borderRect_.getBBox().y,
-          width: this.borderRect_.scrollWidth,
-          height: this.borderRect_.scrollHeight
-      };
-  }
-  else {
-      var borderBBox = this.borderRect_.getBBox();
+    this.borderRect_.style.display = "inline";   /* reqd for IE */
+    var borderBBox = {
+      x: this.borderRect_.getBBox().x,
+      y: this.borderRect_.getBBox().y,
+      width: this.borderRect_.scrollWidth,
+      height: this.borderRect_.scrollHeight
+    };
+  } else {
+    var borderBBox = this.borderRect_.getBBox();
   }
   var x;
   if (Blockly.RTL) {

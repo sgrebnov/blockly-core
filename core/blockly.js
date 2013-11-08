@@ -650,18 +650,17 @@ Blockly.getMainWorkspaceMetrics_ = function() {
   var viewWidth = svgSize.width - Blockly.Scrollbar.scrollbarThickness;
   var viewHeight = svgSize.height - Blockly.Scrollbar.scrollbarThickness;
   try {
-        if (Blockly.isMsie() || Blockly.isTrident()) {
-            Blockly.mainWorkspace.getCanvas().style.display = "inline";   /* reqd for IE */
-            var blockBox = {
-                x: Blockly.mainWorkspace.getCanvas().getBBox().x,
-                y: Blockly.mainWorkspace.getCanvas().getBBox().y,
-                width: Blockly.mainWorkspace.getCanvas().scrollWidth,
-                height: Blockly.mainWorkspace.getCanvas().scrollHeight
-            };
-        }
-        else {
-            var blockBox = Blockly.mainWorkspace.getCanvas().getBBox();
-        }
+    if (Blockly.isMsie() || Blockly.isTrident()) {
+      Blockly.mainWorkspace.getCanvas().style.display = "inline";   /* reqd for IE */
+      var blockBox = {
+        x: Blockly.mainWorkspace.getCanvas().getBBox().x,
+        y: Blockly.mainWorkspace.getCanvas().getBBox().y,
+        width: Blockly.mainWorkspace.getCanvas().scrollWidth,
+        height: Blockly.mainWorkspace.getCanvas().scrollHeight
+      };
+    } else {
+        var blockBox = Blockly.mainWorkspace.getCanvas().getBBox();
+    }
   } catch (e) {
     // Firefox has trouble with hidden elements (Bug 528969).
     return null;

@@ -32,16 +32,16 @@ goog.require('goog.dom');
 /**
  * Initialize the SVG document with various handlers.
  * @param {!Element} container Containing element.
- * @param {Object} opt_options Optional dictionary of options.
+ * @param {Object} options Dictionary of options.
  */
-Blockly.inject = function(container, opt_options, callback) {
+Blockly.inject = function(container, options) {
   // Verify that the container is in document.
   if (!goog.dom.contains(document, container)) {
     throw 'Error: container is not in current document.';
   }
-  if (opt_options) {
+  if (options) {
     // TODO(scr): don't mix this in to global variables.
-    goog.mixin(Blockly, Blockly.parseOptions_(opt_options));
+    goog.mixin(Blockly, Blockly.parseOptions_(options));
   }
   
 
@@ -65,20 +65,23 @@ Blockly.inject = function(container, opt_options, callback) {
   }, null);
   
   if (window.svgweb) {
-	// in case of flash fallback we should wait for svg to be fully loaded
-	svg.addEventListener('SVGLoad', function() {
-	  // 'this' refers to your SVG root
-	  Blockly.createDom_(container, this);
-	  Blockly.init_();
-	  callback();
-	}, false);
-	
-	svgweb.appendChild(svg, container);    	  
-  }
-  else {
+    // in case of flash fallback we should wait for svg to be fully loaded
+    svg.addEventListener('SVGLoad', function() {
+      // 'this' refers to your SVG root
+      Blockly.createDom_(container, this);
+      Blockly.init_();
+      if (options.onLoadCallback) {
+        options.onLoadCallback();
+      }
+    }, false);
+  
+    svgweb.appendChild(svg, container);
+  } else {
     Blockly.createDom_(container, svg);
-	Blockly.init_();
-    callback();
+    Blockly.init_();
+    if (options.onLoadCallback) {
+      options.onLoadCallback();
+    }
   }
   
 };
@@ -328,7 +331,7 @@ Blockly.createDom_ = function(container, svg) {
 
   // The SVG is now fully assembled.  Add it to the container.
   if (!window.svgweb) {
-	  container.appendChild(svg);
+    container.appendChild(svg);
   }
   
   Blockly.svg = svg;
@@ -358,14 +361,13 @@ Blockly.init_ = function() {
     if (Blockly.isMsie() || Blockly.isTrident()) {
       path.style.display = "inline";   /* reqd for IE */
       path.bBox_ = {
-          x: path.getBBox().x,
-          y: path.getBBox().y,
-          width: path.scrollWidth,
-          height: path.scrollHeight
+        x: path.getBBox().x,
+        y: path.getBBox().y,
+        width: path.scrollWidth,
+        height: path.scrollHeight
       };
-    }
-    else {
-        path.bBox_ = path.getBBox();
+    } else {
+      path.bBox_ = path.getBBox();
     }
     if (path.bBox_.height > 50) {
       // Chrome (v28) and Opera (v15) report 55, Safari (v6.0.5) reports 53.75.

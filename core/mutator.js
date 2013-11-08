@@ -120,16 +120,15 @@ Blockly.Mutator.prototype.createEditor_ = function() {
 Blockly.Mutator.prototype.resizeBubble_ = function() {
   var doubleBorderWidth = 2 * Blockly.Bubble.BORDER_WIDTH;
   if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-      this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
-      var workspaceSize = {
-          x: this.workspace_.getCanvas().getBBox().x,
-          y: this.workspace_.getCanvas().getBBox().y,
-          width: this.workspace_.getCanvas().scrollWidth,
-          height: this.workspace_.getCanvas().scrollHeight
-      };
-  }
-  else {
-      var workspaceSize = this.workspace_.getCanvas().getBBox();
+    this.workspace_.getCanvas().style.display = "inline";   /* reqd for IE */
+    var workspaceSize = {
+      x: this.workspace_.getCanvas().getBBox().x,
+      y: this.workspace_.getCanvas().getBBox().y,
+      width: this.workspace_.getCanvas().scrollWidth,
+      height: this.workspace_.getCanvas().scrollHeight
+    };
+  } else {
+    var workspaceSize = this.workspace_.getCanvas().getBBox();
   }
   var flyoutMetrics = this.flyout_.getMetrics_();
   var width;

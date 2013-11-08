@@ -45,7 +45,7 @@ Blockly.Css.inject = function() {
   
   // Pass styles to svgweb manualy. No way to do it automatic
   if (window.svgweb) {
-	  window.svgweb.updateCssStyleSheets();	  
+    window.svgweb.updateCssStyleSheets();	  
   }
   
 };
@@ -116,6 +116,10 @@ Blockly.Css.CONTENT = [
   '}',
   '.blocklyText {',
   '  cursor: default;',
+  // In Windows 8 there is no sans-serif font (But development and testing is likely under this OS). 
+  // In that case flash falls back to "times new roman". It spoils the look. So I replaced it to more 
+  // suitable font for demonstration purposes. In future when IE8 core support would be ready and this 
+  // branching could be omitted. Please find below other branching of such kind.
   (window.svgweb) ? '  font-family: arial;' : '  font-family: sans-serif;',
   (window.svgweb) ? '  font-size: 14pt;' : '  font-size: 11pt;',
   '  fill: #fff;',

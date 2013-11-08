@@ -183,16 +183,15 @@ Blockly.FieldTextInput.prototype.validate_ = function() {
 Blockly.FieldTextInput.prototype.resizeEditor_ = function() {
   var div = Blockly.WidgetDiv.DIV;
   if (navigator.userAgent.indexOf("MSIE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0) {
-      this.fieldGroup_.style.display = "inline";   /* reqd for IE */
-      var bBox = {
-          x: this.fieldGroup_.getBBox().x,
-          y: this.fieldGroup_.getBBox().y,
-          width: this.fieldGroup_.scrollWidth,
-          height: this.fieldGroup_.scrollHeight
-      };
-  }
-  else {
-      var bBox = this.fieldGroup_.getBBox();
+    this.fieldGroup_.style.display = "inline";   /* reqd for IE */
+    var bBox = {
+      x: this.fieldGroup_.getBBox().x,
+      y: this.fieldGroup_.getBBox().y,
+      width: this.fieldGroup_.scrollWidth,
+      height: this.fieldGroup_.scrollHeight
+    };
+  } else {
+    var bBox = this.fieldGroup_.getBBox();
   }
   div.style.width = bBox.width + 'px';
   var xy = Blockly.getAbsoluteXY_(/** @type {!Element} */ (this.borderRect_));
